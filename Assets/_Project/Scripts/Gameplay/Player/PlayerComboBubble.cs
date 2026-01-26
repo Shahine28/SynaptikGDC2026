@@ -48,13 +48,13 @@ public sealed class PlayerComboBubble : MonoBehaviour
     private float remainingTime;
     private Camera targetCamera;
 
-    private readonly Dictionary<Emotion, Sprite> spriteLookup = new();
+    private readonly Dictionary<EmotionType, Sprite> spriteLookup = new();
     private Sprite activeSprite;
 
     [Serializable]
     private struct EmotionBubbleSprite
     {
-        public Emotion emotion;
+        public EmotionType emotion;
         public Sprite sprite;
     }
 
@@ -97,7 +97,7 @@ public sealed class PlayerComboBubble : MonoBehaviour
         UpdateOffset(); // 🟢 Nouvelle ligne
     }
 
-    public void Show(Emotion emotion, string text, float duration)
+    public void Show(EmotionType emotion, string text, float duration)
     {
         EnsureInstance();
 
@@ -233,7 +233,7 @@ public sealed class PlayerComboBubble : MonoBehaviour
         }
     }
     
-    private void ApplyBubbleSprite(Emotion emotion)
+    private void ApplyBubbleSprite(EmotionType emotion)
     {
         if (!backgroundImage)
             return;
@@ -246,7 +246,7 @@ public sealed class PlayerComboBubble : MonoBehaviour
         activeSprite = sprite;
     }
     
-    private Sprite GetSpriteFor(Emotion emotion)
+    private Sprite GetSpriteFor(EmotionType emotion)
     {
         if (spriteLookup.TryGetValue(emotion, out var sprite))
             return sprite;

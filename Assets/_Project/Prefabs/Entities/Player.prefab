@@ -42,11 +42,13 @@ GameObject:
   - component: {fileID: 519521097647880677}
   - component: {fileID: 2565673419303979581}
   - component: {fileID: 2017406082755594533}
+  - component: {fileID: 3171077327916065353}
   - component: {fileID: 4174637969976801663}
   - component: {fileID: 8317182544908626716}
   - component: {fileID: 3366463422202364895}
   - component: {fileID: 7968921228244856452}
   - component: {fileID: 6943024452398623467}
+  - component: {fileID: 4373696650642269674}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -120,6 +122,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &3171077327916065353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717372861038130110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621bb22f5855b1d49ab376366642b626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentSynaptikInput:
+    emotionType: 0
+    actionType: 0
+  _moveInput: {x: 0, y: 0}
+  _isTalkInput: 0
+  _isActionInput: 0
+  _isFriendlyInput: 0
+  _isAgressiveInput: 0
+  _isFearfulInput: 0
+  _isCuriousInput: 0
 --- !u!114 &4174637969976801663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,6 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbodyComponent: {fileID: 2017406082755594533}
+  _inputSystem: {fileID: 0}
   maxSpeed: 15
   acceleration: 45
   deceleration: 45
@@ -286,11 +311,192 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 504b444210ee4d24fb31b3474a93c33e, type: 3}
   - emotion: 2
     sprite: {fileID: 21300000, guid: a6cbe048314ecd2458767e5f6333d6ae, type: 3}
-  _attributedVoice: 0
   minScale: 0.5
   maxScale: 0.6
   minDistance: 2
   maxDistance: 15
+--- !u!114 &4373696650642269674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717372861038130110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 6807afcf081abe34c9db91f569cd6482, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171077327916065353}
+        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnMoveInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 55d46ee0-8001-47dc-aa2f-8ece4a2c1ad2
+    m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171077327916065353}
+        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnTalkInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: eddfe554-82ae-49fb-b589-02fa3259a256
+    m_ActionName: 'Player/Talk[/Keyboard/f5]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171077327916065353}
+        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnActionInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2583fa2f-fb7d-498d-b855-b6746dd72150
+    m_ActionName: 'Player/Action[/Keyboard/f6]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171077327916065353}
+        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnFriendlyInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 995d4be8-6642-41ca-aae7-bb888280ac19
+    m_ActionName: 'Player/Friendly[/Keyboard/f1]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171077327916065353}
+        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnAgressiveInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b69f81a3-fbfc-4cb7-9cc1-88166e9b9b15
+    m_ActionName: 'Player/Agressive[/Keyboard/f2]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171077327916065353}
+        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnFearfulInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 26f8c608-ca53-4059-a885-446a423d41f6
+    m_ActionName: 'Player/Fearful[/Keyboard/f3]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171077327916065353}
+        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnCuriousInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dad30f23-6312-4753-9fdb-59d8bd909b8c
+    m_ActionName: 'Player/Curious[/Keyboard/f4]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9b011d22-4ede-4351-931d-0819bc87d98f
+    m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 88f27444-010c-4004-a219-c61928463632
+    m_ActionName: 'UI/Submit[/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a9badca5-e1b3-4231-b675-ce1731867f5b
+    m_ActionName: 'UI/Cancel[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 50247550-28d3-4dc7-8a2d-f04e53fb9859
+    m_ActionName: 'UI/Point[/Mouse/position,/Touchscreen/touch0/position,/Touchscreen/touch1/position,/Touchscreen/touch2/position,/Touchscreen/touch3/position,/Touchscreen/touch4/position,/Touchscreen/touch5/position,/Touchscreen/touch6/position,/Touchscreen/touch7/position,/Touchscreen/touch8/position,/Touchscreen/touch9/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7bc64548-5ce6-431d-a2e1-44b7b1c4c522
+    m_ActionName: 'UI/Click[/Mouse/leftButton,/Touchscreen/touch0/press,/Touchscreen/touch1/press,/Touchscreen/touch2/press,/Touchscreen/touch3/press,/Touchscreen/touch4/press,/Touchscreen/touch5/press,/Touchscreen/touch6/press,/Touchscreen/touch7/press,/Touchscreen/touch8/press,/Touchscreen/touch9/press]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5d324add-3f1b-4f20-9b1a-12278a440def
+    m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b0081f88-665a-4ff0-b878-c9d186bd38c7
+    m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1773823f-a2d5-417b-a962-cd890db53f05
+    m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 19d35cf5-d7e6-42a8-a3d3-e54a1c018073
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3dcd618f-9234-41f0-a0da-7d9b768ba915
+    m_ActionName: UI/TrackedDeviceOrientation
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &7667603070375797736
 PrefabInstance:
   m_ObjectHideFlags: 0

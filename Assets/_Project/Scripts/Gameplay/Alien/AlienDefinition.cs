@@ -9,7 +9,7 @@ public class AlienDefinition : ScriptableObject
     private string alienId;
 
     [SerializeField]
-    private Emotion startEmotion = Emotion.Curious;
+    private EmotionType startEmotion = EmotionType.Curious;
 
     [SerializeField]
     private RuntimeAnimatorController animator;
@@ -24,7 +24,7 @@ public class AlienDefinition : ScriptableObject
     private List<AlienQuest> quests = new();
 
     public string AlienId => alienId;
-    public Emotion StartEmotion => startEmotion;
+    public EmotionType StartEmotion => startEmotion;
     public RuntimeAnimatorController Animator => animator;
     public ReactionMatrix Reactions => reactions;
     public DialogueDatabase Dialogue => dialogue;

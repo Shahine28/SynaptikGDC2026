@@ -25,7 +25,7 @@ public class ReactionMatrix : ScriptableObject
         BuildLookups();
     }
 
-    public bool TryFindRule(Behavior channel, Emotion playerEmotion, Func<InterractionRule, bool> predicate, out InterractionRule rule)
+    public bool TryFindRule(ActionType channel, EmotionType playerEmotion, Func<InterractionRule, bool> predicate, out InterractionRule rule)
     {
         EnsureInteractionLookup();
         if (!_interactionLookup.TryGetValue(new InteractionKey(channel, playerEmotion), out var candidates) || candidates.Count == 0)
@@ -166,10 +166,10 @@ public class ReactionMatrix : ScriptableObject
 
     private readonly struct InteractionKey : IEquatable<InteractionKey>
     {
-        private readonly Behavior _behavior;
-        private readonly Emotion _emotion;
+        private readonly ActionType _behavior;
+        private readonly EmotionType _emotion;
 
-        public InteractionKey(Behavior behavior, Emotion emotion)
+        public InteractionKey(ActionType behavior, EmotionType emotion)
         {
             _behavior = behavior;
             _emotion = emotion;

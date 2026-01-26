@@ -1,210 +1,136 @@
 using NaughtyAttributes;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public sealed class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    private Rigidbody rigidbodyComponent;
+    [SerializeField, Required] private Rigidbody _rb;
+    [SerializeField, Required] private PlayerInputSystem _inputSystem;
 
-    [Header("Movement (plan XZ)")]
-    [SerializeField, Min(0f)]
-    private float maxSpeed = 5f;
+    [Header("Settings - Movement")]
+    [SerializeField, Min(0f)] private float _baseSpeed = 5f;
+    [SerializeField, Min(0f)] private float _acceleration = 20f;
+    [SerializeField, Min(0f)] private float _deceleration = 25f;
+    [SerializeField, Min(0f)] private float _rotationSpeed = 10f;
 
-    [SerializeField, Min(0f)]
-    private float acceleration = 20f;
+    [Header("Settings - Camera")]
+    [SerializeField] private bool _cameraRelative = true;
+    [SerializeField, ShowIf(nameof(_cameraRelative))] private Camera _targetCamera;
 
-    [SerializeField, Min(0f)]
-    private float deceleration = 25f;
+    [Header("Settings - Ability (Fear Boost)")]
+    [SerializeField, Min(0f)] private float _boostSpeedBonus = 3f;
+    [SerializeField, Min(0f)] private float _boostDuration = 2f;
+    [SerializeField, Min(0f)] private float _boostCooldown = 3f;
+    [SerializeField, Min(0f)] private float _boostDecayTime = 1f;
 
-    [Header("Fear Action Boost")]
-    [SerializeField, Min(0f)]
-    private float fearfulActionSpeedBonus = 3f;
 
-    [SerializeField, Min(0f)]
-    private float fearfulActionBoostDuration = 2f;
-
-    [SerializeField, Min(0f)]
-    private float fearfulActionBoostDecayDuration = 1f;
-
-    [SerializeField, Min(0f)]
-    private float fearfulActionBoostCooldown = 3f;
-
-    [Header("Camera-relative ?")]
-    [SerializeField]
-    private bool cameraRelative = true;
-
-    [SerializeField, ShowIf(nameof(cameraRelative))]
-    private Camera targetCamera;
-
-    [Header("Rotation")]
-    [SerializeField, Min(0f)]
-    private float rotationSpeed = 10f;
-
-    private float currentSpeedBonus;
-    private float speedBoostTimer;
-    private float speedBoostCooldownTimer;
-    private InputsDetection cachedInputsDetection;
-    private bool isSubscribedToInputs;
-
+    private float _currentSpeedBonus;
+    private float _boostTimer;
+    private float _cooldownTimer;
+    
     private void Reset()
     {
-        rigidbodyComponent = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
+        _inputSystem = GetComponent<PlayerInputSystem>();
     }
 
     private void Awake()
     {
-        if (rigidbodyComponent == null)
-            rigidbodyComponent = GetComponent<Rigidbody>();
-
-        if (cameraRelative && targetCamera == null)
-            targetCamera = Camera.main;
-
-        rigidbodyComponent.constraints |= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-        rigidbodyComponent.interpolation = RigidbodyInterpolation.Interpolate;
+        if (_rb == null) _rb = GetComponent<Rigidbody>();
+        if (_inputSystem == null) _inputSystem = GetComponent<PlayerInputSystem>();
+        if (_cameraRelative && _targetCamera == null) _targetCamera = Camera.main;
     }
 
     private void OnEnable()
     {
-        TrySubscribeToInputs();
-    }
-
-    private void Start()
-    {
-        TrySubscribeToInputs();
-    }
-
-    private void Update()
-    {
-        if (!isSubscribedToInputs)
-            TrySubscribeToInputs();
+        if (_inputSystem != null) 
+            _inputSystem.OnSynaptikInput += TryActivateBoost;
     }
 
     private void OnDisable()
     {
-        TryUnsubscribeFromInputs();
+        if (_inputSystem != null) 
+            _inputSystem.OnSynaptikInput -= TryActivateBoost;
     }
 
     private void FixedUpdate()
     {
-        var input = InputsDetection.Instance ? InputsDetection.Instance.MoveVector : Vector2.zero;
-        var direction = GetMovementDirection(input);
-
-        UpdateSpeedBoost(Time.fixedDeltaTime);
-        UpdateSpeedBoostCooldown(Time.fixedDeltaTime);
-
-        var currentMaxSpeed = maxSpeed + currentSpeedBonus;
-
-        var currentVelocity = rigidbodyComponent.linearVelocity;
-        var horizontalVelocity = new Vector3(currentVelocity.x, 0f, currentVelocity.z);
-        var targetHorizontalVelocity = direction * currentMaxSpeed;
-
-        var currentAcceleration = direction.sqrMagnitude > 0.0001f ? acceleration : deceleration;
-        var maxDeltaV = currentAcceleration * Time.fixedDeltaTime;
-        var deltaV = targetHorizontalVelocity - horizontalVelocity;
-
-        if (deltaV.sqrMagnitude > maxDeltaV * maxDeltaV)
-            deltaV = deltaV.normalized * maxDeltaV;
-
-        rigidbodyComponent.AddForce(deltaV, ForceMode.VelocityChange);
-
-        UpdateRotation(direction, horizontalVelocity);
+        HandleBoostTimers(Time.fixedDeltaTime);
+        
+        Vector3 targetDirection = CalculateMoveDirection(_inputSystem.MoveInput); 
+        
+        ApplyMovementPhysics(targetDirection);
+        ApplyRotation(targetDirection);
     }
-
-    private void TrySubscribeToInputs()
+    
+    private void TryActivateBoost(SynaptikInput input)
     {
-        if (isSubscribedToInputs)
-            return;
+        bool canBoost = _cooldownTimer <= 0f;
+        bool isFearAction = input.emotionType == EmotionType.Fearful && input.actionType == ActionType.Action;
 
-        var instance = InputsDetection.Instance;
-        if (!instance)
-            return;
-
-        instance.OnEmotionAction += HandleEmotionAction;
-        cachedInputsDetection = instance;
-        isSubscribedToInputs = true;
-    }
-
-    private void TryUnsubscribeFromInputs()
-    {
-        if (!isSubscribedToInputs)
-            return;
-
-        if (cachedInputsDetection)
-            cachedInputsDetection.OnEmotionAction -= HandleEmotionAction;
-
-        cachedInputsDetection = null;
-        isSubscribedToInputs = false;
-    }
-
-    private void HandleEmotionAction(Emotion emotion, Behavior behavior)
-    {
-        if (emotion != Emotion.Fearful || behavior != Behavior.Action)
-            return;
-
-        if (speedBoostCooldownTimer > 0f)
-            return;
-
-        currentSpeedBonus = fearfulActionSpeedBonus;
-        speedBoostTimer = fearfulActionBoostDuration;
-        speedBoostCooldownTimer = fearfulActionBoostCooldown;
-    }
-
-    private void UpdateSpeedBoost(float deltaTime)
-    {
-        if (speedBoostTimer > 0f)
+        if (canBoost && isFearAction)
         {
-            speedBoostTimer -= deltaTime;
-
-            if (speedBoostTimer > 0f)
-                return;
-
-            speedBoostTimer = 0f;
+            ActivateBoost();
         }
+    }
 
-        if (currentSpeedBonus <= 0f)
-            return;
+    private void ActivateBoost()
+    {
+        _currentSpeedBonus = _boostSpeedBonus;
+        _boostTimer = _boostDuration;
+        _cooldownTimer = _boostCooldown;
+    }
 
-        if (fearfulActionBoostDecayDuration <= 0f)
+    private void HandleBoostTimers(float deltaTime)
+    {
+        if (_cooldownTimer > 0f) 
+            _cooldownTimer -= deltaTime;
+
+
+        if (_boostTimer > 0f)
         {
-            currentSpeedBonus = 0f;
-            return;
+            _boostTimer -= deltaTime;
         }
-
-        float decayRate = fearfulActionSpeedBonus / fearfulActionBoostDecayDuration;
-        currentSpeedBonus = Mathf.Max(0f, currentSpeedBonus - decayRate * deltaTime);
+        else if (_currentSpeedBonus > 0f)
+        {
+            float decayRate = _boostSpeedBonus / _boostDecayTime;
+            _currentSpeedBonus = Mathf.Max(0f, _currentSpeedBonus - decayRate * deltaTime);
+        }
+    }
+    
+    private Vector3 CalculateMoveDirection(Vector2 input)
+    {
+        if (!_cameraRelative || !_targetCamera)
+            return new Vector3(input.x, 0f, input.y).normalized;
+        
+        var cameraPlanarRotation = Quaternion.Euler(0, _targetCamera.transform.eulerAngles.y, 0);
+        
+        Vector3 direction = cameraPlanarRotation * new Vector3(input.x, 0f, input.y);
+        return Vector3.ClampMagnitude(direction, 1f);
     }
 
-    private void UpdateSpeedBoostCooldown(float deltaTime)
+    private void ApplyMovementPhysics(Vector3 direction)
     {
-        if (speedBoostCooldownTimer <= 0f)
-            return;
-
-        speedBoostCooldownTimer = Mathf.Max(0f, speedBoostCooldownTimer - deltaTime);
+        float currentMaxSpeed = _baseSpeed + _currentSpeedBonus;
+        
+        Vector3 currentVelocity = _rb.linearVelocity;
+        Vector3 horizontalVelocity = new Vector3(currentVelocity.x, 0f, currentVelocity.z);
+        
+        Vector3 targetVelocity = direction * currentMaxSpeed;
+        
+        bool isTryingToMove = direction.sqrMagnitude > 0.01f;
+        float speedChangeRate = isTryingToMove ? _acceleration : _deceleration;
+        
+        float maxChange = speedChangeRate * Time.fixedDeltaTime;
+        Vector3 deltaV = Vector3.ClampMagnitude(targetVelocity - horizontalVelocity, maxChange);
+        
+        _rb.AddForce(deltaV, ForceMode.VelocityChange);
     }
 
-    private Vector3 GetMovementDirection(Vector2 input)
+    private void ApplyRotation(Vector3 direction)
     {
-        if (!cameraRelative || !targetCamera)
-            return new Vector3(input.x, 0f, input.y);
- 
-        Quaternion yawRotation = Quaternion.Euler(0f, targetCamera.transform.eulerAngles.y, 0f);
- 
-        Vector3 camForward = yawRotation * Vector3.forward;
-        Vector3 camRight   = yawRotation * Vector3.right;
- 
-        Vector3 moveDir = camForward * input.y + camRight * input.x;
-        return (moveDir.sqrMagnitude > 1f) ? moveDir.normalized : moveDir;
-    }
+        if (direction.sqrMagnitude < 0.01f) return;
 
-
-    private void UpdateRotation(Vector3 inputDir, Vector3 velocity)
-    {
-        Vector3 dir = inputDir.sqrMagnitude > 0.001f ? inputDir : transform.forward;
-        if (dir.sqrMagnitude < 0.001f) 
-            return;
- 
-        Quaternion targetRot = Quaternion.LookRotation(dir, Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime * 100f);
+        Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+        _rb.rotation = Quaternion.RotateTowards(_rb.rotation, targetRotation, _rotationSpeed * Time.fixedDeltaTime * 100f);
     }
 }

@@ -10,9 +10,9 @@ public sealed class AnimalItem : MonoBehaviour, IInteraction
     // [SerializeField] private EventReference _soundReaction;
     // [SerializeField] private EventReference _soundDeath;
 
-    public void Interact(ActionValues action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
+    public void Interact(SynaptikInput action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
     {
-        if (action._behavior == Behavior.Action && action._emotion == Emotion.Anger)
+        if (action.actionType == ActionType.Action && action.emotionType == EmotionType.Aggressive)
         {
             // FMODUnity.RuntimeManager.PlayOneShot(_soundDeath, transform.position);
             

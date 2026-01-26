@@ -6,10 +6,10 @@ using UnityEngine;
 public struct InterractionRule
 {
     [SerializeField]
-    private Behavior channel;
+    private ActionType channel;
 
     [SerializeField]
-    private Emotion playerEmotion;
+    private EmotionType playerEmotion;
 
     [SerializeField]
     private string questId;
@@ -24,15 +24,15 @@ public struct InterractionRule
     private bool setNewEmotion;
 
     [SerializeField]
-    private Emotion newEmotion;
+    private EmotionType newEmotion;
 
-    public Behavior Channel => channel;
-    public Emotion PlayerEmotion => playerEmotion;
+    public ActionType Channel => channel;
+    public EmotionType PlayerEmotion => playerEmotion;
     public string QuestId => questId;
     public string QuestStepId => questStepId;
     public int SuspicionDelta => suspicionDelta;
     public bool SetNewEmotion => setNewEmotion;
-    public Emotion NewEmotion => newEmotion;
+    public EmotionType NewEmotion => newEmotion;
 }
 
 [Serializable]
@@ -58,7 +58,7 @@ public struct ItemRule
     private bool setIfGoodItem;
 
     [SerializeField]
-    private Emotion newEmotionIfGoodItem;
+    private EmotionType newEmotionIfGoodItem;
 
     public string QuestId => questId;
     public string QuestStepId => questStepId;
@@ -66,5 +66,5 @@ public struct ItemRule
     public int SuspicionDelta => suspicionDelta;
     public int ExpectedItemQuantity => expectedItemQuantity <= 0 ? 1 : expectedItemQuantity;
     public bool SetIfGoodItem => setIfGoodItem;
-    public Emotion NewEmotionIfGoodItem => newEmotionIfGoodItem;
+    public EmotionType NewEmotionIfGoodItem => newEmotionIfGoodItem;
 }

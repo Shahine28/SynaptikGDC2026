@@ -14,12 +14,12 @@ public class DestructibleItem : MonoBehaviour, IInteraction
 
     private bool _isDestroyed = false;
 
-    public void Interact(ActionValues action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
+    public void Interact(SynaptikInput action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
     {
         if (_isDestroyed)
             return;
         
-        if (action._behavior == Behavior.Action && action._emotion == Emotion.Anger)
+        if (action.actionType == ActionType.Action && action.emotionType == EmotionType.Aggressive)
         {
             StartCoroutine(DestroySequence());
         }

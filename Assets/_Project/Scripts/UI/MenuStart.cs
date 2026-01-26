@@ -87,9 +87,9 @@ public sealed class MenuStart : MonoBehaviour
         UnsubscribeFromInputs();
 
         inputsDetection = instance;
-        inputsDetection.OnEmotion += HandleEmotion;
-        inputsDetection.OnAction += HandleAction;
-        inputsDetection.OnTowActionPressed += HandleTwoAction;
+        // inputsDetection.OnEmotion += HandleEmotion;
+        // inputsDetection.OnAction += HandleAction;
+        // inputsDetection.OnTowActionPressed += HandleTwoAction;
         subscribedToInputs = true;
 
         return true;
@@ -100,38 +100,38 @@ public sealed class MenuStart : MonoBehaviour
         if (!subscribedToInputs || !inputsDetection)
             return;
 
-        inputsDetection.OnEmotion -= HandleEmotion;
-        inputsDetection.OnAction -= HandleAction;
-        inputsDetection.OnTowActionPressed -= HandleTwoAction;
+        // inputsDetection.OnEmotion -= HandleEmotion;
+        // inputsDetection.OnAction -= HandleAction;
+        // inputsDetection.OnTowActionPressed -= HandleTwoAction;
         subscribedToInputs = false;
     }
 
-    private void HandleEmotion(Emotion emotion, bool keyUp)
+    private void HandleEmotion(EmotionType emotion, bool keyUp)
     {
         switch (emotion)
         {
-            case Emotion.Anger:
+            case EmotionType.Aggressive:
                 ToggleQuitPanel(!keyUp);
                 break;
             
-            case Emotion.Curious:
+            case EmotionType.Curious:
                 ToggleHelpPanel();
                 break;
         }
     }
 
-    private void HandleAction(Behavior action, bool isKeyUp)
+    private void HandleAction(ActionType action, bool isKeyUp)
     {
         if (isKeyUp || !panelQuitEnabled) 
             return;
 
         switch (action)
         {
-            case Behavior.Action:
+            case ActionType.Action:
                 HandleQuitChoice(true);
                 break;
             
-            case Behavior.Talking:
+            case ActionType.Word:
                 HandleQuitChoice(false);
                 break;
         }
@@ -166,9 +166,9 @@ public sealed class MenuStart : MonoBehaviour
         if (!subscribedToInputs && !TrySubscribeToInputs())
             return;
 
-        var comboActive = inputsDetection.MoveVector == Vector2.zero;
-        if (!comboActive && isCharging)
-            StopCharging();
+        // var comboActive = inputsDetection.MoveVector == Vector2.zero;
+        // if (!comboActive && isCharging)
+        //     StopCharging();
 
         // ---- CHARGE ----
         if (isCharging && !fullyCharged)

@@ -52,7 +52,7 @@ public sealed class HoldableItem : MonoBehaviour, IInteraction
         Debug.Log($"{LogPrefix} '{name}' prêt à {spawnLocation}.");
     }
 
-    public void Interact(ActionValues action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
+    public void Interact(SynaptikInput action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
     {
         if (playerInteraction == null)
         {
@@ -60,17 +60,17 @@ public sealed class HoldableItem : MonoBehaviour, IInteraction
             return;
         }
 
-        if (action._behavior != Behavior.Action)
+        if (action.actionType != ActionType.Action)
         {
             return;
         }
 
-        switch (action._emotion)
+        switch (action.emotionType)
         {
-            case Emotion.Curious:
+            case EmotionType.Curious:
                 playerInteraction.PickUp();
                 break;
-            case Emotion.Friendly when item != null:
+            case EmotionType.Friendly when item != null:
                 playerInteraction.DropItem();
                 break;
         }

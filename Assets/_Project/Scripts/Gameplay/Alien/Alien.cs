@@ -26,7 +26,7 @@ public class Alien : MonoBehaviour, IInteraction
     [Header("Interaction Delay")]
     [SerializeField, Min(0f)] private float _interactionDelay = 0f;
 
-    public Emotion Emotion { get; private set; }
+    public EmotionType Emotion { get; private set; }
 
     private Animator _anim;
     private static readonly int EmotionHash = Animator.StringToHash("Emotion");
@@ -36,7 +36,7 @@ public class Alien : MonoBehaviour, IInteraction
     private readonly Dictionary<string, AlienQuestRuntime> _questRuntimes = new();
     private readonly Dictionary<string, int> _receivedItemQuantities = new();
     private readonly Dictionary<InteractionLookupKey, InterractionRule> _cachedInteractionRules = new();
-    private readonly Dictionary<Emotion, Color> _emotionColorLookup = new();
+    private readonly Dictionary<EmotionType, Color> _emotionColorLookup = new();
     private MaterialPropertyBlock _emotionPropertyBlock;
 
     private Coroutine _colorFadeCoroutine;
@@ -44,7 +44,7 @@ public class Alien : MonoBehaviour, IInteraction
     [Serializable]
     private struct EmotionColorSetting
     {
-        public Emotion emotion;
+        public EmotionType emotion;
         public Color color;
     }
 
@@ -85,7 +85,7 @@ public class Alien : MonoBehaviour, IInteraction
 
         CacheEmotionColors();
 
-        Emotion = _def ? _def.StartEmotion : Emotion.Curious;
+        Emotion = _def ? _def.StartEmotion : EmotionType.Curious;
         ApplyEmotionVisuals();
     }
 
@@ -247,7 +247,7 @@ public class Alien : MonoBehaviour, IInteraction
         }
     }
 #endregion
-    public void Interact(ActionValues action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
+    public void Interact(SynaptikInput action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
     {
         if (_interactionDelay <= 0f)
         {
@@ -259,31 +259,31 @@ public class Alien : MonoBehaviour, IInteraction
         }
     }
 
-    private System.Collections.IEnumerator ProcessInteractionDelayed(ActionValues action, HoldableItem item, PlayerInteraction playerInteraction)
+    private System.Collections.IEnumerator ProcessInteractionDelayed(SynaptikInput action, HoldableItem item, PlayerInteraction playerInteraction)
     {
         yield return new WaitForSeconds(_interactionDelay);
         ProcessInteraction(action, item, playerInteraction);
     }
 
-    private void ProcessInteraction(ActionValues action, HoldableItem item, PlayerInteraction playerInteraction)
+    private void ProcessInteraction(SynaptikInput action, HoldableItem item, PlayerInteraction playerInteraction)
     {
-        Behavior behavior = action._behavior;
-        Emotion emotion = action._emotion;
+        ActionType behavior = action.actionType;
+        EmotionType emotion = action.emotionType;
         
-        if (behavior == Behavior.Action)
+        if (behavior == ActionType.Action)
         {
             switch (emotion)
             {
-                case Emotion.Anger: // Hit
+                case EmotionType.Aggressive: // Hit
                     break;
 
-                case Emotion.Curious: // Ramasser
+                case EmotionType.Curious: // Ramasser
                     break;
 
-                case Emotion.Fearful: // Courir
+                case EmotionType.Fearful: // Courir
                     break;
 
-                case Emotion.Friendly: // Donne
+                case EmotionType.Friendly: // Donne
                 {
                     if (item && TryReceiveItem(item.ItemId))
                     {
@@ -303,20 +303,20 @@ public class Alien : MonoBehaviour, IInteraction
                 }
             }
         }
-        else if (behavior == Behavior.Talking)
+        else if (behavior == ActionType.Word)
         {
             switch (emotion)
             {
-                case Emotion.Anger: // Insulter
+                case EmotionType.Aggressive: // Insulter
                     break;
 
-                case Emotion.Curious: // Curieux
+                case EmotionType.Curious: // Curieux
                     break;
 
-                case Emotion.Fearful: // Crie
+                case EmotionType.Fearful: // Crie
                     break;
 
-                case Emotion.Friendly: // Complimenter
+                case EmotionType.Friendly: // Complimenter
                     break;
             }
         }
@@ -324,10 +324,10 @@ public class Alien : MonoBehaviour, IInteraction
         //PLay Sound
         // FMODUnity.RuntimeManager.PlayOneShot(SoundManager.Instance.GetVoice(emotion, _attributedVoice), transform.position);
         
-        OnPlayerCombo(action._emotion, action._behavior);
+        OnPlayerCombo(action.emotionType, action.actionType);
     }
 
-    public void OnPlayerCombo(Emotion playerEmotion, Behavior channel)
+    public void OnPlayerCombo(EmotionType playerEmotion, ActionType channel)
     {
         if (!_def || !_def.Reactions)
             return;
@@ -396,7 +396,7 @@ public class Alien : MonoBehaviour, IInteraction
         Gizmos.DrawWireSphere(transform.position, _receiveRadius);
     }
 
-    internal void SetEmotion(Emotion newEmotion)
+    internal void SetEmotion(EmotionType newEmotion)
     {
         if (Emotion == newEmotion)
             return;
@@ -414,7 +414,7 @@ public class Alien : MonoBehaviour, IInteraction
         _dialogueBubble.ShowFor(Emotion, emojiLine, duration);
     }
 
-    private void HandleInteractionRule(InterractionRule rule, Behavior channel, Emotion playerEmotion, bool allowQuestProgress = true)
+    private void HandleInteractionRule(InterractionRule rule, ActionType channel, EmotionType playerEmotion, bool allowQuestProgress = true)
     {
         var handled = allowQuestProgress && ProcessQuestStep(rule.QuestId, rule.QuestStepId, QuestStepType.Talk);
 
@@ -480,7 +480,7 @@ public class Alien : MonoBehaviour, IInteraction
         }
     }
 
-    private bool TryShowDialogue(Emotion emotion, Behavior behavior, string source)
+    private bool TryShowDialogue(EmotionType emotion, ActionType behavior, string source)
     {
         if (!_dialogueBubble || !_def?.Dialogue)
         {
@@ -613,10 +613,10 @@ public class Alien : MonoBehaviour, IInteraction
 
     private readonly struct InteractionLookupKey : IEquatable<InteractionLookupKey>
     {
-        private readonly Behavior _behavior;
-        private readonly Emotion _emotion;
+        private readonly ActionType _behavior;
+        private readonly EmotionType _emotion;
 
-        public InteractionLookupKey(Behavior behavior, Emotion emotion)
+        public InteractionLookupKey(ActionType behavior, EmotionType emotion)
         {
             _behavior = behavior;
             _emotion = emotion;
