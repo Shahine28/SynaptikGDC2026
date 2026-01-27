@@ -16,11 +16,14 @@ public class CameraManager : MonoBehaviour
     
     [Header("Zones Setup")]
     public CameraZone defaultZone;
-    public List<CameraZone> zones = new List<CameraZone>();
+    public List<CameraZone> zones;
 
     [Header("Collision (Anti-Clip)")]
     public LayerMask obstacleMask;
     public float wallBuffer = 0.5f;
+    
+    [Header("Transition Settings")]
+    public float transitionThreshold = 0.1f;
 
     private Vector3 _currentVelocityPos;
     private Vector3 _currentVelocityRot;
@@ -34,6 +37,7 @@ public class CameraManager : MonoBehaviour
     private Vector3 _shakeOffset;
 
     private CameraZone _currentZone;
+    private bool _isTransitioning = false;
 
     void Start()
     {
@@ -65,7 +69,15 @@ public class CameraManager : MonoBehaviour
             UpdateShake();
             finalTargetPos += _shakeOffset;
 
-            ApplySmoothMotion(finalTargetPos, targetState.Rotation, targetState.FOV, targetState.SmoothTime);
+            float distanceToTarget = Vector3.Distance(mainRenderCamera.transform.position, finalTargetPos);
+
+            if (_isTransitioning && distanceToTarget <= transitionThreshold)
+            {
+                _isTransitioning = false;
+            }
+            
+            float activeSmoothTime = _isTransitioning ? targetState.SmoothTimeTransition : targetState.SmoothTime;
+            ApplySmoothMotion(finalTargetPos, targetState.Rotation, targetState.FOV, activeSmoothTime);
         }
     }
 
@@ -83,23 +95,25 @@ public class CameraManager : MonoBehaviour
         return desiredCamPos;
     }
 
-    void ApplySmoothMotion(Vector3 targetPos, Quaternion targetRot, float targetFOV, float smoothTime)
+    void ApplySmoothMotion(Vector3 targetPos, Quaternion targetRot, float targetFOV, float currentSmoothTime)
     {
         mainRenderCamera.transform.position = Vector3.SmoothDamp(
             mainRenderCamera.transform.position, 
             targetPos, 
             ref _currentVelocityPos, 
-            smoothTime
+            currentSmoothTime
         );
         
         Quaternion currentRot = mainRenderCamera.transform.rotation;
-        mainRenderCamera.transform.rotation = Quaternion.Slerp(currentRot, targetRot, Time.deltaTime * (1f / smoothTime) * 4f);
+        float rotSpeed = 1f / Mathf.Max(currentSmoothTime, 0.01f);
+        
+        mainRenderCamera.transform.rotation = Quaternion.Slerp(currentRot, targetRot, Time.deltaTime * rotSpeed * 4f);
 
         mainRenderCamera.fieldOfView = Mathf.SmoothDamp(
             mainRenderCamera.fieldOfView, 
             targetFOV, 
             ref _currentVelocityFOV, 
-            smoothTime
+            currentSmoothTime
         );
     }
 
@@ -121,12 +135,15 @@ public class CameraManager : MonoBehaviour
         }
 
         CameraZone targetZone = (bestZone) ? bestZone : defaultZone;
+        
         if (targetZone != _currentZone)
         {
             bool isNewDefault = (targetZone == defaultZone);
             bool wasDefault = (_currentZone == defaultZone);
 
             _currentZone = targetZone;
+            
+            _isTransitioning = true;
 
             OnZoneChanged?.Invoke(_currentZone);
 

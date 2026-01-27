@@ -27,7 +27,8 @@ public class CameraZone : MonoBehaviour
     [Header("Behavior")]
     public CameraBehavior behavior = CameraBehavior.Follow;
     [Tooltip("Temps pour atteindre la cible (plus petit = plus rapide). 0.1 = vif, 0.5 = lourd")]
-    [Range(0.01f, 2f)] public float smoothTime = 0.2f; 
+    [Range(0.01f, 2f)] public float smoothTime = 0.2f;
+    [Range(0.01f, 5f)] public float smoothTimeTransition = 1.5f; 
     [Range(10f, 120f)] public float targetFOV = 60f;
 
     [Header("Follow Settings")]
@@ -38,6 +39,7 @@ public class CameraZone : MonoBehaviour
 
     [Header("Static / LookAt Settings")]
     public Vector3 viewOffset = Vector3.zero;
+    public Vector3 viewRotationOffset = Vector3.zero;
 
     // Données internes
     [HideInInspector] public Vector3 staticPosition;
@@ -49,6 +51,7 @@ public class CameraZone : MonoBehaviour
         public Quaternion Rotation;
         public float FOV;
         public float SmoothTime;
+        public float SmoothTimeTransition;
     }
 
     public CameraState CalculateTargetState(Transform player, Vector3 playerVelocity)
@@ -56,8 +59,10 @@ public class CameraZone : MonoBehaviour
         CameraState state = new CameraState();
         state.FOV = targetFOV;
         state.SmoothTime = smoothTime;
+        state.SmoothTimeTransition = smoothTimeTransition;
 
         Vector3 basePos = transform.position + transform.TransformDirection(viewOffset);
+        Quaternion baseRot = transform.rotation * Quaternion.Euler(viewRotationOffset);
         
         Vector3 anticipation = Vector3.zero;
         if (lookAheadAmount > 0 && playerVelocity.magnitude > 0.1f)
@@ -70,7 +75,7 @@ public class CameraZone : MonoBehaviour
         {
             case CameraBehavior.Static:
                 state.Position = basePos;
-                state.Rotation = transform.rotation;
+                state.Rotation = baseRot;
                 break;
 
             case CameraBehavior.LookAt:
@@ -84,7 +89,7 @@ public class CameraZone : MonoBehaviour
                     desiredPos.y = basePos.y;
                 
                 state.Position = desiredPos;
-                state.Rotation = Quaternion.LookRotation((player.position + anticipation) - state.Position); 
+                state.Rotation = Quaternion.LookRotation((player.position + anticipation) - state.Position);
                 break;
 
             case CameraBehavior.FollowAndLookAt:
@@ -112,7 +117,9 @@ public class CameraZone : MonoBehaviour
             
             transform.position = view.transform.position;
             transform.rotation = view.transform.rotation;
+            
             viewOffset = Vector3.zero;
+            viewRotationOffset = Vector3.zero;
             
             staticPosition = transform.position;
             staticRotationEuler = transform.rotation.eulerAngles;
@@ -131,40 +138,110 @@ public class CameraZone : MonoBehaviour
         return Mathf.Abs(pos2D.x - target2D.x) <= size && Mathf.Abs(pos2D.y - target2D.y) <= size;
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(0, 1, 0, 0.15f);
+        Color zoneColor = new Color(0f, 1f, 0.2f, 0.1f);
+        Color outlineColor = new Color(0f, 1f, 0.2f, 0.8f);
+
+        Handles.color = zoneColor;
+        Vector3 center = transform.position;
+
         if (detectionType == DetectionType.Circle)
         {
-            Gizmos.DrawWireSphere(transform.position, size);
+            Handles.DrawSolidDisc(center, Vector3.up, size);
+            Handles.color = outlineColor;
+            Handles.DrawWireDisc(center, Vector3.up, size);
         }
         else
         {
-            Gizmos.DrawWireCube(transform.position, new Vector3(size * 2, 0.2f, size * 2));
+            Vector3[] verts = new Vector3[]
+            {
+                center + new Vector3(-size, 0, -size),
+                center + new Vector3(size, 0, -size),
+                center + new Vector3(size, 0, size),
+                center + new Vector3(-size, 0, size)
+            };
+            
+            Handles.DrawSolidRectangleWithOutline(verts, zoneColor, outlineColor);
         }
 
-        Gizmos.color = new Color(1, 0.92f, 0.016f, 0.5f);
+        GUIStyle labelStyle = new GUIStyle();
+        labelStyle.normal.textColor = Color.white;
+        labelStyle.alignment = TextAnchor.MiddleCenter;
+        labelStyle.fontSize = 12;
+        labelStyle.fontStyle = FontStyle.Bold;
+        
+        Handles.Label(center + Vector3.up * 0.5f, $"{name}\n[{behavior}]", labelStyle);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Vector3 center = transform.position;
         Vector3 staticCamPos = transform.position + transform.TransformDirection(viewOffset);
+        Quaternion globalRot = transform.rotation * Quaternion.Euler(viewRotationOffset);
+        
+        Gizmos.color = new Color(1, 0.8f, 0, 1f);
 
-        if (behavior == CameraBehavior.Static)
+        if (behavior == CameraBehavior.Static || behavior == CameraBehavior.LookAt)
         {
-            Gizmos.matrix = Matrix4x4.TRS(staticCamPos, transform.rotation, Vector3.one);
-            Gizmos.DrawFrustum(Vector3.zero, targetFOV, 3f, 0.1f, 1.77f);
-            Gizmos.matrix = Matrix4x4.identity;
-        }
-        else if (behavior == CameraBehavior.LookAt)
-        {
-            Gizmos.DrawWireSphere(staticCamPos, 0.5f);
-            Gizmos.DrawLine(staticCamPos, transform.position); 
-            Gizmos.DrawWireCube(transform.position, Vector3.one * 0.2f);
+            Gizmos.DrawWireSphere(staticCamPos, 0.3f);
+
+            if (behavior == CameraBehavior.Static)
+            {
+                Gizmos.matrix = Matrix4x4.TRS(staticCamPos, globalRot, Vector3.one);
+                Gizmos.DrawFrustum(Vector3.zero, targetFOV, 5f, 0.1f, 1.77f);
+                Gizmos.matrix = Matrix4x4.identity;
+            }
+            else
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawLine(staticCamPos, center);
+                Gizmos.DrawWireCube(center, Vector3.one * 0.2f);
+
+                Vector3 direction = center - staticCamPos;
+                if (direction != Vector3.zero)
+                {
+                    Quaternion lookRot = Quaternion.LookRotation(direction);
+                    Gizmos.matrix = Matrix4x4.TRS(staticCamPos, lookRot, Vector3.one);
+                    Gizmos.DrawFrustum(Vector3.zero, targetFOV, 5f, 0.1f, 1.77f);
+                    Gizmos.matrix = Matrix4x4.identity;
+                }
+            }
+
+            if(viewOffset != Vector3.zero)
+            {
+                Gizmos.color = new Color(1,1,1, 0.3f);
+                Gizmos.DrawLine(center, staticCamPos);
+            }
         }
         else if (behavior == CameraBehavior.Follow || behavior == CameraBehavior.FollowAndLookAt)
         {
-            Vector3 followPos = transform.position + followOffset;
-            Gizmos.DrawWireSphere(followPos, 0.5f);
-            Gizmos.DrawLine(transform.position, followPos);
+            Gizmos.color = new Color(0, 1, 1, 0.5f);
+            Gizmos.DrawWireCube(center + Vector3.up, new Vector3(0.5f, 2f, 0.5f));
+            
+            Vector3 camTargetPos = center + followOffset;
+            if (lockYAxis) 
+                camTargetPos.y = center.y + viewOffset.y;
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(center + Vector3.up, camTargetPos);
+            Gizmos.DrawWireSphere(camTargetPos, 0.5f);
+            
+            Quaternion lookRot = Quaternion.LookRotation((center + Vector3.up) - camTargetPos);
+            Gizmos.matrix = Matrix4x4.TRS(camTargetPos, lookRot, Vector3.one);
+            Gizmos.DrawFrustum(Vector3.zero, targetFOV, 3f, 0.1f, 1.77f);
+            Gizmos.matrix = Matrix4x4.identity;
+
+            if (lockYAxis)
+            {
+                Handles.color = new Color(1, 0, 0, 0.1f);
+                Handles.DrawSolidDisc(new Vector3(center.x, center.y + viewOffset.y, center.z), Vector3.up, size * 1.2f);
+                Handles.Label(camTargetPos + Vector3.up, "Locked Height Plane");
+            }
         }
     }
+#endif
 }
 
 #if UNITY_EDITOR
