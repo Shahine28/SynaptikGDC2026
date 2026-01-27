@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
 public abstract class CharacterAnimationBase : MonoBehaviour
@@ -13,19 +15,21 @@ public abstract class CharacterAnimationBase : MonoBehaviour
 
     [Header("Animator Parameter Names")]
     [SerializeField] protected string _paramSpeed = "Speed";
-    [SerializeField] protected string _paramIsAngry = "IsAngry";
-    [SerializeField] protected string _paramIsCurious = "IsCurious";
-    [SerializeField] protected string _paramIsHappy = "IsHappy";
-    [SerializeField] protected string _paramIsAfraid = "IsAfraid";
     [SerializeField] protected string _paramHitTrig = "Punch";
 
-    // Hashes
+    [SerializeField, SerializedDictionary("Emotion", "Parameter Name")]
+    protected SerializedDictionary<EmotionType, string> _paramEmotions = new()
+    {
+        {EmotionType.Friendly, "IsHappy" },
+        {EmotionType.Aggressive, "IsAngry" },
+        {EmotionType.Fearful, "IsAfraid" },
+        {EmotionType.Curious, "IsCurious" },
+    };
+
+    private Dictionary<EmotionType, int> _hashEmotions;
+    
     protected int _hashSpeed;
-    protected int _hashIsAngry;
-    protected int _hashIsCurious;
-    protected int _hashIsHappy;
-    protected int _hashIsAfraid;
-    protected int _hashHitTrig;
+    private int _hashHitTrig;
 
     protected virtual void Reset()
     {
@@ -38,17 +42,18 @@ public abstract class CharacterAnimationBase : MonoBehaviour
             Debug.LogError($"{GetType().Name}: pas d'Animator assigné !", this);
 
         _hashSpeed = Animator.StringToHash(_paramSpeed);
-        _hashIsAngry = Animator.StringToHash(_paramIsAngry);
-        _hashIsCurious = Animator.StringToHash(_paramIsCurious);
-        _hashIsHappy = Animator.StringToHash(_paramIsHappy);
-        _hashIsAfraid = Animator.StringToHash(_paramIsAfraid);
         _hashHitTrig = Animator.StringToHash(_paramHitTrig);
+        
+        _hashEmotions = new Dictionary<EmotionType, int>();
 
-        if (_rb)
+        foreach (var entry in _paramEmotions)
         {
-            _rb.interpolation = RigidbodyInterpolation.Interpolate;
-            _rb.constraints |= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            int hash = Animator.StringToHash(entry.Value);
+            _hashEmotions.Add(entry.Key, hash);
         }
+
+        if (!_rb)
+            _rb = GetComponent<Rigidbody>();
     }
 
     protected virtual void Update()
@@ -66,45 +71,34 @@ public abstract class CharacterAnimationBase : MonoBehaviour
         _animator.SetFloat(_hashSpeed, normalized, _speedDampTime, Time.deltaTime);
     }
 
-    public virtual void SetEmotion(EmotionType emotion)
+    public void SetEmotion(EmotionType emotion)
     {
-        foreach (EmotionType e in Enum.GetValues(typeof(EmotionType)))
+        foreach (var entry in _hashEmotions)
         {
-            int hash = GetEmotionHash(e);
+            int hash = _hashEmotions[entry.Key];
             if (hash == -1) continue;
-            _animator.SetBool(hash, e == emotion);
+            _animator.SetBool(hash, entry.Key == emotion);
         }
     }
 
-    public virtual void UnsetEmotion(EmotionType emotion)
+    public void UnsetEmotion(EmotionType emotion)
     {
-        int hash = GetEmotionHash(emotion);
-        if (hash == -1) return;
-        _animator.SetBool(hash, false);
-    }
-
-    public virtual void ClearAllEmotions()
-    {
-        foreach (EmotionType e in Enum.GetValues(typeof(EmotionType)))
+        if (_hashEmotions.TryGetValue(emotion, out int hash))
         {
-            int hash = GetEmotionHash(e);
-            if (hash == -1) continue;
-            _animator.SetBool(hash, false);
-        }
-    }
-
-    protected int GetEmotionHash(EmotionType emotion)
-    {
-        return emotion switch
-        {
-            EmotionType.None => -1,
-            EmotionType.Aggressive => _hashIsAngry,
-            EmotionType.Curious => _hashIsCurious,
-            EmotionType.Friendly => _hashIsHappy,
-            EmotionType.Fearful => _hashIsAfraid,
-            _ => throw new ArgumentOutOfRangeException(nameof(emotion), emotion, null)
+            if (hash != -1)
+            {
+                _animator.SetBool(hash, false);
+            }
         };
     }
 
-    public virtual void PlayPunch() => _animator.SetTrigger(_hashHitTrig);
+    public void ClearAllEmotions()
+    {
+        foreach (var entry in _hashEmotions)
+        {
+            UnsetEmotion(entry.Key);
+        }
+    }
+    
+    protected void PlayPunch() => _animator.SetTrigger(_hashHitTrig);
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody))]
-public sealed class HoldableItem : MonoBehaviour, IInteraction
+public sealed class HoldableItem : MonoBehaviour
 {
     private const string LogPrefix = "[HoldableItem]";
 
@@ -48,40 +48,16 @@ public sealed class HoldableItem : MonoBehaviour, IInteraction
         spawnLocation = transform.position;
         spawnRotation = transform.rotation;
         spawnScale = transform.localScale;
-
-        Debug.Log($"{LogPrefix} '{name}' prêt à {spawnLocation}.");
+        originalParent = transform.parent;
     }
+    
 
-    public void Interact(SynaptikInput action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
-    {
-        if (playerInteraction == null)
-        {
-            Debug.LogWarning($"{LogPrefix} Interaction ignorée sur '{name}' (player manquant).");
-            return;
-        }
-
-        if (action.actionType != ActionType.Action)
-        {
-            return;
-        }
-
-        switch (action.emotionType)
-        {
-            case EmotionType.Curious:
-                playerInteraction.PickUp();
-                break;
-            case EmotionType.Friendly when item != null:
-                playerInteraction.DropItem();
-                break;
-        }
-    }
-
-    public void Pick(Transform handSocket)
+    public bool TryPick(Transform handSocket)
     {
         if (IsHeld || !canTake)
         {
             Debug.LogWarning($"{LogPrefix} Ramassage invalide pour '{name}' (IsHeld={IsHeld}, CanTake={canTake}).");
-            return;
+            return false;
         }
 
         if (respawnCoroutine != null)
@@ -90,54 +66,48 @@ public sealed class HoldableItem : MonoBehaviour, IInteraction
         }
 
         IsHeld = true;
-        originalParent = transform.parent;
-
+        
         rigidbodyComponent.linearVelocity = Vector3.zero;
         rigidbodyComponent.angularVelocity = Vector3.zero;
         rigidbodyComponent.isKinematic = true;
         rigidbodyComponent.useGravity = false;
 
-        foreach (var collider in colliders)
-        {
-            collider.enabled = false;
-        }
+        foreach (var collider in colliders) collider.enabled = false;
+        
+        transform.SetParent(handSocket);
+        
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+        
+        // Debug.Log($"{LogPrefix} '{name}' ramassé par '{handSocket.name}'.");
 
-        transform.SetParent(handSocket, false);
-        transform.localPosition = handSocket.localPosition;
-        Debug.Log($"{LogPrefix} '{name}' ramassé par '{handSocket.name}'.");
+        return true;
     }
+    
 
-    public void Drop(Vector3 inheritVelocity)
+    public bool TryDrop()
     {
         if (!IsHeld)
         {
             Debug.LogWarning($"{LogPrefix} Tentative de drop alors que '{name}' n'est pas tenu.");
-            return;
+            return false;
         }
-
-        if (respawnAtDrop)
-        {
-            spawnLocation = transform.position;
-            spawnRotation = transform.rotation;
-            spawnScale = transform.localScale;
-
-            respawnAtDrop = false;
-        }
-
-        respawnCoroutine = StartCoroutine(Respawn());
-
-        transform.SetParent(originalParent, true);
-        foreach (var collider in colliders)
-        {
-            collider.enabled = true;
-        }
-
+        
+        transform.position += transform.forward * 0.8f; // pour pas se faire pousser par l'objet qu'on drop 
+        
+        transform.SetParent(originalParent);
+        
+        rigidbodyComponent.linearVelocity = Vector3.zero;
+        rigidbodyComponent.angularVelocity = Vector3.zero;
         rigidbodyComponent.isKinematic = false;
         rigidbodyComponent.useGravity = true;
-        rigidbodyComponent.linearVelocity = inheritVelocity;
+        
+        foreach (var collider in colliders) collider.enabled = true;
 
         IsHeld = false;
-        Debug.Log($"{LogPrefix} '{name}' lâché.");
+        // Debug.Log($"{LogPrefix} '{name}' lâché.");
+        if (respawnAtDrop) respawnCoroutine = StartCoroutine(Respawn());
+        return true;
     }
 
     private IEnumerator Respawn(float durationOverride = -1f)
@@ -182,6 +152,7 @@ public sealed class HoldableItem : MonoBehaviour, IInteraction
         }
         rigidbodyComponent.isKinematic = false;
         rigidbodyComponent.useGravity = true;
+        
 
         IsHeld = false;
         canTake = true;

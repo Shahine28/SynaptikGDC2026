@@ -12,7 +12,7 @@ public class AngryZone : MonoBehaviour
         if (playerInteraction != null)
         {
             Debug.Log("Player entered the angry zone!");
-            playerInteraction.AngryQuestAlien = _angryQuestAlien;
+            // playerInteraction.AngryQuestAlien = _angryQuestAlien;
         }
     }
     
@@ -22,7 +22,7 @@ public class AngryZone : MonoBehaviour
         if (playerInteraction != null)
         {
             Debug.Log("Player exited the angry zone!");
-            playerInteraction.AngryQuestAlien = null;
+            // playerInteraction.AngryQuestAlien = null;
         }
     }
 }

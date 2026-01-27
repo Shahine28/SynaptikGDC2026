@@ -56,8 +56,15 @@ public sealed class PlayerMovement : MonoBehaviour
     {
         HandleBoostTimers(Time.fixedDeltaTime);
         
-        Vector3 targetDirection = CalculateMoveDirection(_inputSystem.MoveInput); 
+        Vector2 input = _inputSystem.MoveInput;
         
+        if (input.sqrMagnitude < 0.001f)
+        {
+            StopMovementAndRotation();
+            return;
+        }
+        
+        Vector3 targetDirection = CalculateMoveDirection(input); 
         ApplyMovementPhysics(targetDirection);
         ApplyRotation(targetDirection);
     }
@@ -84,8 +91,7 @@ public sealed class PlayerMovement : MonoBehaviour
     {
         if (_cooldownTimer > 0f) 
             _cooldownTimer -= deltaTime;
-
-
+        
         if (_boostTimer > 0f)
         {
             _boostTimer -= deltaTime;
@@ -108,6 +114,13 @@ public sealed class PlayerMovement : MonoBehaviour
         return Vector3.ClampMagnitude(direction, 1f);
     }
 
+    private void StopMovementAndRotation()
+    {
+        Vector3 currentVel = _rb.linearVelocity;
+        _rb.linearVelocity = new Vector3(0f, currentVel.y, 0f);
+        _rb.angularVelocity = Vector3.zero;
+    }
+    
     private void ApplyMovementPhysics(Vector3 direction)
     {
         float currentMaxSpeed = _baseSpeed + _currentSpeedBonus;
@@ -128,8 +141,6 @@ public sealed class PlayerMovement : MonoBehaviour
 
     private void ApplyRotation(Vector3 direction)
     {
-        if (direction.sqrMagnitude < 0.01f) return;
-
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
         _rb.rotation = Quaternion.RotateTowards(_rb.rotation, targetRotation, _rotationSpeed * Time.fixedDeltaTime * 100f);
     }

@@ -287,7 +287,7 @@ public class Alien : MonoBehaviour, IInteraction
                 {
                     if (item && TryReceiveItem(item.ItemId))
                     {
-                        playerInteraction.DropItem(true);
+                        // playerInteraction.DropItem(true);
                         Debug.Log($"Give item {item.ItemId} to alien {Definition.name}");
                         
                         return;
@@ -295,7 +295,7 @@ public class Alien : MonoBehaviour, IInteraction
 
                     if (item)
                     {
-                        playerInteraction?.DropItem();
+                        // playerInteraction?.DropItem();
                         Debug.Log("Drop item in front of alien");
                         return;
                     }
