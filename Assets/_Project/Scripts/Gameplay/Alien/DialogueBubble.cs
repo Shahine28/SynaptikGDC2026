@@ -29,13 +29,13 @@ public sealed class DialogueBubble : MonoBehaviour
     // -----------------------------------------------------------
 
     private float remainingTime;
-    private readonly Dictionary<Emotion, Sprite> spriteLookup = new();
+    private readonly Dictionary<EmotionType, Sprite> spriteLookup = new();
     private Sprite activeSprite;
 
     [Serializable]
     private struct EmotionBubbleSprite
     {
-        public Emotion emotion;
+        public EmotionType emotion;
         public Sprite sprite;
     }
 
@@ -99,7 +99,7 @@ public sealed class DialogueBubble : MonoBehaviour
         bubbleAnchor.position = transform.position + new Vector3(0f, verticalOffset, 0f) + targetCamera.transform.TransformVector(bubbleOffset);
     }
 
-    public void ShowFor(Emotion emotion, string emojiLine, float duration)
+    public void ShowFor(EmotionType emotion, string emojiLine, float duration)
     {
         if (string.IsNullOrEmpty(emojiLine) || duration <= 0f)
             return;
@@ -162,7 +162,7 @@ public sealed class DialogueBubble : MonoBehaviour
         }
     }
 
-    private Sprite GetSpriteFor(Emotion emotion)
+    private Sprite GetSpriteFor(EmotionType emotion)
     {
         if (spriteLookup.TryGetValue(emotion, out var sprite))
             return sprite;

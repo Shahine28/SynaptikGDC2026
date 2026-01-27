@@ -66,9 +66,9 @@ public abstract class CharacterAnimationBase : MonoBehaviour
         _animator.SetFloat(_hashSpeed, normalized, _speedDampTime, Time.deltaTime);
     }
 
-    public virtual void SetEmotion(Emotion emotion)
+    public virtual void SetEmotion(EmotionType emotion)
     {
-        foreach (Emotion e in Enum.GetValues(typeof(Emotion)))
+        foreach (EmotionType e in Enum.GetValues(typeof(EmotionType)))
         {
             int hash = GetEmotionHash(e);
             if (hash == -1) continue;
@@ -76,7 +76,7 @@ public abstract class CharacterAnimationBase : MonoBehaviour
         }
     }
 
-    public virtual void UnsetEmotion(Emotion emotion)
+    public virtual void UnsetEmotion(EmotionType emotion)
     {
         int hash = GetEmotionHash(emotion);
         if (hash == -1) return;
@@ -85,7 +85,7 @@ public abstract class CharacterAnimationBase : MonoBehaviour
 
     public virtual void ClearAllEmotions()
     {
-        foreach (Emotion e in Enum.GetValues(typeof(Emotion)))
+        foreach (EmotionType e in Enum.GetValues(typeof(EmotionType)))
         {
             int hash = GetEmotionHash(e);
             if (hash == -1) continue;
@@ -93,15 +93,15 @@ public abstract class CharacterAnimationBase : MonoBehaviour
         }
     }
 
-    protected int GetEmotionHash(Emotion emotion)
+    protected int GetEmotionHash(EmotionType emotion)
     {
         return emotion switch
         {
-            Emotion.None => -1,
-            Emotion.Anger => _hashIsAngry,
-            Emotion.Curious => _hashIsCurious,
-            Emotion.Friendly => _hashIsHappy,
-            Emotion.Fearful => _hashIsAfraid,
+            EmotionType.None => -1,
+            EmotionType.Aggressive => _hashIsAngry,
+            EmotionType.Curious => _hashIsCurious,
+            EmotionType.Friendly => _hashIsHappy,
+            EmotionType.Fearful => _hashIsAfraid,
             _ => throw new ArgumentOutOfRangeException(nameof(emotion), emotion, null)
         };
     }

@@ -43,8 +43,8 @@ public sealed class CableFeedback : MonoBehaviour
             return;
         }
 
-        InputsDetection.Instance.OnEmotion += HandleEmotion;
-        InputsDetection.Instance.OnAction += HandleAction;
+        // InputsDetection.Instance.OnEmotion += HandleEmotion;
+        // InputsDetection.Instance.OnAction += HandleAction;
     }
 
     private void OnDestroy()
@@ -54,11 +54,11 @@ public sealed class CableFeedback : MonoBehaviour
             return;
         }
 
-        InputsDetection.Instance.OnEmotion -= HandleEmotion;
-        InputsDetection.Instance.OnAction -= HandleAction;
+        // InputsDetection.Instance.OnEmotion -= HandleEmotion;
+        // InputsDetection.Instance.OnAction -= HandleAction;
     }
 
-    private void HandleEmotion(Emotion emotion, bool keyReleased)
+    private void HandleEmotion(EmotionType emotion, bool keyReleased)
     {
         if (!outputRight)
             return;
@@ -66,7 +66,7 @@ public sealed class CableFeedback : MonoBehaviour
         outputRight.color = keyReleased ? defaultEmotionColor : GetEmotionColor(emotion);
     }
 
-    private void HandleAction(Behavior behavior, bool keyReleased)
+    private void HandleAction(ActionType behavior, bool keyReleased)
     {
         if (!outputLeft)
             return;
@@ -74,24 +74,24 @@ public sealed class CableFeedback : MonoBehaviour
         outputLeft.color = keyReleased ? defaultActionColor : GetActionColor(behavior);
     }
 
-    private Color GetEmotionColor(Emotion emotion)
+    private Color GetEmotionColor(EmotionType emotion)
     {
         return emotion switch
         {
-            Emotion.Anger => angryColor,
-            Emotion.Curious => curiousColor,
-            Emotion.Fearful => fearfulColor,
-            Emotion.Friendly => friendlyColor,
+            EmotionType.Aggressive => angryColor,
+            EmotionType.Curious => curiousColor,
+            EmotionType.Fearful => fearfulColor,
+            EmotionType.Friendly => friendlyColor,
             _ => defaultEmotionColor
         };
     }
 
-    private Color GetActionColor(Behavior behavior)
+    private Color GetActionColor(ActionType behavior)
     {
         return behavior switch
         {
-            Behavior.Action => actionColor,
-            Behavior.Talking => talkColor,
+            ActionType.Action => actionColor,
+            ActionType.Word => talkColor,
             _ => defaultActionColor
         };
     }

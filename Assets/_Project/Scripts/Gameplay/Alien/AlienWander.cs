@@ -342,7 +342,7 @@ public sealed class AlienWander : MonoBehaviour
 
     private bool ShouldFlee()
     {
-        return canMove && player && alien && alien.Emotion == Emotion.Fearful;
+        return canMove && player && alien && alien.Emotion == EmotionType.Fearful;
     }
     
     private float GetCurrentDetectionRadius()

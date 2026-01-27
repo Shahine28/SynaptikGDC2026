@@ -8,10 +8,10 @@ public class DialogueDatabase : ScriptableObject
     public struct Entry
     {
         [SerializeField]
-        private Emotion emotion;
+        private EmotionType emotion;
 
         [SerializeField]
-        private Behavior behavior;
+        private ActionType behavior;
 
         [SerializeField]
         private string emojiLine;
@@ -22,8 +22,8 @@ public class DialogueDatabase : ScriptableObject
         [SerializeField]
         private string questStepId;
 
-        public Emotion Emotion => emotion;
-        public Behavior Behavior => behavior;
+        public EmotionType Emotion => emotion;
+        public ActionType Behavior => behavior;
         public string EmojiLine => emojiLine;
         public float Duration => duration <= 0f ? 2f : duration;
         public string QuestStepId => questStepId;
@@ -52,7 +52,7 @@ public class DialogueDatabase : ScriptableObject
     [SerializeField]
     private ItemEntry[] itemEntries = Array.Empty<ItemEntry>();
 
-    public bool TryGet(Emotion emotion, Behavior behavior, out Entry entry)
+    public bool TryGet(EmotionType emotion, ActionType behavior, out Entry entry)
     {
         for (var i = 0; i < entries.Length; i++)
         {

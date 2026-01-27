@@ -1,123 +1,65 @@
 using System;
 using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
+
+
+[Serializable]
+struct ComboSymbolDefinition
+{
+    public string Symbols;
+    public float Duration;
+}
+
 
 public class PlayerInteraction : MonoBehaviour
 {
     private const string LogPrefix = "[PlayerInteraction]";
 
     [Header("Pickup/Drop Settings")]
-    [SerializeField]
-    private Transform handSocket;
+    [SerializeField] private Transform handSocket;
 
-    [SerializeField]
-    private float pickupRadius = 1.2f;
+    [SerializeField] private float pickupRadius = 1.2f;
 
-    [SerializeField]
-    private LayerMask pickupMask = ~0;
+    [SerializeField] private LayerMask pickupMask = ~0;
 
-    [SerializeField]
-    private float dropForwardSpeed;
+    [SerializeField] private float dropForwardSpeed;
 
-    private HoldableItem heldItem;
-    private string heldItemId;
+    private HoldableItem _heldItem;
+    private string _heldItemId;
 
     [Header("Interaction Settings")]
-    [SerializeField]
-    private Transform aimZone;
+    [SerializeField] private Transform aimZone;
 
-    [SerializeField]
-    private float interactRadius = 2f;
+    [SerializeField] private float interactRadius = 2f;
 
-    [SerializeField]
-    private float interactHalfFov = 45f;
+    [SerializeField] private float interactHalfFov = 45f;
 
-    [SerializeField]
-    private LayerMask interactMask;
+    [SerializeField] private LayerMask interactMask;
 
     [Header("Combo Feedback")]
-    [SerializeField]
-    private float defaultComboBubbleDuration = 1.75f;
+    [SerializeField] private float defaultComboBubbleDuration = 1.75f;
     
 
-    [SerializeField]
-    private ComboSymbolDefinition[] comboSymbolDefinitions =
-    {
-        new ComboSymbolDefinition(Emotion.Anger,    Behavior.Talking, "💬⚡", 2f),
-        new ComboSymbolDefinition(Emotion.Friendly, Behavior.Talking, "💬❤️", 2f),
-        new ComboSymbolDefinition(Emotion.Curious,  Behavior.Talking, "💬❓", 2f),
-        new ComboSymbolDefinition(Emotion.Fearful,  Behavior.Talking, "💬😱", 2f),
-        new ComboSymbolDefinition(Emotion.Anger,    Behavior.Action,  "✋⚡", 1.75f),
-        new ComboSymbolDefinition(Emotion.Friendly, Behavior.Action,  "✋❤️", 1.75f),
-        new ComboSymbolDefinition(Emotion.Curious,  Behavior.Action,  "✋❓", 1.75f),
-        new ComboSymbolDefinition(Emotion.Fearful,  Behavior.Action,  "✋😱", 1.75f)
-    };
-
-    private readonly Dictionary<ComboKey, ComboSymbolDefinition> comboLookup = new();
+    [SerializedDictionary("Synaptik Inputs", "Symbol Definition"), SerializeField]
+    private SerializedDictionary<SynaptikInput, ComboSymbolDefinition> comboLookup = new();
     private PlayerComboBubble comboBubble;
     private bool isInInteractionZone;
 
     private static readonly Collider[] overlap = new Collider[64];
-
-    [Serializable]
-    private struct ComboSymbolDefinition
+    
+    private static readonly Dictionary<EmotionType, string> DefaultEmotionSymbols = new()
     {
-        public Emotion Emotion;
-        public Behavior Behavior;
-        public string Symbols;
-        public float Duration;
-
-        public ComboSymbolDefinition(Emotion emotion, Behavior behavior, string symbols, float duration)
-        {
-            Emotion = emotion;
-            Behavior = behavior;
-            Symbols = symbols;
-            Duration = duration;
-        }
-    }
-
-    private readonly struct ComboKey : IEquatable<ComboKey>
-    {
-        public readonly Emotion Emotion;
-        public readonly Behavior Behavior;
-
-        public ComboKey(Emotion emotion, Behavior behavior)
-        {
-            Emotion = emotion;
-            Behavior = behavior;
-        }
-
-        public bool Equals(ComboKey other)
-        {
-            return Emotion == other.Emotion && Behavior == other.Behavior;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is ComboKey other && Equals(other);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return ((int)Emotion * 397) ^ (int)Behavior;
-            }
-        }
-    }
-
-    private static readonly Dictionary<Emotion, string> DefaultEmotionSymbols = new()
-    {
-        { Emotion.Anger, "⚡" },
-        { Emotion.Friendly, "❤️" },
-        { Emotion.Curious, "❓" },
-        { Emotion.Fearful, "😱" }
+        { EmotionType.Aggressive, "⚡" },
+        { EmotionType.Friendly, "❤️" },
+        { EmotionType.Curious, "❓" },
+        { EmotionType.Fearful, "😱" }
     };
 
-    private static readonly Dictionary<Behavior, string> DefaultBehaviorSymbols = new()
+    private static readonly Dictionary<ActionType, string> DefaultBehaviorSymbols = new()
     {
-        { Behavior.Talking, "💬" },
-        { Behavior.Action, "✋" }
+        { ActionType.Word, "💬" },
+        { ActionType.Action, "✋" }
     };
     
     
@@ -148,30 +90,19 @@ public class PlayerInteraction : MonoBehaviour
             if (!_playerAnimation)
                 Debug.LogWarning("PlayerInteraction: pas de PlayerAnimation assigné !", this);
         }
-        RebuildComboLookup();
+
         Debug.Log($"{LogPrefix} '{name}' prêt ({comboLookup.Count} combos).");
     }
 
     private void Start()
     {
-        if (InputsDetection.Instance)
-        {
-            InputsDetection.Instance.OnEmotionAction += HandleEmotionAction;
-            InputsDetection.Instance.OnEmotion += HandleEmotion;
-            Debug.Log($"{LogPrefix} Abonné aux combos d'InputsDetection.");
-        }
-        else
-        {
-            Debug.LogWarning($"{LogPrefix} Aucun InputsDetection trouvé lors de l'initialisation.");
-        }
+
     }
 
     private void OnDestroy()
     {
         if (InputsDetection.Instance)
         {
-            InputsDetection.Instance.OnEmotionAction -= HandleEmotionAction;
-            InputsDetection.Instance.OnEmotion -= HandleEmotion;
             Debug.Log($"{LogPrefix} Désabonné des combos d'InputsDetection.");
         }
     }
@@ -183,31 +114,31 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Update()
     {
-        UpdateInteractionZoneState();
+        // UpdateInteractionZoneState();
     }
 
     private void RebuildComboLookup()
     {
         comboLookup.Clear();
-        if (comboSymbolDefinitions == null)
-        {
-            Debug.LogWarning($"{LogPrefix} Aucun symbole de combo configuré.");
-            return;
-        }
-
-        foreach (var definition in comboSymbolDefinitions)
-        {
-            if (definition.Behavior == Behavior.None || definition.Emotion == Emotion.None)
-                continue;
-
-            var key = new ComboKey(definition.Emotion, definition.Behavior);
-            comboLookup[key] = definition;
-        }
-
-        Debug.Log($"{LogPrefix} Table de combos reconstruite ({comboLookup.Count} entrées).");
+        // if (comboSymbolDefinitions == null)
+        // {
+        //     Debug.LogWarning($"{LogPrefix} Aucun symbole de combo configuré.");
+        //     return;
+        // }
+        //
+        // foreach (var definition in comboSymbolDefinitions)
+        // {
+        //     if (definition.Behavior == Behavior.None || definition.Emotion == Emotion.None)
+        //         continue;
+        //
+        //     var key = new ComboKey(definition.Emotion, definition.Behavior);
+        //     comboLookup[key] = definition;
+        // }
+        //
+        // Debug.Log($"{LogPrefix} Table de combos reconstruite ({comboLookup.Count} entrées).");
     }
     
-    private void HandleEmotion(Emotion emotion, bool keyReleased)
+    private void HandleEmotion(EmotionType emotion, bool keyReleased)
     {
         if (!keyReleased)
         {
@@ -218,26 +149,26 @@ public class PlayerInteraction : MonoBehaviour
             _playerAnimation?.UnsetEmotion(emotion);
         }
     }
-    private void HandleEmotionAction(Emotion emotion, Behavior behavior)
+    private void HandleEmotionAction(EmotionType emotion, ActionType behavior)
     {
         ShowComboFeedback(emotion, behavior);
         
 
-        if (TryFindInteractionTarget(out var interactable))
-        {
-            Debug.Log($"{LogPrefix} Combo {emotion}/{behavior} → interactable '{interactable}'.");
-            interactable.Interact(new ActionValues(emotion, behavior), heldItem, this);
-        }
-        else if (emotion == Emotion.Friendly && behavior == Behavior.Action && heldItem)
-        {
-            DropItem();
-        }
+        // if (TryFindInteractionTarget(out var interactable))
+        // {
+        //     Debug.Log($"{LogPrefix} Combo {emotion}/{behavior} → interactable '{interactable}'.");
+        //     interactable.Interact(new ActionValues(emotion, behavior), _heldItem, this);
+        // }
+        // else if (emotion == Emotion.Friendly && behavior == Behavior.Action && _heldItem)
+        // {
+        //     DropItem();
+        // }
         
-        if (emotion == Emotion.Anger)
+        if (emotion == EmotionType.Aggressive)
         {
-            if (behavior == Behavior.Action)
+            if (behavior == ActionType.Action)
                 _playerAnimation?.PlayPunch();
-            else if (behavior == Behavior.Talking && AngryQuestAlien)
+            else if (behavior == ActionType.Word && AngryQuestAlien)
             {
                 GameManager.Instance.SetMissionFinished(AngryQuestAlienId, AngryQuestAlien.Definition);
                 AngryQuestAlien.PlayVFX();
@@ -267,7 +198,7 @@ public class PlayerInteraction : MonoBehaviour
             }
 
             var holdable = collider.GetComponentInParent<HoldableItem>();
-            if (!holdable || !holdable.CanBePicked || holdable == heldItem)
+            if (!holdable || !holdable.CanBePicked || holdable == _heldItem)
             {
                 continue;
             }
@@ -283,23 +214,23 @@ public class PlayerInteraction : MonoBehaviour
         if (!bestCandidate)
             return;
 
-        if (heldItem)
+        if (_heldItem)
         {
             var velocity = dropForwardSpeed > 0f ? transform.forward * dropForwardSpeed : Vector3.zero;
-            heldItem.Drop(velocity);
-            heldItem = null;
+            _heldItem.Drop(velocity);
+            _heldItem = null;
         }
 
         bestCandidate.Pick(handSocket ? handSocket : transform);
-        heldItem = bestCandidate;
-        heldItemId = heldItem.ItemId;
+        _heldItem = bestCandidate;
+        _heldItemId = _heldItem.ItemId;
         _playerAnimation?.OnPickedUpItem();
-        Debug.Log($"{LogPrefix} Objet '{heldItem.name}' ramassé (ID: {heldItemId}).");
+        Debug.Log($"{LogPrefix} Objet '{_heldItem.name}' ramassé (ID: {_heldItemId}).");
     }
 
     public void DropItem(bool destroyItem = false)
     {
-        if (!heldItem)
+        if (!_heldItem)
         {
             Debug.Log($"{LogPrefix} Aucun objet à déposer.");
             return;
@@ -307,11 +238,11 @@ public class PlayerInteraction : MonoBehaviour
 
         if (destroyItem)
         {
-            heldItem.SetAtSpawn();
-            Debug.Log($"{LogPrefix} Objet '{heldItemId}' Reset at spawn.");
+            _heldItem.SetAtSpawn();
+            Debug.Log($"{LogPrefix} Objet '{_heldItemId}' Reset at spawn.");
             
-            heldItem = null;
-            heldItemId = null;
+            _heldItem = null;
+            _heldItemId = null;
             _playerAnimation?.OnDroppedItem();
             return;
         }
@@ -322,22 +253,22 @@ public class PlayerInteraction : MonoBehaviour
         var gaveItem = false;
         if (alien && alien.IsWithinReceiveRadius(origin.position))
         {
-            gaveItem = alien.TryReceiveItem(heldItemId);
-            Debug.Log($"{LogPrefix} Don de '{heldItemId}' à '{alien.name}' → succès={gaveItem}.");
+            gaveItem = alien.TryReceiveItem(_heldItemId);
+            Debug.Log($"{LogPrefix} Don de '{_heldItemId}' à '{alien.name}' → succès={gaveItem}.");
         }
 
         if (gaveItem)
         {
-            Destroy(heldItem.gameObject);
+            Destroy(_heldItem.gameObject);
         }
         else
         {
             var velocity = dropForwardSpeed > 0f ? transform.forward * dropForwardSpeed : Vector3.zero;
-            heldItem.Drop(velocity);
+            _heldItem.Drop(velocity);
         }
 
-        heldItem = null;
-        heldItemId = null;
+        _heldItem = null;
+        _heldItemId = null;
         _playerAnimation?.OnDroppedItem();
     }
 
@@ -358,58 +289,58 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    private void ShowComboFeedback(Emotion emotion, Behavior behavior)
+    private void ShowComboFeedback(EmotionType emotion, ActionType behavior)
     {
-        if (!comboBubble || emotion == Emotion.None || behavior == Behavior.None)
-        {
-            return;
-        }
-
-        if (comboLookup.Count == 0)
-        {
-            RebuildComboLookup();
-            if (comboLookup.Count == 0)
-            {
-                Debug.LogWarning($"{LogPrefix} Aucun combo disponible pour l'affichage de feedback.");
-            }
-        }
-
-        var key = new ComboKey(emotion, behavior);
-        if (comboLookup.TryGetValue(key, out var definition) && !string.IsNullOrWhiteSpace(definition.Symbols))
-        {
-            var duration = definition.Duration > 0f ? definition.Duration : defaultComboBubbleDuration;
-            comboBubble.Show(definition.Emotion, definition.Symbols, duration);
-
-            return;
-        }
-
-        if (DefaultBehaviorSymbols.TryGetValue(behavior, out var behaviorSymbol) &&
-            DefaultEmotionSymbols.TryGetValue(emotion, out var emotionSymbol))
-        {
-            comboBubble.Show(emotion, behaviorSymbol + emotionSymbol, defaultComboBubbleDuration);
-        }
-        else
-        {
-            Debug.LogWarning($"{LogPrefix} Impossible de trouver un feedback pour le combo {behavior}/{emotion}.");
-        }
+        // if (!comboBubble || emotion == Emotion.None || behavior == Behavior.None)
+        // {
+        //     return;
+        // }
+        //
+        // if (comboLookup.Count == 0)
+        // {
+        //     RebuildComboLookup();
+        //     if (comboLookup.Count == 0)
+        //     {
+        //         Debug.LogWarning($"{LogPrefix} Aucun combo disponible pour l'affichage de feedback.");
+        //     }
+        // }
+        //
+        //
+        // if (comboLookup.TryGetValue(key, out var definition) && !string.IsNullOrWhiteSpace(definition.Symbols))
+        // {
+        //     var duration = definition.Duration > 0f ? definition.Duration : defaultComboBubbleDuration;
+        //     // comboBubble.Show(definition.Emotion, definition.Symbols, duration);
+        //
+        //     return;
+        // }
+        //
+        // if (DefaultBehaviorSymbols.TryGetValue(behavior, out var behaviorSymbol) &&
+        //     DefaultEmotionSymbols.TryGetValue(emotion, out var emotionSymbol))
+        // {
+        //     comboBubble.Show(emotion, behaviorSymbol + emotionSymbol, defaultComboBubbleDuration);
+        // }
+        // else
+        // {
+        //     Debug.LogWarning($"{LogPrefix} Impossible de trouver un feedback pour le combo {behavior}/{emotion}.");
+        // }
     }
 
-    private bool TryFindInteractionTarget(out IInteraction interaction)
-    {
-        var origin = aimZone ? aimZone : transform;
-        interaction = TargetingUtil.FindInteractionInFront(origin, interactRadius, interactHalfFov, interactMask);
-        return interaction != null;
-    }
-
-    private void UpdateInteractionZoneState()
-    {
-        var hasInteraction = TryFindInteractionTarget(out _);
-        if (hasInteraction == isInInteractionZone)
-        {
-            return;
-        }
-
-        isInInteractionZone = hasInteraction;
-        InteractionZoneChanged?.Invoke(isInInteractionZone);
-    }
+    // private bool TryFindInteractionTarget(out IInteraction interaction)
+    // {
+    //     var origin = aimZone ? aimZone : transform;
+    //     interaction = TargetingUtil.FindInteractionInFront(origin, interactRadius, interactHalfFov, interactMask);
+    //     return interaction != null;
+    // }
+    //
+    // private void UpdateInteractionZoneState()
+    // {
+    //     var hasInteraction = TryFindInteractionTarget(out _);
+    //     if (hasInteraction == isInInteractionZone)
+    //     {
+    //         return;
+    //     }
+    //
+    //     isInInteractionZone = hasInteraction;
+    //     InteractionZoneChanged?.Invoke(isInInteractionZone);
+    // }
 }
