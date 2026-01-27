@@ -96,6 +96,8 @@ public class Alien : MonoBehaviour, IInteraction
             AlienManager.Instance.RegisterAlien(this);
 
         if (!_def)
+            // REWORK
+            // Message d'erreur nécessaire
             return;
 
         foreach (AlienQuest quest in _def.Quests)
@@ -147,11 +149,17 @@ public class Alien : MonoBehaviour, IInteraction
         }
     }
 
+    // REWORK
+    // Une duplication de ApplyEmotionColor()
+    // A supprimer
     private void ApplyEmotionVisuals(bool immediate = false)
     {
         ApplyEmotionColor(immediate);
     }
     
+    // REWORK
+    // Met dans un dictionnaire la liste de struct entre emotion et couleur
+    // Overkill pour l'utilisation, à virer
     private void CacheEmotionColors()
     {
         _emotionColorLookup.Clear();
@@ -160,6 +168,10 @@ public class Alien : MonoBehaviour, IInteraction
             _emotionColorLookup[setting.emotion] = setting.color;
     }
 
+    // REWORK
+    // Fait un precheck du feedback des émotions avant application.
+    // Quelques check inutiles, évitable ou remplassable
+    // Manque de messages d'erreurs flagrant
     private void ApplyEmotionColor(bool immediate = false)
     {
         if (_emotionRenderers == null || _emotionRenderers.Length == 0)
@@ -185,6 +197,10 @@ public class Alien : MonoBehaviour, IInteraction
         }
     }
     
+    // REWORK
+    // Coroutine Gérant le fade de couleur entres émotions
+    // Passer cette méthode avec le reste des feedbacks visuels dans un component appart
+    // Il sera appeler dans une autre méthode
     private IEnumerator FadeEmotionColor(Color targetColor)
     {
         if (_emotionRenderers.Length == 0)
@@ -207,6 +223,9 @@ public class Alien : MonoBehaviour, IInteraction
         _colorFadeCoroutine = null;
     }
 
+    // REWORK
+    // Set les couleur selon properties nécessaire
+    // Passer cette méthode avec le reste des feedbacks visuels dans un component appart
     private void SetRendererColor(Color color)
     {
         foreach (var emotionRenderer in _emotionRenderers)
@@ -222,6 +241,9 @@ public class Alien : MonoBehaviour, IInteraction
     }
     
 #region VFX
+    //REWORK
+    // Passer ces méthodes avec le reste des feedbacks sonores dans un component appart
+
     public void PlayVFX()
     {
         if (_alienVFX)
@@ -247,6 +269,7 @@ public class Alien : MonoBehaviour, IInteraction
         }
     }
 #endregion
+
     public void Interact(ActionValues action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
     {
         if (_interactionDelay <= 0f)
@@ -265,6 +288,9 @@ public class Alien : MonoBehaviour, IInteraction
         ProcessInteraction(action, item, playerInteraction);
     }
 
+    //REWORK
+    // Récupérer une liste d'intéractions possible selon le profile de l'Alien, peut dépendre du State de l'alien.
+    // Si aucune des réactions contextuel ne correspond, se référer aux réaction "de bases" à mettre dans l'AlienManager par ex.
     private void ProcessInteraction(ActionValues action, HoldableItem item, PlayerInteraction playerInteraction)
     {
         Behavior behavior = action._behavior;
@@ -327,6 +353,8 @@ public class Alien : MonoBehaviour, IInteraction
         OnPlayerCombo(action._emotion, action._behavior);
     }
 
+    //REWORK
+    // Dans l'idéal, à supprimer et oou changer pour le prochain système
     public void OnPlayerCombo(Emotion playerEmotion, Behavior channel)
     {
         if (!_def || !_def.Reactions)
@@ -384,6 +412,9 @@ public class Alien : MonoBehaviour, IInteraction
         return true;
     }
 
+    //REWORK
+    // Pourquoi c'est à l'alien de dire au joueur de cette façon qu'il est assez proche?
+    // Faire un retour de la méthode d'interaction pour que se soit le PNJ qui donne gère lui même ses conditions d'acceptations
     public bool IsWithinReceiveRadius(Vector3 position)
     {
         var diff = transform.position - position;
@@ -396,6 +427,9 @@ public class Alien : MonoBehaviour, IInteraction
         Gizmos.DrawWireSphere(transform.position, _receiveRadius);
     }
 
+    //REWORK
+    // Appliquer le résultat à une StateMachine
+    // accueillir les nouveaux component de feedback
     internal void SetEmotion(Emotion newEmotion)
     {
         if (Emotion == newEmotion)
@@ -405,7 +439,7 @@ public class Alien : MonoBehaviour, IInteraction
         _alienAnimation?.SetEmotion(newEmotion);
         ApplyEmotionVisuals();
     }
-
+    
     internal void ShowDialogue(string emojiLine, float duration)
     {
         if (!_dialogueBubble || string.IsNullOrWhiteSpace(emojiLine) || duration <= 0f)
@@ -543,6 +577,8 @@ public class Alien : MonoBehaviour, IInteraction
         }
     }
 
+    // REWORK
+    // Attente du nouveau système de quête
     private bool ProcessQuestStep(string questId, string questStepId, QuestStepType triggerType)
     {
         if (string.IsNullOrWhiteSpace(questId))
@@ -583,6 +619,8 @@ public class Alien : MonoBehaviour, IInteraction
         return false;
     }
 
+    // REWORK
+    // Peut être Overkill comme méthode, à revoir
     private int GetUpdatedItemQuantity(string itemId)
     {
         if (string.IsNullOrEmpty(itemId))
@@ -611,6 +649,8 @@ public class Alien : MonoBehaviour, IInteraction
         _receivedItemQuantities[itemId] = 0;
     }
 
+    //REWORK
+    // Pourquoi c'est là?
     private readonly struct InteractionLookupKey : IEquatable<InteractionLookupKey>
     {
         private readonly Behavior _behavior;
