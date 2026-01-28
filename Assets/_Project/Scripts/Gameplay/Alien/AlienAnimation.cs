@@ -33,5 +33,12 @@ public class AlienAnimation : CharacterAnimationBase
         _lastPosition = transform.position;
     }
 
-    public void PlayPuke() => _animator.SetTrigger(_hashPukeTrig);
+    public void PlayPuke()
+    {
+        if (TryGetComponent(out WorldEntity worldEntity))
+        {
+            GameEvents.TriggerAnimationAction(worldEntity.EntityID, "Puke");
+        }
+        _animator.SetTrigger(_hashPukeTrig);
+    } 
 }

@@ -63,6 +63,10 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     _heldItem = item;
                     OnItemPickedUp?.Invoke();
+                    if (TryGetComponent(out WorldEntity worldEntity))
+                    {
+                        GameEvents.TriggerInventoryChange(worldEntity.EntityID,  _heldItem.itemID, true);
+                    }
                 }
             }
             return;
@@ -81,12 +85,22 @@ public class PlayerInteraction : MonoBehaviour
             
             if (_heldItem.TryDrop())
             {
-                _heldItem = null;
-                OnItemDropped?.Invoke();
+                ItemDrop();
             }
         }
     }
-    
+
+    public void ItemDrop()
+    {
+        if (TryGetComponent(out WorldEntity worldEntity))
+        {
+            if (_heldItem)
+                GameEvents.TriggerInventoryChange(worldEntity.EntityID, _heldItem.itemID, false);
+        }
+        _heldItem = null;
+        OnItemDropped?.Invoke();
+    }
+
     private bool TryFindClosest<T>(LayerMask mask, Collider[] buffer, out T result) where T : class
     {
         result = null;

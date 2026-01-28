@@ -92,7 +92,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.45
+  m_fontSize: 0.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.8, y: 0.5, z: 0.8, w: 0.5}
+  m_margin: {x: 0.97519255, y: 0.62434816, z: 0.9835108, w: 0.85190403}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -379,6 +379,6 @@ MonoBehaviour:
       Value: {fileID: 21300000, guid: 8c924982f2cc91c4096b8c4f7c1ef006, type: 3}
   _secondPerCharacter: 1
   _minDisplayTime: 2
-  _scaleRange: {x: 0.5, y: 1.5}
+  _scaleRange: {x: 0.3, y: 1.5}
   _distanceRange: {x: 5, y: 20}
   _positionYRange: {x: 1.3, y: 1.6}

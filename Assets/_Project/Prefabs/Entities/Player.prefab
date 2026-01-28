@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 8317182544908626716}
   - component: {fileID: 3366463422202364895}
   - component: {fileID: 7968921228244856452}
+  - component: {fileID: 8853175190893686317}
   - component: {fileID: 4373696650642269674}
   m_Layer: 0
   m_Name: Player
@@ -189,7 +190,6 @@ MonoBehaviour:
   _interactMask:
     serializedVersion: 2
     m_Bits: 0
-  _dialogueBoxPosition: {fileID: 0}
   _dialogueSymbolBySynaptikInput: {fileID: 0}
 --- !u!114 &3366463422202364895
 MonoBehaviour:
@@ -208,12 +208,20 @@ MonoBehaviour:
   _maxReportedSpeed: 8
   _speedDampTime: 0.1
   _paramSpeed: Speed
-  _paramIsAngry: IsAngry
-  _paramIsCurious: IsCurious
-  _paramIsHappy: IsHappy
-  _paramIsAfraid: IsAfraid
   _paramHitTrig: Punch
+  _paramEmotions:
+    _serializedList:
+    - Key: 1
+      Value: IsHappy
+    - Key: 2
+      Value: IsAngry
+    - Key: 3
+      Value: IsAfraid
+    - Key: 4
+      Value: IsCurious
   _paramIsGrabbing: IsGrabbing
+  _playerInputSystem: {fileID: 0}
+  _playerInteraction: {fileID: 0}
 --- !u!114 &7968921228244856452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,13 +234,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ede64c5bd349f391e90bf1870c2ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputSystem: {fileID: 0}
   _alienColorSO: {fileID: 0}
   _defaultColor: {r: 1, g: 1, b: 1, a: 1}
   _emotionRenderers:
   - {fileID: 4440899268978521979}
   - {fileID: 5132441173365851644}
   _colorFadeDuration: 0.3
+  _inputSystem: {fileID: 0}
+--- !u!114 &8853175190893686317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717372861038130110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b9a65f1bb04776b3d27173fef81a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityID: {fileID: 0}
 --- !u!114 &4373696650642269674
 MonoBehaviour:
   m_ObjectHideFlags: 0

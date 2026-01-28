@@ -39,6 +39,10 @@ public class PlayerInputSystem : MonoBehaviour
         
         _currentSynaptikInput = newInput;
         OnSynaptikInput?.Invoke(_currentSynaptikInput);
+        if (TryGetComponent(out WorldEntity worldEntity))
+        {
+            GameEvents.TriggerSynaptikInputChange(worldEntity.EntityID, _currentSynaptikInput);
+        }
     }
     
     private void UpdateEmotionState(EmotionType emotion, bool isPressed)

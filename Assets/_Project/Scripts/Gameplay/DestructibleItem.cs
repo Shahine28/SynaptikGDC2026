@@ -19,7 +19,7 @@ public class DestructibleItem : MonoBehaviour, IInteraction
         if (_isDestroyed)
             return;
         
-        if (action.actionType == ActionType.Action && action.emotionType == EmotionType.Aggressive)
+        if (action is { actionType: ActionType.Action, emotionType: EmotionType.Aggressive })
         {
             StartCoroutine(DestroySequence());
         }

@@ -285,13 +285,13 @@ public class Alien : MonoBehaviour, IInteraction
 
                 case EmotionType.Friendly: // Donne
                 {
-                    if (item && TryReceiveItem(item.ItemId))
-                    {
-                        // playerInteraction.DropItem(true);
-                        Debug.Log($"Give item {item.ItemId} to alien {Definition.name}");
-                        
-                        return;
-                    }
+                    // if (item && TryReceiveItem(item.ItemId))
+                    // {
+                    //     // playerInteraction.DropItem(true);
+                    //     Debug.Log($"Give item {item.ItemId} to alien {Definition.name}");
+                    //     
+                    //     return;
+                    // }
 
                     if (item)
                     {

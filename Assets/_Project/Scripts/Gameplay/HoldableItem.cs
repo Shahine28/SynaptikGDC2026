@@ -6,25 +6,18 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public sealed class HoldableItem : MonoBehaviour
 {
-    private const string LogPrefix = "[HoldableItem]";
-
-    [SerializeField]
-    private string itemId;
-
+    [SerializeField] public ItemID itemID;
+    
     [Header("Respawn")]
-    [SerializeField]
-    private float respawnDelay = 5f;
+    [SerializeField] private float respawnDelay = 5f;
 
-    [SerializeField]
-    private float despawnTime = 0.5f;
+    [SerializeField] private float despawnTime = 0.5f;
 
-    [SerializeField]
-    private AnimationCurve despawnAnim = AnimationCurve.Linear(0, 0, 1, 1);
+    [SerializeField] private AnimationCurve despawnAnim = AnimationCurve.Linear(0, 0, 1, 1);
 
     [SerializeField] private bool respawnAtDrop = false;
 
-    [SerializeField]
-    private GameObject despawnVfxPrefab;
+    [SerializeField] private GameObject despawnVfxPrefab;
 
     private Rigidbody rigidbodyComponent;
     private Collider[] colliders = Array.Empty<Collider>();
@@ -37,7 +30,7 @@ public sealed class HoldableItem : MonoBehaviour
     [SerializeField] private bool canTake = true;
 
     public bool IsHeld { get; private set; }
-    public string ItemId => itemId;
+
     public bool CanBePicked => canTake && !IsHeld;
 
     private void Awake()
@@ -56,7 +49,7 @@ public sealed class HoldableItem : MonoBehaviour
     {
         if (IsHeld || !canTake)
         {
-            Debug.LogWarning($"{LogPrefix} Ramassage invalide pour '{name}' (IsHeld={IsHeld}, CanTake={canTake}).");
+            Debug.LogWarning($"{gameObject.name} Ramassage invalide pour '{name}' (IsHeld={IsHeld}, CanTake={canTake}).");
             return false;
         }
 
@@ -89,7 +82,7 @@ public sealed class HoldableItem : MonoBehaviour
     {
         if (!IsHeld)
         {
-            Debug.LogWarning($"{LogPrefix} Tentative de drop alors que '{name}' n'est pas tenu.");
+            Debug.LogWarning($"{gameObject.name} Tentative de drop alors que '{name}' n'est pas tenu.");
             return false;
         }
         
@@ -113,7 +106,7 @@ public sealed class HoldableItem : MonoBehaviour
     private IEnumerator Respawn(float durationOverride = -1f)
     {
         currentDelay = durationOverride < 0f ? respawnDelay : durationOverride;
-        Debug.Log($"{LogPrefix} Respawn de '{name}' démarré ({currentDelay:F1}s).");
+        Debug.Log($"{gameObject.name} Respawn de '{name}' démarré ({currentDelay:F1}s).");
         yield return new WaitForSeconds(currentDelay);
 
         canTake = false;
@@ -156,6 +149,6 @@ public sealed class HoldableItem : MonoBehaviour
 
         IsHeld = false;
         canTake = true;
-        Debug.Log($"{LogPrefix} '{name}' réinitialisé et disponible.");
+        Debug.Log($"{gameObject.name} '{name}' réinitialisé et disponible.");
     }
 }

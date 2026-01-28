@@ -45,6 +45,7 @@ public abstract class CharacterAnimationBase : MonoBehaviour
         _hashHitTrig = Animator.StringToHash(_paramHitTrig);
         
         _hashEmotions = new Dictionary<EmotionType, int>();
+        
 
         foreach (var entry in _paramEmotions)
         {
@@ -54,6 +55,7 @@ public abstract class CharacterAnimationBase : MonoBehaviour
 
         if (!_rb)
             _rb = GetComponent<Rigidbody>();
+        
     }
 
     protected virtual void Update()
@@ -69,7 +71,9 @@ public abstract class CharacterAnimationBase : MonoBehaviour
         speed = Mathf.Min(speed, _maxReportedSpeed);
         float normalized = _maxReportedSpeed > 0.0001f ? speed / _maxReportedSpeed : 0f;
         _animator.SetFloat(_hashSpeed, normalized, _speedDampTime, Time.deltaTime);
+
     }
+    
 
     public void SetEmotion(EmotionType emotion)
     {
@@ -99,6 +103,13 @@ public abstract class CharacterAnimationBase : MonoBehaviour
             UnsetEmotion(entry.Key);
         }
     }
-    
-    protected void PlayPunch() => _animator.SetTrigger(_hashHitTrig);
+
+    protected void PlayPunch()
+    {
+        _animator.SetTrigger(_hashHitTrig);
+        if (TryGetComponent(out WorldEntity worldEntity))
+        {
+            GameEvents.TriggerAnimationAction(worldEntity.EntityID, "Punch");
+        }
+    }
 }
