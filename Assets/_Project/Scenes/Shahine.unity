@@ -1797,9 +1797,9 @@ GameObject:
   m_Component:
   - component: {fileID: 356380908}
   - component: {fileID: 356380907}
-  - component: {fileID: 356380906}
   - component: {fileID: 356380905}
   - component: {fileID: 356380904}
+  - component: {fileID: 356380909}
   m_Layer: 0
   m_Name: upviewtest
   m_TagString: MainCamera
@@ -1873,14 +1873,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &356380906
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 356380903}
-  m_Enabled: 1
 --- !u!20 &356380907
 Camera:
   m_ObjectHideFlags: 0
@@ -1947,6 +1939,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 88.695, y: -45.4, z: -44.65}
+--- !u!114 &356380909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356380903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
 --- !u!1001 &358558477
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2064,9 +2070,9 @@ GameObject:
   m_Component:
   - component: {fileID: 359247499}
   - component: {fileID: 359247498}
-  - component: {fileID: 359247497}
   - component: {fileID: 359247500}
   - component: {fileID: 359247501}
+  - component: {fileID: 359247502}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2074,14 +2080,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!81 &359247497
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359247496}
-  m_Enabled: 1
 --- !u!20 &359247498
 Camera:
   m_ObjectHideFlags: 0
@@ -2214,6 +2212,20 @@ MonoBehaviour:
   maxZoom: 15
   playerInteraction: {fileID: 0}
   interactionZoomOffset: 2
+--- !u!114 &359247502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359247496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
 --- !u!1 &367012023
 GameObject:
   m_ObjectHideFlags: 0
@@ -3561,9 +3573,9 @@ GameObject:
   m_Component:
   - component: {fileID: 613164054}
   - component: {fileID: 613164053}
-  - component: {fileID: 613164052}
   - component: {fileID: 613164051}
   - component: {fileID: 613164050}
+  - component: {fileID: 613164055}
   m_Layer: 0
   m_Name: Camcentraletest
   m_TagString: MainCamera
@@ -3637,14 +3649,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &613164052
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 613164049}
-  m_Enabled: 1
 --- !u!20 &613164053
 Camera:
   m_ObjectHideFlags: 0
@@ -3711,6 +3715,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &613164055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613164049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
 --- !u!1 &658936092
 GameObject:
   m_ObjectHideFlags: 0
@@ -8940,6 +8958,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1235644909}
   - component: {fileID: 1235644908}
+  - component: {fileID: 1235644910}
   m_Layer: 0
   m_Name: Audio Source
   m_TagString: Untagged
@@ -9059,6 +9078,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1235644910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235644907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -842931751
+      Data2: 1290928707
+      Data3: -378472783
+      Data4: 254540797
+    Path: event:/Ambiant/Computer_Ambiant_L
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!4 &1238145007 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3f0544e7ab1b7c440a320a9f1085e819, type: 3}
