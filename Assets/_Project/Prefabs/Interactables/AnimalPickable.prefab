@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9144285521d24d0298849b7fefa4a1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: cadavre
+  itemID: {fileID: 11400000, guid: cbb14be1496488544b6f1f168a13d284, type: 2}
   respawnDelay: 5
   despawnTime: 0.5
   despawnAnim:

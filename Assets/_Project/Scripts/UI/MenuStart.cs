@@ -44,7 +44,7 @@ public sealed class MenuStart : MonoBehaviour
 
     private bool panelHelpEnabled;
     private bool panelQuitEnabled;
-    private InputsDetection inputsDetection;
+    private PlayerInputSystem _playerInputSystem;
     private bool subscribedToInputs;
 
     private bool windowOpened;
@@ -57,13 +57,16 @@ public sealed class MenuStart : MonoBehaviour
         InitializePanels();
     }
 
-    private void OnEnable() => TrySubscribeToInputs();
-    private void OnDisable() => UnsubscribeFromInputs();
-
-    private void Start()
+    private void OnEnable()
     {
-        // SoundManager.Instance.MusicChange(_music);
-        // SoundManager.Instance.AmbiantChange(_ambiant);
+        if (!_playerInputSystem) return;
+        _playerInputSystem.OnSynaptikInput += HandleSynaptikInput;
+    }
+
+    private void OnDisable()
+    {
+        if (!_playerInputSystem) return;
+        _playerInputSystem.OnSynaptikInput -= HandleSynaptikInput;
     }
     
     private void InitializePanels()
@@ -75,35 +78,11 @@ public sealed class MenuStart : MonoBehaviour
         panelQuitEnabled = false;
     }
 
-    private bool TrySubscribeToInputs()
+    void HandleSynaptikInput(SynaptikInput synaptikInput)
     {
-        var instance = InputsDetection.Instance;
-        if (!instance) 
-            return false;
-
-        if (inputsDetection == instance && subscribedToInputs)
-            return true;
-
-        UnsubscribeFromInputs();
-
-        inputsDetection = instance;
-        // inputsDetection.OnEmotion += HandleEmotion;
-        // inputsDetection.OnAction += HandleAction;
-        // inputsDetection.OnTowActionPressed += HandleTwoAction;
-        subscribedToInputs = true;
-
-        return true;
-    }
-
-    private void UnsubscribeFromInputs()
-    {
-        if (!subscribedToInputs || !inputsDetection)
-            return;
-
-        // inputsDetection.OnEmotion -= HandleEmotion;
-        // inputsDetection.OnAction -= HandleAction;
-        // inputsDetection.OnTowActionPressed -= HandleTwoAction;
-        subscribedToInputs = false;
+        HandleAction(synaptikInput.actionType, synaptikInput.actionType != ActionType.None);
+        HandleEmotion(synaptikInput.emotionType, synaptikInput.emotionType != EmotionType.None);
+        HandleTwoAction(synaptikInput.actionType != ActionType.None && synaptikInput.emotionType != EmotionType.None);
     }
 
     private void HandleEmotion(EmotionType emotion, bool keyUp)
@@ -163,14 +142,14 @@ public sealed class MenuStart : MonoBehaviour
 
     private void Update()
     {
-        if (!subscribedToInputs && !TrySubscribeToInputs())
+        if (!subscribedToInputs)
             return;
 
         // var comboActive = inputsDetection.MoveVector == Vector2.zero;
         // if (!comboActive && isCharging)
         //     StopCharging();
-
-        // ---- CHARGE ----
+        
+        
         if (isCharging && !fullyCharged)
         {
             chargeProgress += Time.deltaTime / chargeTime;

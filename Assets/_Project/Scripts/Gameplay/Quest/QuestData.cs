@@ -21,6 +21,7 @@ public class QuestData : ScriptableObject
     public event Action<QuestData> OnQuestUpdated;
     
     private bool _isCompleted;
+    public bool IsCompleted => _isCompleted;
 
     public void Initialize()
     {

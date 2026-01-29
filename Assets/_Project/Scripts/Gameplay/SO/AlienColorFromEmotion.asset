@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AlienColorFromEmotion:
     _serializedList:
+    - Key: 0
+      Value: {r: 0.9137255, g: 0.52156866, b: 0.52156866, a: 1}
     - Key: 1
       Value: {r: 1, g: 1, b: 0, a: 1}
     - Key: 2
@@ -22,3 +24,11 @@ MonoBehaviour:
       Value: {r: 0, g: 0.6156863, b: 1, a: 1}
     - Key: 4
       Value: {r: 0, g: 1, b: 0, a: 1}
+  AlienColorFromAction:
+    _serializedList:
+    - Key: 0
+      Value: {r: 0, g: 0, b: 0, a: 1}
+    - Key: 1
+      Value: {r: 0, g: 0.22732782, b: 1, a: 1}
+    - Key: 2
+      Value: {r: 0.55391693, g: 0, b: 1, a: 1}

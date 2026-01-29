@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
+using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 
@@ -8,8 +11,10 @@ public class QuestManager : MonoBehaviour
 {
     public static QuestManager Instance {get; private set;}
     
-    [SerializeField, Expandable] private List<QuestData> _quests;
+    [SerializeField, SerializedDictionary("Quest", "UnityActionOnQuestCompleted")]
+    public SerializedDictionary<QuestData, UnityEvent> _unityActionsFromQuests = new();
 
+    public List<QuestData> Quests => _unityActionsFromQuests.Keys.ToList();
     
 
     private void Awake()
@@ -21,7 +26,7 @@ public class QuestManager : MonoBehaviour
         }
         Instance = this;
         
-        foreach (var quest in _quests)
+        foreach (var quest in _unityActionsFromQuests.Keys)
         {
             quest.Initialize();
             quest.OnQuestCompleted += HandleQuestComplete;
@@ -33,5 +38,6 @@ public class QuestManager : MonoBehaviour
     {
         Debug.Log($"QUÊTE TERMINÉE : {quest.Title}");
         quest.OnQuestCompleted -= HandleQuestComplete;
+        _unityActionsFromQuests[quest]?.Invoke();
     }
 }

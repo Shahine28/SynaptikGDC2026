@@ -1,4 +1,5 @@
 using System;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,35 +8,19 @@ public sealed class MistrustManager : MonoBehaviour
     public static MistrustManager Instance { get; private set; }
 
     [SerializeField] private Slider mistrustSlider;
-    [SerializeField] private Vector2 mistrustRange = new(0f, 100f);
-    [SerializeField] private int initialMistrust = 50;
+    [SerializeField, MinMaxSlider(-100f, 200f)] private Vector2 mistrustRange = new(0f, 100f);
+    [SerializeField] private float initialMistrust = 50;
 
-    private int mistrustValue;
-    private bool minThresholdTriggered;
-    private bool maxThresholdTriggered;
+    private float _currentMistrustValue;
 
-    public delegate void MistrustDelegate(float valueDelta);
-    public event MistrustDelegate OnMistrust;
-
-    // 🚨 OnMistrustMaxReached = GAME OVER
-    // 🟢 OnMistrustMinReached = WIN
+    public event Action<float> OnMistrustChanged;
     public event Action OnMistrustMinReached; 
     public event Action OnMistrustMaxReached; 
 
-    public int CurrentMistrust => mistrustValue;
-    public int MinMistrust => Mathf.RoundToInt(mistrustRange.x);
-    public int MaxMistrust => Mathf.RoundToInt(mistrustRange.y);
+    public float CurrentMistrustValue => _currentMistrustValue;
 
     private void Awake()
     {
-        mistrustValue = Mathf.Clamp(initialMistrust, MinMistrust, MaxMistrust);
-        if (mistrustSlider != null)
-        {
-            mistrustSlider.minValue = MinMistrust;
-            mistrustSlider.maxValue = MaxMistrust;
-            mistrustSlider.value = mistrustValue;
-        }
-
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -43,65 +28,44 @@ public sealed class MistrustManager : MonoBehaviour
         }
 
         Instance = this;
-        EvaluateThresholds();
+        
+        
+        _currentMistrustValue = Mathf.Clamp(initialMistrust, mistrustRange.x, mistrustRange.y);
+        if (mistrustSlider != null)
+        {
+            mistrustSlider.minValue = mistrustRange.x;
+            mistrustSlider.maxValue = mistrustRange.y;
+            mistrustSlider.value = _currentMistrustValue;
+        }
     }
 
-    public void AddMistrust(int amount) => UpdateMistrust(amount);
-    public void RemoveMistrust(int amount) => UpdateMistrust(-amount);
+    public void AddMistrust(float amount)
+    {
+        UpdateMistrust(Mathf.Clamp(CurrentMistrustValue + amount, mistrustRange.x, mistrustRange.y));
+    }
+
+    public void RemoveMistrust(float amount)
+    {
+        UpdateMistrust(Mathf.Clamp(CurrentMistrustValue - amount, mistrustRange.x, mistrustRange.y));
+    }
 
     public void ResetMistrust()
     {
-        UpdateMistrust(initialMistrust - mistrustValue);
+        UpdateMistrust(initialMistrust);
     }
 
-    private void UpdateMistrust(int delta)
+    private void UpdateMistrust(float newValue)
     {
-        var clamped = Mathf.Clamp(mistrustValue + delta, MinMistrust, MaxMistrust);
-        var appliedDelta = clamped - mistrustValue;
-        mistrustValue = clamped;
+        _currentMistrustValue = newValue;
+        OnMistrustChanged?.Invoke(_currentMistrustValue);
 
-        if (mistrustSlider)
-            mistrustSlider.value = mistrustValue;
-
-        if (appliedDelta != 0)
-            OnMistrust?.Invoke(appliedDelta);
-
-        EvaluateThresholds();
-    }
-
-    private void OnValidate()
-    {
-        initialMistrust = Mathf.Clamp(initialMistrust, (int)mistrustRange.x, (int)mistrustRange.y);
-    }
-
-    private void EvaluateThresholds()
-    {
-        // ✅ WIN : mistrust minimal
-        if (mistrustValue <= MinMistrust)
+        if (_currentMistrustValue >= mistrustRange.y)
         {
-            if (!minThresholdTriggered)
-            {
-                minThresholdTriggered = true;
-                OnMistrustMinReached?.Invoke(); // WIN
-            }
+            OnMistrustMaxReached?.Invoke();
         }
-        else
+        else if (_currentMistrustValue <= mistrustRange.x)
         {
-            minThresholdTriggered = false;
-        }
-
-        // ❌ GAME OVER : mistrust maximal
-        if (mistrustValue >= MaxMistrust)
-        {
-            if (!maxThresholdTriggered)
-            {
-                maxThresholdTriggered = true;
-                OnMistrustMaxReached?.Invoke(); // GAME OVER
-            }
-        }
-        else
-        {
-            maxThresholdTriggered = false;
+            OnMistrustMinReached?.Invoke();
         }
     }
 }

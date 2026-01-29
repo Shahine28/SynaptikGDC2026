@@ -89,10 +89,10 @@ public sealed class HoldableItem : MonoBehaviour
         transform.position += transform.forward * 0.8f; // pour pas se faire pousser par l'objet qu'on drop 
         
         transform.SetParent(originalParent);
-        
+        rigidbodyComponent.isKinematic = false;
         rigidbodyComponent.linearVelocity = Vector3.zero;
         rigidbodyComponent.angularVelocity = Vector3.zero;
-        rigidbodyComponent.isKinematic = false;
+        
         rigidbodyComponent.useGravity = true;
         
         foreach (var collider in colliders) collider.enabled = true;
@@ -106,7 +106,7 @@ public sealed class HoldableItem : MonoBehaviour
     private IEnumerator Respawn(float durationOverride = -1f)
     {
         currentDelay = durationOverride < 0f ? respawnDelay : durationOverride;
-        Debug.Log($"{gameObject.name} Respawn de '{name}' démarré ({currentDelay:F1}s).");
+        // Debug.Log($"{gameObject.name} Respawn de '{name}' démarré ({currentDelay:F1}s).");
         yield return new WaitForSeconds(currentDelay);
 
         canTake = false;
@@ -149,6 +149,6 @@ public sealed class HoldableItem : MonoBehaviour
 
         IsHeld = false;
         canTake = true;
-        Debug.Log($"{gameObject.name} '{name}' réinitialisé et disponible.");
+        // Debug.Log($"{gameObject.name} '{name}' réinitialisé et disponible.");
     }
 }

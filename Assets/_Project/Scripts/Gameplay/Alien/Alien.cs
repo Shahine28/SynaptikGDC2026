@@ -112,15 +112,14 @@ public class Alien : MonoBehaviour, IInteraction
                 _questRuntimes.Add(quest.QuestId, new AlienQuestRuntime(quest));
             }
         }
-        
-        GameManager.Instance.OnTaskEnd += OnAlienTaskEnd;
+
     }
 
     private void OnDestroy()
     {
         if (AlienManager.Instance)
             AlienManager.Instance.UnregisterAlien(this);
-        GameManager.Instance.OnTaskEnd -= OnAlienTaskEnd;
+
     }
     
     private void OnAlienTaskEnd(Mission mission, AlienDefinition alienDefinition)

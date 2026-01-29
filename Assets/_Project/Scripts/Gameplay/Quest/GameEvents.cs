@@ -11,6 +11,9 @@ public static class GameEvents
     public static event Action<WorldEntityID, ItemID, bool> OnInventoryChanged;
     public static void TriggerInventoryChange(WorldEntityID owner, ItemID item, bool added) => OnInventoryChanged?.Invoke(owner, item, added);
     
+    public static event Action<WorldEntityID, DestroyableItemID> OnDestroyableItemDestroyed;
+    public static void TriggerItemDestroyed(WorldEntityID owner, DestroyableItemID item) => OnDestroyableItemDestroyed?.Invoke(owner, item);
+    
     public static event Action<WorldEntityID, ZoneID> OnZoneEntered; 
     public static void TriggerZoneEntered(WorldEntityID entity, ZoneID zoneId) => OnZoneEntered?.Invoke(entity, zoneId);
     

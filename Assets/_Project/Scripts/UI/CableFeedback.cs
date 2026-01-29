@@ -1,98 +1,47 @@
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
 
 public sealed class CableFeedback : MonoBehaviour
 {
     [Header("Output References")]
-    [SerializeField]
-    private Image outputLeft;
-
-    [SerializeField]
-    private Image outputRight;
+    [SerializeField] private Image outputLeft;
+    [SerializeField] private Image outputRight;
 
     [Header("Action Colors")]
-    [SerializeField]
-    private Color defaultActionColor = Color.white;
-
-    [SerializeField]
-    private Color talkColor;
-
-    [SerializeField]
-    private Color actionColor;
-
+    [SerializeField] private Color defaultActionColor = Color.white;
+    
     [Header("Emotion Colors")]
-    [SerializeField]
-    private Color defaultEmotionColor = Color.white;
+    [SerializeField] private Color defaultEmotionColor = Color.white;
+    
+    [Header("Binding")]
+    [SerializeField, Required] private PlayerInputSystem _playerInputSystem;
+    [SerializeField, Required] private AlienColorFromEmotionType alienColorFromEmotion;
 
-    [SerializeField]
-    private Color curiousColor = new Color(127, 213, 93, 255);
-
-    [SerializeField]
-    private Color angryColor = new Color(240, 83, 83, 255);
-
-    [SerializeField]
-    private Color fearfulColor = new Color(15, 192, 222, 255);
-
-    [SerializeField]
-    private Color friendlyColor = new Color(255, 221, 97, 255);
-
-    private void Start()
+    void OnEnable()
     {
-        if (InputsDetection.Instance == null)
+        if (!_playerInputSystem) return;
+        _playerInputSystem.OnSynaptikInput += HandleSynaptikInput;
+    }
+    
+    void OnDisable()
+    {
+        if (!_playerInputSystem) return;
+        _playerInputSystem.OnSynaptikInput -= HandleSynaptikInput;
+    }
+
+    private void HandleSynaptikInput(SynaptikInput synaptikInput)
+    {
+        if (outputLeft)
         {
-            return;
+            outputLeft.color = synaptikInput.actionType == ActionType.None 
+                ? defaultActionColor : alienColorFromEmotion.AlienColorFromAction[synaptikInput.actionType];
         }
 
-        // InputsDetection.Instance.OnEmotion += HandleEmotion;
-        // InputsDetection.Instance.OnAction += HandleAction;
-    }
-
-    private void OnDestroy()
-    {
-        if (InputsDetection.Instance == null)
+        if (outputRight)
         {
-            return;
+            outputRight.color = synaptikInput.emotionType == EmotionType.None
+                ? defaultEmotionColor : alienColorFromEmotion.AlienColorFromEmotion[synaptikInput.emotionType];
         }
-
-        // InputsDetection.Instance.OnEmotion -= HandleEmotion;
-        // InputsDetection.Instance.OnAction -= HandleAction;
-    }
-
-    private void HandleEmotion(EmotionType emotion, bool keyReleased)
-    {
-        if (!outputRight)
-            return;
-
-        outputRight.color = keyReleased ? defaultEmotionColor : GetEmotionColor(emotion);
-    }
-
-    private void HandleAction(ActionType behavior, bool keyReleased)
-    {
-        if (!outputLeft)
-            return;
-
-        outputLeft.color = keyReleased ? defaultActionColor : GetActionColor(behavior);
-    }
-
-    private Color GetEmotionColor(EmotionType emotion)
-    {
-        return emotion switch
-        {
-            EmotionType.Aggressive => angryColor,
-            EmotionType.Curious => curiousColor,
-            EmotionType.Fearful => fearfulColor,
-            EmotionType.Friendly => friendlyColor,
-            _ => defaultEmotionColor
-        };
-    }
-
-    private Color GetActionColor(ActionType behavior)
-    {
-        return behavior switch
-        {
-            ActionType.Action => actionColor,
-            ActionType.Word => talkColor,
-            _ => defaultActionColor
-        };
     }
 }
