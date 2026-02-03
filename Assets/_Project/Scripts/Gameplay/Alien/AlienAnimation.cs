@@ -20,7 +20,6 @@ public class AlienAnimation : CharacterAnimationBase
 
     protected override void Update()
     {
-
         Vector3 delta = transform.position - _lastPosition;
         delta.y = 0f; // ignore les mouvements verticaux
 

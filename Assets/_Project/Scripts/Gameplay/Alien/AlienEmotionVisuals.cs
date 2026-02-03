@@ -50,7 +50,7 @@ public class AlienEmotionVisuals : MonoBehaviour
         }
     }
 
-    protected void OnEmotionColorChanged(SynaptikInput synaptikInput)
+    public void OnEmotionColorChanged(SynaptikInput synaptikInput)
     {
         Color targetColor = _alienColorSO.AlienColorFromEmotion.GetValueOrDefault(synaptikInput.emotionType, _defaultColor);
         if (targetColor == _currentColor)
