@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class CharacterAnimationBase : MonoBehaviour
 {
@@ -30,6 +31,14 @@ public abstract class CharacterAnimationBase : MonoBehaviour
     
     protected int _hashSpeed;
     private int _hashHitTrig;
+
+    [Header("Punch Event & Area")]
+    [SerializeField] protected UnityEvent OnPunchEvent;
+    [SerializeField] protected UnityEvent OnPunchCompletedEvent;
+    [SerializeField] protected Transform _punchSocket;
+    [SerializeField] protected float _punchArea = 2.0f;
+    protected readonly Collider[] _punchCollider = new Collider[10];
+    
 
     protected virtual void Reset()
     {
@@ -104,12 +113,29 @@ public abstract class CharacterAnimationBase : MonoBehaviour
         }
     }
 
-    protected void PlayPunch()
+    public void PlayPunch()
     {
         _animator.SetTrigger(_hashHitTrig);
         if (TryGetComponent(out WorldEntity worldEntity))
         {
             GameEvents.TriggerAnimationAction(worldEntity.EntityID, "Punch");
         }
+    }
+    
+    public virtual void OnPunch()
+    {
+        OnPunchEvent?.Invoke();
+        Physics.OverlapSphereNonAlloc(_punchSocket.position, _punchArea,  _punchCollider);
+    }
+
+    public virtual void OnPunchCompleted()
+    {
+        OnPunchCompletedEvent?.Invoke();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(_punchSocket.position, _punchArea);
     }
 }

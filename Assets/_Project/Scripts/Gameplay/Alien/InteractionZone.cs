@@ -17,8 +17,6 @@ public class InteractionZone : MonoBehaviour
     public UnityEvent OnPlayerEnter;
     public UnityEvent OnPlayerExit;
     
-    public Action OnPlayerEnterAction;
-    public Action OnPlayerExitAction;
     
     [Header("Debug")]
     [SerializeField] private Color _gizmoColor = new(0, 1, 0, 1f);
@@ -41,7 +39,6 @@ public class InteractionZone : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.TryGetComponent(out WorldEntity entity) || entity != _targetToDetect) return;
-        OnPlayerEnterAction?.Invoke();
         OnPlayerEnter?.Invoke();
         _isTargetInRange = true;
     }
@@ -49,7 +46,6 @@ public class InteractionZone : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!other.TryGetComponent(out WorldEntity entity) || entity != _targetToDetect) return;
-        OnPlayerExitAction?.Invoke();
         OnPlayerExit?.Invoke();
         _isTargetInRange = false;
     }

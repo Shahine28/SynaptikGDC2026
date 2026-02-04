@@ -50,6 +50,18 @@ public class PlayerInteraction : MonoBehaviour
         _playerInputSystem.OnSynaptikInput -= HandleSynaptikInput;
     }
 
+    public void HandlePunchImpact(IInteraction interactable)
+    {
+        SynaptikInput synaptikInput = new()
+        {
+            emotionType = EmotionType.Aggressive,
+            actionType = ActionType.Action
+        };
+
+        interactable?.Interact(synaptikInput, _heldItem, this);
+        OnSynaptikInterraction?.Invoke(synaptikInput, _heldItem);
+    }
+
     private void HandleSynaptikInput(SynaptikInput synaptikInput)
     {
         if (synaptikInput.actionType == ActionType.None || synaptikInput.emotionType == EmotionType.None) return;
@@ -74,6 +86,7 @@ public class PlayerInteraction : MonoBehaviour
         
         if (TryFindClosest(_interactMask, _interactableHitBuffer, out IInteraction interactable))
         {
+            if (synaptikInput is { actionType: ActionType.Action, emotionType: EmotionType.Aggressive }) return; // Le punch est géré avec le Player Animation et après via Handle Punch
             interactable.Interact(synaptikInput, _heldItem, this);
             OnSynaptikInterraction?.Invoke(synaptikInput, _heldItem);
         }
@@ -101,7 +114,7 @@ public class PlayerInteraction : MonoBehaviour
         OnItemDropped?.Invoke();
     }
 
-    private bool TryFindClosest<T>(LayerMask mask, Collider[] buffer, out T result) where T : class
+    public bool TryFindClosest<T>(LayerMask mask, Collider[] buffer, out T result) where T : class
     {
         result = null;
         

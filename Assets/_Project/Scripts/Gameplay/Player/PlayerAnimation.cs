@@ -1,4 +1,5 @@
-﻿using NaughtyAttributes;
+﻿using System.Linq;
+using NaughtyAttributes;
 using UnityEngine;
 
 public class PlayerAnimation : CharacterAnimationBase
@@ -59,6 +60,28 @@ public class PlayerAnimation : CharacterAnimationBase
         {
             SetEmotion(synaptikInput.emotionType);
         }
+    }
+
+    public override void OnPunch()
+    {
+        base.OnPunch();
+        
+        int hitCount = _punchCollider.Count(x => x != null);
+        float closestDistance = float.MaxValue;
+        IInteraction nearbyInteraction = null;
+        for (int i = 0; i < hitCount; i++)
+        {
+            if (!_punchCollider[i].TryGetComponent(out IInteraction interaction)) continue;
+            float distance = Vector3.Distance(_punchSocket.position, _punchCollider[i].transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                nearbyInteraction = interaction;
+            }
+        }
+
+        if (nearbyInteraction == null) return;
+        _playerInteraction?.HandlePunchImpact(nearbyInteraction);
     }
 
     private void SetGrabbing(bool grabbing)

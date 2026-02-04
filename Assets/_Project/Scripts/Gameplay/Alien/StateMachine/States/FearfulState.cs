@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class FearfulState : State
 {
-    [SerializeField] private float _maxDistanceWithPlayer = 5f;
     [SerializeField] private float _fleeDistance = 10f;
-    [SerializeField] private bool _showGizmos;
+    private bool _isFleeing;
     public override StateID GetStateID()
     {
         return StateID.Fearful;
@@ -19,56 +18,60 @@ public class FearfulState : State
     public override void StateEnter(StateID PreviousStateID) // Je laisse ces fonctions en virtual et pas abstract pour pouvoir faire des modifcations générales sur ces fonctions
     {
         base.StateEnter(PreviousStateID);
+        CheckMovement();
     }
 
     public override void StateExit(StateID NextStateID)
     {
         base.StateExit(NextStateID);
+        StopRoaming();
+        _alien.StopMoving();
     }
 
     public override void StateUpdate(float deltaTime)
     {
         base.StateUpdate(deltaTime);
-        if (_isStatic || _alien.InteractionZone.IsTargetInRange || _isRoaming) return;
-        float distance = Vector3.Distance(_alien.InteractionZone.TargetToDetect.transform.position, transform.position);
-        if (distance < _maxDistanceWithPlayer)
+        CheckMovement();
+    }
+
+    private void CheckMovement()
+    {
+        if (_isStatic || _alien.InteractionZone.IsTargetInRange) return;
+        if (!_isPlayerFarEnough)
         {
             _alien.StartFleeingTarget(_alien.InteractionZone.TargetToDetect.transform, _fleeDistance);
         }
         else
         {
-            StartCoroutine(WaitBeforeRoam());
+            StartRoaming();
         }
     }
     
-    protected override void OnDestinationReached()
+    protected override void OnRoamDestinationReached()
     {
         if (_isStatic || _alien.InteractionZone.IsTargetInRange) return;
-        StopAllCoroutines();
-        StartCoroutine(WaitBeforeRoam());
+        base.OnRoamDestinationReached();
     }
-    
+
+    protected override void OnFleeDestinationReached()
+    {
+        if (_isStatic || _alien.InteractionZone.IsTargetInRange) return;
+        base.OnFleeDestinationReached();
+        CheckMovement();
+    }
     
     protected override void OnPlayerEnterTalkZone()
     {
         if (_isStatic) return;
-        StopAllCoroutines();
         _alien.StopMoving();
     }
     
     protected override void OnPlayerExitTalkZone()
     {
-        if (_isStatic) return;
-        StopAllCoroutines();
-        _alien.StopMoving();
+        CheckMovement();
     }
     
-    public void OnDrawGizmos()
-    {
-        if (!_showGizmos) return;
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, _maxDistanceWithPlayer);
-    }
+    
     
 
 }

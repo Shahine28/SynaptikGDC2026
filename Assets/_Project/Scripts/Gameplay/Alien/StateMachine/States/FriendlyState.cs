@@ -17,15 +17,13 @@ public class FriendlyState : State
     public override void StateEnter(StateID PreviousStateID) // Je laisse ces fonctions en virtual et pas abstract pour pouvoir faire des modifcations générales sur ces fonctions
     {
         base.StateEnter(PreviousStateID);
-        
         if (_isStatic || _alien.InteractionZone.IsTargetInRange) return;
-        _alien.Roam();
+        StartRoaming();
     }
     
     public override void StateExit(StateID NextStateID)
     {
         base.StateExit(NextStateID);
-        
         _alien.StopMoving();
     }
 
@@ -34,18 +32,17 @@ public class FriendlyState : State
         base.StateUpdate(deltaTime);
     }
     
-    protected override void OnDestinationReached()
+    protected override void OnRoamDestinationReached()
     {
         if (_isStatic || _alien.InteractionZone.IsTargetInRange) return;
-        StopAllCoroutines();
-        StartCoroutine(WaitBeforeRoam());
+        base.OnRoamDestinationReached();
     }
 
     
     protected override void OnPlayerEnterTalkZone()
     {
         if (_isStatic) return;
-        _isRoaming = false;
+        StopAllCoroutines();
         StopAllCoroutines();
         _alien.StopMoving();
     }
@@ -53,6 +50,6 @@ public class FriendlyState : State
     protected override void OnPlayerExitTalkZone()
     {
         if (_isStatic) return;
-        StartCoroutine(WaitBeforeRoam());
+        StartRoaming();
     }
 }

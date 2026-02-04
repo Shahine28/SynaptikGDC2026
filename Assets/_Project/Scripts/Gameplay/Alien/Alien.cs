@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AI;
@@ -34,18 +35,31 @@ public class Alien : MonoBehaviour, IInteraction
     
     [Header("Animation")]
     [SerializeField, Required] private AlienAnimation _alienAnimation;
+    public  AlienAnimation AlienAnimation => _alienAnimation;
     
     [Header("EmotionColorVisual")]
     [SerializeField, Required] private AlienEmotionVisuals _alienEmotionColorVisuals;
     
-    [Header("VFX")]
-    [SerializeField] private ParticleSystem _alienVFX;
+    public Action OnRoamingDestinationReachedAction;
+    public Action OnFollowDestinationReachedAction;
+    public Action OnFleeDestinationReachedAction;
+
+    public enum MovementMode
+    {
+        None,
+        Roaming,
+        Follow,
+        Flee
+    }
+
+    private MovementMode _currentMovementMode = MovementMode.None;
+    public MovementMode CurrentMovementMode => _currentMovementMode;
     
-    public Action OnDestinationReachedAction;
-    
+    [SerializeField] private AlienDialogueSymbolBySynaptikInput _dialogueSymbolBySynaptikInput;
     // [Header("Sound")]
     // [SerializeField] private VoicesModels _attributedVoice;
-
+    
+    [SerializeField] private List<ItemID> _itemIdsToReceive = new();
     
 
     
@@ -112,6 +126,14 @@ public class Alien : MonoBehaviour, IInteraction
         if (_stateMachine)
             _stateMachine.UpdateState(action.emotionType);
         _alienEmotionColorVisuals.OnEmotionColorChanged(action);
+        SpeechBubbleManager.Instance?.SpawnBubble(transform, action, _dialogueSymbolBySynaptikInput?.GetDialogue(action));
+        if (!item) return;
+        if (_itemIdsToReceive.Contains(item.itemID) && TryGetComponent(out WorldEntity worldEntity))
+        {
+            GameEvents.TriggerInventoryChange(worldEntity.EntityID, item.itemID, true);
+            playerInteraction?.ItemDrop();
+            Destroy(item.gameObject);
+        }
     }
     
     
@@ -126,8 +148,7 @@ public class Alien : MonoBehaviour, IInteraction
         if (_stateMachine.GetCurrentState().IsStatic) return; 
         
         destination = new Vector3(destination.x, 0, destination.z);
-
-        // Empêche de se déplacer vers la même destination
+        
         if (_navMeshAgent.hasPath && Vector3.Distance(_navMeshAgent.destination, destination) < 0.1f)
             return;
         
@@ -156,7 +177,8 @@ public class Alien : MonoBehaviour, IInteraction
             StopCoroutine(_fleeCoroutine);
             _fleeCoroutine = null;
         }
-        
+
+        _currentMovementMode = MovementMode.None;
         _navMeshAgent.ResetPath();
     }
     
@@ -168,13 +190,35 @@ public class Alien : MonoBehaviour, IInteraction
         {
             yield return new WaitForEndOfFrame();
         }
-
+        
         OnDestinationReached();
     }
 
     private void OnDestinationReached()
     {
-        OnDestinationReachedAction?.Invoke();
+        switch (_currentMovementMode)
+        {
+            case MovementMode.Roaming:
+            {
+                OnRoamingDestinationReachedAction?.Invoke();
+                break;
+            }
+            case MovementMode.Follow:
+            {
+                OnFollowDestinationReachedAction?.Invoke();
+                break;
+            }
+            case MovementMode.Flee:
+            {
+                OnFleeDestinationReachedAction?.Invoke();
+                break;
+            }
+            case MovementMode.None:
+                break;
+            default:
+                break;
+        }
+        
     }
 
     public void Roam()
@@ -184,6 +228,8 @@ public class Alien : MonoBehaviour, IInteraction
             Debug.LogError("No roamZone assigned to Alien");
             return;
         }
+        
+        _currentMovementMode = MovementMode.Roaming;
 
         Vector3 randomPoint = _roamZone.GetRandomPointInZone();
         MoveTo(randomPoint);
@@ -193,8 +239,10 @@ public class Alien : MonoBehaviour, IInteraction
     {
         if (_followCoroutine != null) return; // On est déjà en train de suivre la target
         StopMoving();
-    
+
+        _currentMovementMode = MovementMode.Follow;
         _followCoroutine = StartCoroutine(FollowRoutine(target));
+        
     }
     
 
@@ -212,7 +260,7 @@ public class Alien : MonoBehaviour, IInteraction
             }
             
             _navMeshAgent.SetDestination(targetPos);
-            
+            _moveCoroutine = StartCoroutine(CheckArrival(targetPos)); 
             yield return wait;
         }
     }
@@ -220,7 +268,8 @@ public class Alien : MonoBehaviour, IInteraction
     public void StartFleeingTarget(Transform target, float fleeDistance)
     {
         if (_fleeCoroutine != null) return;
-        StopMoving(); 
+        StopMoving();
+        _currentMovementMode = MovementMode.Flee;
         _fleeCoroutine = StartCoroutine(FleeRoutine(target, fleeDistance));
     }
     
@@ -238,6 +287,7 @@ public class Alien : MonoBehaviour, IInteraction
                 fleeDestination = _roamZone.ClampPositionToZone(fleeDestination);
             }
             
+            _moveCoroutine = StartCoroutine(CheckArrival(fleeDestination)); 
             _navMeshAgent.SetDestination(fleeDestination);
         
             yield return wait;
@@ -246,32 +296,6 @@ public class Alien : MonoBehaviour, IInteraction
     
 #endregion
 
-#region VFX
-    public void PlayVFX()
-    {
-        if (_alienVFX)
-        {
-            Debug.Log("Play VFX");
-            _alienVFX.Play();
-        }
-    }
-    
-    public void StopVFX()
-    {
-        if (_alienVFX)
-        {
-            _alienVFX.Stop();
-        }
-    }
-    
-    public void ClearVFX()
-    {
-        if (_alienVFX)
-        {
-            _alienVFX.Clear();
-        }
-    }
-#endregion
 
     private void OnDrawGizmosSelected()
     {
