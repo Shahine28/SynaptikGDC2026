@@ -13,8 +13,6 @@ public class AggressiveState : State
     private bool _isHitZoneSet => _alienHitZone != null;
     [SerializeField, ShowIf("_isHitZoneSet")] private float _hitZoneRadius;
     
-    private bool _isTargetInHitZone;
-    
     private bool _hasHitPlayer;
 
     private void OnValidate()
@@ -39,11 +37,10 @@ public class AggressiveState : State
         _alienHitZone.OnPlayerExit.AddListener(OnPlayerExitHitZone);
         if (_isStatic || _alien.InteractionZone.IsTargetInRange) return;
         
-        if (!_isTargetInHitZone && _isPlayerFarEnough)
+        if (!_alienHitZone.IsTargetInRange && _isPlayerFarEnough)
         {
             StartRoaming();
         }
-        
     }
 
     public override void StateExit(StateID NextStateID)
@@ -59,11 +56,24 @@ public class AggressiveState : State
     public override void StateUpdate(float deltaTime)
     {
         base.StateUpdate(deltaTime);
+        if (_isPlayerFarEnough && !_isRoaming)
+        {
+            StartRoaming();
+        }
+        else if (_isPlayerFarEnough && _alien.CurrentMovementMode == Alien.MovementMode.Follow)
+        {
+            _alien.StopMoving();
+        }
     }
+    
     
     private void OnPlayerEnterHitZone()
     {
-        _isTargetInHitZone = true;
+        Punch();
+    }
+
+    private void Punch()
+    {
         _alien.StopMoving();
         _hasHitPlayer = false;
         _alien.AlienAnimation.PlayPunch();
@@ -71,7 +81,7 @@ public class AggressiveState : State
 
     private void OnPlayerExitHitZone()
     {
-        _isTargetInHitZone = false;
+        
     }
     
     public void OnPlayerPunched()
@@ -84,12 +94,17 @@ public class AggressiveState : State
         if (_hasHitPlayer)
         {
             StartRoaming();
+            _hasHitPlayer = false;
+        }
+        else if (_alienHitZone.IsTargetInRange)
+        {
+            Punch();
         }
         else
         {
             _alien.StartFollowingTarget(_alien.InteractionZone.TargetToDetect.transform);
         }
-        _hasHitPlayer = false;
+        
     }
     
     protected override void OnPlayerEnterTalkZone()
@@ -112,7 +127,7 @@ public class AggressiveState : State
     
     protected override void OnRoamDestinationReached()
     {
-        if (_isStatic || _alien.InteractionZone.IsTargetInRange || _isTargetInHitZone) return;
+        if (_isStatic || _alien.InteractionZone.IsTargetInRange || _alienHitZone.IsTargetInRange) return;
         base.OnRoamDestinationReached();
     }
 }

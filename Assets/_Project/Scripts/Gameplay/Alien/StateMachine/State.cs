@@ -27,9 +27,14 @@ public abstract class State : MonoBehaviour // Cela va être la classe de base p
                 return false;
             
             float distance = Vector3.Distance(transform.position, _alien.InteractionZone.TargetToDetect.transform.position);
-        
+            
             return distance > _maxDistanceWithPlayer;
         }
+    }
+
+    public virtual void CheckMovement()
+    {
+        
     }
 
     public virtual StateID GetStateID()

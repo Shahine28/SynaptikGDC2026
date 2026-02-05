@@ -34,15 +34,16 @@ public class FearfulState : State
         CheckMovement();
     }
 
-    private void CheckMovement()
+    public override void CheckMovement()
     {
-        if (_isStatic || _alien.InteractionZone.IsTargetInRange) return;
-        if (!_isPlayerFarEnough)
+        if (_isStatic) return;
+        if (!_alien.InteractionZone.IsTargetInRange && _alien.CurrentMovementMode != Alien.MovementMode.Flee && !_isPlayerFarEnough)
         {
-            _alien.StartFleeingTarget(_alien.InteractionZone.TargetToDetect.transform, _fleeDistance);
+            _alien.StartFleeingTarget(_alien.InteractionZone.TargetToDetect.transform, _fleeDistance);  
         }
-        else
+        else if (!_alien.InteractionZone.IsTargetInRange && _alien.CurrentMovementMode == Alien.MovementMode.Flee &&  _isPlayerFarEnough)
         {
+            _alien.StopMoving();
             StartRoaming();
         }
     }
