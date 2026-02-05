@@ -4,7 +4,6 @@ using UnityEngine;
 public class FearfulState : State
 {
     [SerializeField] private float _fleeDistance = 10f;
-    private bool _isFleeing;
     public override StateID GetStateID()
     {
         return StateID.Fearful;

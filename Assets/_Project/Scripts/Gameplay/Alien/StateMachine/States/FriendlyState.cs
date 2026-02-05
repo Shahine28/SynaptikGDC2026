@@ -17,6 +17,7 @@ public class FriendlyState : State
     public override void StateEnter(StateID PreviousStateID) // Je laisse ces fonctions en virtual et pas abstract pour pouvoir faire des modifcations générales sur ces fonctions
     {
         base.StateEnter(PreviousStateID);
+        _alien.AlienAnimation.PlayPuke();
         if (_isStatic || _alien.InteractionZone.IsTargetInRange) return;
         StartRoaming();
     }

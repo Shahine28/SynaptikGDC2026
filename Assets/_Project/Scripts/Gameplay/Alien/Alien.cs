@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 // using FMODUnity;
 
@@ -44,6 +47,7 @@ public class Alien : MonoBehaviour, IInteraction
     public Action OnFollowDestinationReachedAction;
     public Action OnFleeDestinationReachedAction;
 
+    [Serializable]
     public enum MovementMode
     {
         None,
@@ -52,17 +56,19 @@ public class Alien : MonoBehaviour, IInteraction
         Flee
     }
 
-    private MovementMode _currentMovementMode = MovementMode.None;
+    [SerializeField, ReadOnly] private MovementMode _currentMovementMode = MovementMode.None;
     public MovementMode CurrentMovementMode => _currentMovementMode;
     
     [SerializeField] private AlienDialogueSymbolBySynaptikInput _dialogueSymbolBySynaptikInput;
+    [SerializeField] private float _secondBeforeReactingToPlayer = 2.0f;
+    
+    
+    [SerializeField, SerializedDictionary("ItemIdToReceive", "DialogueSymbol")] 
+    private SerializedDictionary<ItemID, AlienDialogueSymbolBySynaptikInput> _DialogueSymbolFromItemIdsToReceive = new();
+    
+    
     // [Header("Sound")]
     // [SerializeField] private VoicesModels _attributedVoice;
-    
-    [SerializeField] private List<ItemID> _itemIdsToReceive = new();
-    
-
-    
     private void OnValidate()
     {
         if (_roamZone)
@@ -123,17 +129,49 @@ public class Alien : MonoBehaviour, IInteraction
     
     public void Interact(SynaptikInput action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
     {
-        if (_stateMachine)
-            _stateMachine.UpdateState(action.emotionType);
-        _alienEmotionColorVisuals.OnEmotionColorChanged(action);
-        SpeechBubbleManager.Instance?.SpawnBubble(transform, action, _dialogueSymbolBySynaptikInput?.GetDialogue(action));
-        if (!item) return;
-        if (_itemIdsToReceive.Contains(item.itemID) && TryGetComponent(out WorldEntity worldEntity))
+        
+        _stateMachine?.UpdateState(action.emotionType);
+        
+        _alienEmotionColorVisuals?.OnEmotionColorChanged(action);
+        
+        AlienDialogueSymbolBySynaptikInput targetDialogueSymbol = _dialogueSymbolBySynaptikInput;
+        
+        if (!item)
         {
-            GameEvents.TriggerInventoryChange(worldEntity.EntityID, item.itemID, true);
-            playerInteraction?.ItemDrop();
-            Destroy(item.gameObject);
+            if (_DialogueSymbolFromItemIdsToReceive.Count > 0)
+            {
+                targetDialogueSymbol = _DialogueSymbolFromItemIdsToReceive.Values.First(); 
+            }
         }
+        else
+        {
+            playerInteraction?.ItemDrop();
+            if (_DialogueSymbolFromItemIdsToReceive.TryGetValue(item.itemID, out AlienDialogueSymbolBySynaptikInput itemDialogue))
+            {
+                targetDialogueSymbol = itemDialogue;
+
+                if (TryGetComponent(out WorldEntity worldEntity))
+                {
+                    GameEvents.TriggerInventoryChange(worldEntity.EntityID, item.itemID, true);
+                }
+
+                _DialogueSymbolFromItemIdsToReceive.Remove(item.itemID);
+                playerInteraction?.ItemDrop();
+                Destroy(item.gameObject);
+            }
+        }
+        
+        var dialogueData = targetDialogueSymbol?.GetDialogue(action);
+        if (dialogueData != null)
+        {
+            StartCoroutine(StartDialogueDelayed(transform, action, dialogueData));
+        }
+    }
+
+    private IEnumerator StartDialogueDelayed(Transform tr, SynaptikInput action, string text)
+    {
+        yield return new WaitForSeconds(_secondBeforeReactingToPlayer);
+        SpeechBubbleManager.Instance?.SpawnBubble(tr, action, text);
     }
     
     
@@ -148,9 +186,12 @@ public class Alien : MonoBehaviour, IInteraction
         if (_stateMachine.GetCurrentState().IsStatic) return; 
         
         destination = new Vector3(destination.x, 0, destination.z);
-        
+
         if (_navMeshAgent.hasPath && Vector3.Distance(_navMeshAgent.destination, destination) < 0.1f)
+        {
+            OnDestinationReached();
             return;
+        }
         
         destination = new Vector3(destination.x, 0, destination.z);
         _navMeshAgent.SetDestination(destination); 
@@ -279,8 +320,10 @@ public class Alien : MonoBehaviour, IInteraction
 
         while (target)
         {
-            Vector3 directionAwayFromTarget = transform.position - target.position;
-            Vector3 fleeDestination = transform.position + directionAwayFromTarget.normalized * fleeDistance;
+            Vector3 directionAwayFromTarget = (transform.position - target.position).normalized;
+            directionAwayFromTarget = Quaternion.AngleAxis(300, Vector3.up) * directionAwayFromTarget;
+            
+            Vector3 fleeDestination = transform.position + directionAwayFromTarget * fleeDistance;
             
             if (_roamZone && _stateMachine.GetCurrentState().AlwaysStayInRoamingZone)
             {

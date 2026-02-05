@@ -76,8 +76,8 @@ public abstract class State : MonoBehaviour // Cela va être la classe de base p
     protected void StartRoaming()
     {
         StopAllCoroutines();
-        StartCoroutine(WaitBeforeRoam());
         _isRoaming = true;
+        StartCoroutine(WaitBeforeRoam());
     }
 
     protected void StopRoaming()
