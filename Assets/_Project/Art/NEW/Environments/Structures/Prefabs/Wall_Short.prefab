@@ -90,6 +90,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ab5f31b11383e5648bdef9ac1fb92b41, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8630913d66cf42544a72f6998f305162, type: 2}
     - target: {fileID: 919132149155446097, guid: ab5f31b11383e5648bdef9ac1fb92b41, type: 3}
       propertyPath: m_Name
       value: MESH_Pillar_New (1)
@@ -156,6 +160,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 69f3820142f779a429dc0dcc414198a5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db874a9193ebec8429d920f363ee4b44, type: 2}
     - target: {fileID: 919132149155446097, guid: 69f3820142f779a429dc0dcc414198a5, type: 3}
       propertyPath: m_Name
       value: MESH_Wall_New (1)
@@ -226,6 +234,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ab5f31b11383e5648bdef9ac1fb92b41, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8630913d66cf42544a72f6998f305162, type: 2}
     - target: {fileID: 919132149155446097, guid: ab5f31b11383e5648bdef9ac1fb92b41, type: 3}
       propertyPath: m_Name
       value: MESH_Pillar_New (2)
