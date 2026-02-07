@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    passTag: RenderObjectsFeature
+    passTag: Flat Kit Per Object Outline
     Event: 300
     filterSettings:
       RenderQueueType: 0
@@ -43,7 +43,9 @@ MonoBehaviour:
       restoreCamera: 1
       offset: {x: 0, y: 0, z: 0, w: 0}
       cameraFieldOfView: 60
-  materials: []
+  materials:
+  - {fileID: 2100000, guid: db874a9193ebec8429d920f363ee4b44, type: 2}
+  - {fileID: 2100000, guid: 52bc0186809c91244b0ff3d0966559f5, type: 2}
   autoReferenceMaterials: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -71,7 +73,7 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 0}
   m_RendererFeatures:
   - {fileID: -7149424963701616363}
-  m_RendererFeatureMap: 
+  m_RendererFeatureMap: d04d8b382e2d0164
   m_UseNativeRenderPass: 0
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
