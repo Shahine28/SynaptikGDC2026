@@ -1,19 +1,17 @@
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class AnimatorEventProxy : MonoBehaviour
 {
-    [SerializeField] private UnityEvent OnProxyEventTrigger;
-
-    [SerializeField] private UnityEvent OnProxyCompletedEventTrigger;
-
-    public void TriggerProxyEvent()
+    [SerializeField, SerializedDictionary("Event Name", "Unity Event")]
+    SerializedDictionary<string, UnityEvent> _eventDictionaryByName;
+    
+    public void TriggerProxyEventByName(string eventName)
     {
-        OnProxyEventTrigger?.Invoke();
-    }
-
-    public void TriggerProxyCompletedEvent()
-    {
-        OnProxyCompletedEventTrigger?.Invoke();
+        if (_eventDictionaryByName.ContainsKey(eventName))
+        {
+            _eventDictionaryByName[eventName]?.Invoke();
+        }
     }
 }
