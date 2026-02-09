@@ -49,7 +49,7 @@ public class QuestData : ScriptableObject
         {
             _isCompleted = true;
             OnQuestCompleted?.Invoke(this);
-            Cleanup(); 
+            Cleanup();
         }
     }
 }

@@ -1,14 +1,11 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
-
-// using FMODUnity;
+using FMODUnity;
 
 
 public class Alien : MonoBehaviour, IInteraction
@@ -47,6 +44,9 @@ public class Alien : MonoBehaviour, IInteraction
     public Action OnFollowDestinationReachedAction;
     public Action OnFleeDestinationReachedAction;
 
+    [Header("Audio")]
+    [SerializeField] private StudioEventEmitter _audioSource;
+    
     [Serializable]
     public enum MovementMode
     {
@@ -172,6 +172,9 @@ public class Alien : MonoBehaviour, IInteraction
     {
         yield return new WaitForSeconds(_secondBeforeReactingToPlayer);
         SpeechBubbleManager.Instance?.SpawnBubble(tr, action, text);
+        
+        //TODO : play contextual to quest
+        PlaySound(SoundManager.Instance.GetVoice(action.emotionType));
     }
     
     
@@ -339,6 +342,11 @@ public class Alien : MonoBehaviour, IInteraction
     
 #endregion
 
+    public void PlaySound(EventReference a_audioRef)
+    {
+        _audioSource.EventReference = a_audioRef;
+        _audioSource.Play();
+    }
 
     private void OnDrawGizmosSelected()
     {
