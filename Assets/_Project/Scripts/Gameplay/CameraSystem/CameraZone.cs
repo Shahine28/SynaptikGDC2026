@@ -55,7 +55,6 @@ public class CameraZone : MonoBehaviour
     public Vector3 viewOffset = Vector3.zero;
     public Vector3 viewRotationOffset = Vector3.zero;
 
-    // Données internes pour editor tools
     [HideInInspector] public Vector3 staticPosition;
     [HideInInspector] public Vector3 staticRotationEuler;
 
@@ -75,9 +74,7 @@ public class CameraZone : MonoBehaviour
         state.SmoothTime = smoothTime;
         state.SmoothTimeTransition = smoothTimeTransition;
 
-        // Position de base (localisée par rapport au transform de la zone)
-        Vector3 basePos = transform.position + transform.TransformDirection(viewOffset);
-        // Rotation de base
+        Vector3 basePos = transform.position + viewOffset;
         Quaternion baseRot = transform.rotation * Quaternion.Euler(viewRotationOffset);
         
         Vector3 anticipation = Vector3.zero;
@@ -96,7 +93,6 @@ public class CameraZone : MonoBehaviour
 
             case CameraBehavior.LookAt:
                 state.Position = basePos;
-                // LookAt player position (plus anticipation)
                 Vector3 targetLookAt = (player.position + anticipation);
                 state.Rotation = Quaternion.LookRotation(targetLookAt - state.Position);
                 break;
@@ -116,7 +112,6 @@ public class CameraZone : MonoBehaviour
                     fPos.y = basePos.y;
                 
                 state.Position = fPos;
-                // Recalculate rotation to look at target from new position
                 state.Rotation = Quaternion.LookRotation((player.position + anticipation) - state.Position);
                 break;
         }
@@ -128,14 +123,8 @@ public class CameraZone : MonoBehaviour
 
     public bool IsTargetInside(Vector3 targetPos)
     {
-        // 1. Transformer la position cible dans l'espace local de la zone
-        //    pour gérer la rotation de la zone si besoin, ou simplement l'offset.
-        //    Ici on travaille en World Space aligné ou Local Space ?
-        //    Simplifions en utilisant la position transformée par l'offset.
 
         Vector3 center = transform.position + transform.TransformDirection(zoneOffset);
-        
-        // On ignore la hauteur (Y) pour la détection 2D au sol
         Vector2 pos2D = new Vector2(center.x, center.z);
         Vector2 target2D = new Vector2(targetPos.x, targetPos.z);
 
@@ -146,7 +135,7 @@ public class CameraZone : MonoBehaviour
         else // Square
         {
             float halfX = zoneSize.x * 0.5f;
-            float halfZ = zoneSize.y * 0.5f; // zoneSize est Vector2(width, length)
+            float halfZ = zoneSize.y * 0.5f;
 
             float dx = Mathf.Abs(pos2D.x - target2D.x);
             float dz = Mathf.Abs(pos2D.y - target2D.y);
@@ -177,14 +166,12 @@ public class CameraZone : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        // Couleur de base (non sélectionné)
         Gizmos.color = new Color(0f, 1f, 0.5f, 0.2f);
         DrawZoneGizmos(false);
     }
 
     private void OnDrawGizmosSelected()
     {
-        // Couleur sélectionnée
         Gizmos.color = new Color(0f, 1f, 0.5f, 0.5f);
         DrawZoneGizmos(true);
         DrawBehaviorGizmos();
@@ -196,7 +183,6 @@ public class CameraZone : MonoBehaviour
 
         if (detectionType == DetectionType.Circle)
         {
-            // Disque au sol
             Handles.color = isSelected ? new Color(0, 1, 0.5f, 0.4f) : new Color(0, 1, 0.5f, 0.1f);
             Handles.DrawSolidDisc(center, Vector3.up, zoneRadius);
             Handles.color = isSelected ? Color.green : new Color(0, 1, 0.5f, 0.5f);
@@ -204,10 +190,8 @@ public class CameraZone : MonoBehaviour
         }
         else
         {
-            // Rectangle au sol
             Vector3 size3D = new Vector3(zoneSize.x, 0, zoneSize.y);
             
-            // On peut dessiner un Cube aplati
             Gizmos.DrawWireCube(center, size3D);
             
             Color fill = Gizmos.color;
@@ -216,26 +200,55 @@ public class CameraZone : MonoBehaviour
             Gizmos.DrawCube(center, size3D);
         }
 
-        // Label
         if (isSelected)
         {
-            GUIStyle style = new GUIStyle();
+            GUIStyle style = new GUIStyle(GUI.skin.box);
             style.normal.textColor = Color.white;
             style.alignment = TextAnchor.MiddleCenter;
-            Handles.Label(center + Vector3.up * 1f, $"ZONE: {name}\nWeight: {weight}", style);
+            style.fontStyle = FontStyle.Bold;
+            style.fontSize = 12;
+            Handles.Label(center + Vector3.up * 2f, $"ZONE: {name}\nWeight: {weight}", style);
         }
     }
 
     private void DrawBehaviorGizmos()
     {
         Vector3 center = transform.position;
-        Vector3 camPos = behavior == CameraBehavior.Static || behavior == CameraBehavior.LookAt
-            ? center + transform.TransformDirection(viewOffset)
-            : center + followOffset;
+        Vector3 camPos = Vector3.zero;
+        Quaternion camRot = Quaternion.identity;
 
+        // Visualise theoretical Camera Position based on current settings
+        if (behavior == CameraBehavior.Static)
+        {
+            camPos = transform.position + viewOffset;
+            camRot = transform.rotation * Quaternion.Euler(viewRotationOffset);
+        }
+        else if (behavior == CameraBehavior.LookAt)
+        {
+            camPos = transform.position + viewOffset;
+            Vector3 dir = center - camPos;
+            if (dir.sqrMagnitude > 0.001f)
+                camRot = Quaternion.LookRotation(dir);
+        }
+        else // Follow or FollowAndLookAt
+        {
+            // Simulate camera at the offset position relative to the zone center
+            camPos = center + followOffset;
+            Vector3 dir = center - camPos;
+            if (dir.sqrMagnitude > 0.001f)
+                camRot = Quaternion.LookRotation(dir);
+        }
+
+        // Draw Line to Camera
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(camPos, 0.3f);
         Gizmos.DrawLine(center, camPos);
+
+        // Draw Icon & Frustum
+        Gizmos.DrawIcon(camPos, "Camera Gizmo", true);
+        
+        Gizmos.matrix = Matrix4x4.TRS(camPos, camRot, Vector3.one);
+        Gizmos.DrawFrustum(Vector3.zero, targetFOV, 10f, 0.5f, 1.77f);
+        Gizmos.matrix = Matrix4x4.identity;
     }
 #endif
 }
@@ -254,7 +267,6 @@ public class CameraZoneEditor : Editor
     SerializedProperty _behavior;
     SerializedProperty _followOffset;
     SerializedProperty _viewOffset;
-    // ... autres props si besoin
 
     private void OnEnable()
     {
@@ -305,7 +317,6 @@ public class CameraZoneEditor : Editor
         {
             EditorGUILayout.PropertyField(_behavior);
             
-            // Show fields based on behavior
             CameraBehavior beh = (CameraBehavior)_behavior.enumValueIndex;
             
             if (beh == CameraBehavior.Static || beh == CameraBehavior.LookAt)
@@ -343,7 +354,7 @@ public class CameraZoneEditor : Editor
     {
         CameraZone script = (CameraZone)target;
         
-        // 1. Handle for Zone Offset
+        // --- 1. Zone Center Handle ---
         Vector3 worldCenter = script.transform.position + script.transform.TransformDirection(script.zoneOffset);
         
         EditorGUI.BeginChangeCheck();
@@ -351,11 +362,10 @@ public class CameraZoneEditor : Editor
         if (EditorGUI.EndChangeCheck())
         {
             Undo.RecordObject(script, "Move Zone Center");
-            // Convert back to local offset
             script.zoneOffset = script.transform.InverseTransformDirection(newWorldCenter - script.transform.position);
         }
 
-        // 2. Handles for Size (Radius or Box)
+        // --- 2. Zone Size Handles (Radius / Box) ---
         Handles.color = Color.green;
         
         if (script.detectionType == DetectionType.Circle)
@@ -370,11 +380,10 @@ public class CameraZoneEditor : Editor
         }
         else
         {
-            // Box Resize Handles
             Vector3 size3D = new Vector3(script.zoneSize.x, 0, script.zoneSize.y);
             Vector3 halfSize = size3D * 0.5f;
 
-            // X Axis Handle
+            // Width Handle (X)
             Vector3 rightHandle = worldCenter + Vector3.right * halfSize.x;
             EditorGUI.BeginChangeCheck();
             Vector3 newRight = Handles.Slider(rightHandle, Vector3.right, HandleUtility.GetHandleSize(rightHandle) * 0.1f, Handles.SphereHandleCap, 0.1f);
@@ -385,7 +394,7 @@ public class CameraZoneEditor : Editor
                 script.zoneSize.x = Mathf.Max(0, dist * 2f);
             }
             
-            // Z Axis Handle
+            // Length Handle (Z)
             Vector3 forwardHandle = worldCenter + Vector3.forward * halfSize.z;
             EditorGUI.BeginChangeCheck();
             Vector3 newForward = Handles.Slider(forwardHandle, Vector3.forward, HandleUtility.GetHandleSize(forwardHandle) * 0.1f, Handles.SphereHandleCap, 0.1f);
@@ -394,6 +403,52 @@ public class CameraZoneEditor : Editor
                 Undo.RecordObject(script, "Resize Zone Length");
                 float dist = Vector3.Dot(newForward - worldCenter, Vector3.forward);
                 script.zoneSize.y = Mathf.Max(0, dist * 2f);
+            }
+        }
+
+        // --- 3. Camera Offset Handles ---
+        bool isStatic = (script.behavior == CameraBehavior.Static || script.behavior == CameraBehavior.LookAt);
+        bool isFollow = (script.behavior == CameraBehavior.Follow || script.behavior == CameraBehavior.FollowAndLookAt);
+
+        if (isStatic)
+        {
+            Vector3 camPos = script.transform.position + script.viewOffset;
+            
+            // Position Handle
+            EditorGUI.BeginChangeCheck();
+            Vector3 newCamPos = Handles.PositionHandle(camPos, script.transform.rotation);
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(script, "Move Camera Offset");
+                script.viewOffset = newCamPos - script.transform.position;
+            }
+
+            // Rotation Handle (Only Static needs fixed rotation, LookAt overrides it)
+            if (script.behavior == CameraBehavior.Static)
+            {
+                Quaternion currentRot = script.transform.rotation * Quaternion.Euler(script.viewRotationOffset);
+                EditorGUI.BeginChangeCheck();
+                Quaternion newRot = Handles.RotationHandle(currentRot, camPos);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    Undo.RecordObject(script, "Rotate Camera Offset");
+                    Quaternion delta = Quaternion.Inverse(script.transform.rotation) * newRot;
+                    script.viewRotationOffset = delta.eulerAngles;
+                }
+            }
+        }
+        else if (isFollow)
+        {
+            // For Follow, we visualize the offset relative to the zone center
+            Vector3 center = script.transform.position;
+            Vector3 camPos = center + script.followOffset;
+
+            EditorGUI.BeginChangeCheck();
+            Vector3 newCamPos = Handles.PositionHandle(camPos, Quaternion.identity);
+            if (EditorGUI.EndChangeCheck())
+            {
+                 Undo.RecordObject(script, "Move Follow Offset");
+                 script.followOffset = newCamPos - center;
             }
         }
     }
