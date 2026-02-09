@@ -217,7 +217,6 @@ public class CameraZone : MonoBehaviour
         Vector3 camPos = Vector3.zero;
         Quaternion camRot = Quaternion.identity;
 
-        // Visualise theoretical Camera Position based on current settings
         if (behavior == CameraBehavior.Static)
         {
             camPos = transform.position + viewOffset;
@@ -232,18 +231,15 @@ public class CameraZone : MonoBehaviour
         }
         else // Follow or FollowAndLookAt
         {
-            // Simulate camera at the offset position relative to the zone center
             camPos = center + followOffset;
             Vector3 dir = center - camPos;
             if (dir.sqrMagnitude > 0.001f)
                 camRot = Quaternion.LookRotation(dir);
         }
 
-        // Draw Line to Camera
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(center, camPos);
 
-        // Draw Icon & Frustum
         Gizmos.DrawIcon(camPos, "Camera Gizmo", true);
         
         Gizmos.matrix = Matrix4x4.TRS(camPos, camRot, Vector3.one);
@@ -423,7 +419,6 @@ public class CameraZoneEditor : Editor
                 script.viewOffset = newCamPos - script.transform.position;
             }
 
-            // Rotation Handle (Only Static needs fixed rotation, LookAt overrides it)
             if (script.behavior == CameraBehavior.Static)
             {
                 Quaternion currentRot = script.transform.rotation * Quaternion.Euler(script.viewRotationOffset);
@@ -439,7 +434,6 @@ public class CameraZoneEditor : Editor
         }
         else if (isFollow)
         {
-            // For Follow, we visualize the offset relative to the zone center
             Vector3 center = script.transform.position;
             Vector3 camPos = center + script.followOffset;
 
