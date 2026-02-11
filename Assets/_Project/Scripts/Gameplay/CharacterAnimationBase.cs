@@ -13,10 +13,12 @@ public abstract class CharacterAnimationBase : MonoBehaviour
     [Header("Speed Settings")]
     [SerializeField, Min(0f)] protected float _maxReportedSpeed = 8f;
     [SerializeField, Range(0f, 0.5f)] protected float _speedDampTime = 0.1f;
+    [SerializeField] private float _baseAnimationSpeed = 3f;
 
     [Header("Animator Parameter Names")]
     [SerializeField] protected string _paramSpeed = "Speed";
     [SerializeField] protected string _paramHitTrig = "Punch";
+    [SerializeField] protected string _paramAnimationSpeed = "LocomotionMultiplier";
 
     [SerializeField, SerializedDictionary("Emotion", "Parameter Name")]
     protected SerializedDictionary<EmotionType, string> _paramEmotions = new()
@@ -30,6 +32,7 @@ public abstract class CharacterAnimationBase : MonoBehaviour
     private Dictionary<EmotionType, int> _hashEmotions;
     
     protected int _hashSpeed;
+    protected int _hashAnimationSpeed;
     private int _hashHitTrig;
 
     [Header("Punch Event & Area")]
@@ -52,6 +55,8 @@ public abstract class CharacterAnimationBase : MonoBehaviour
 
         _hashSpeed = Animator.StringToHash(_paramSpeed);
         _hashHitTrig = Animator.StringToHash(_paramHitTrig);
+        
+        _hashAnimationSpeed = Animator.StringToHash(_paramAnimationSpeed);
         
         _hashEmotions = new Dictionary<EmotionType, int>();
         
@@ -79,7 +84,15 @@ public abstract class CharacterAnimationBase : MonoBehaviour
 
         speed = Mathf.Min(speed, _maxReportedSpeed);
         float normalized = _maxReportedSpeed > 0.0001f ? speed / _maxReportedSpeed : 0f;
+
+        float multiplier = 1f;
+        if (normalized >= 0.1f)
+        {
+            multiplier = normalized * _baseAnimationSpeed;
+        }
+        
         _animator.SetFloat(_hashSpeed, normalized, _speedDampTime, Time.deltaTime);
+        _animator.SetFloat(_hashAnimationSpeed, multiplier);
 
     }
     

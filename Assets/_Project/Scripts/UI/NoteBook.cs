@@ -16,6 +16,8 @@ public sealed class NoteBook : MonoBehaviour
     [SerializeField, Required] private QuestManager _questManager;
     
     private Dictionary<QuestData, NotebookEntry> _notebookEntryFromQuestData = new();
+    
+    [SerializeField, Required] SmoothListAnimator _smoothListAnimator;
 
 
     private void Start()
@@ -63,7 +65,8 @@ public sealed class NoteBook : MonoBehaviour
         _notebookEntryFromQuestData[data].SetToggle(data.IsCompleted);
         if (data.IsCompleted)
         {
-            _notebookEntryFromQuestData[data].transform.SetAsLastSibling();
+            // _notebookEntryFromQuestData[data].transform.SetAsLastSibling();
+            _smoothListAnimator?.MoveQuestToBottom(_notebookEntryFromQuestData[data].GetComponent<RectTransform>());
         }
     }
 }

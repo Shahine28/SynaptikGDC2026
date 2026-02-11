@@ -36,6 +36,7 @@ public class FearfulState : State
     public override void CheckMovement()
     {
         if (_isStatic) return;
+        
         if (!_alien.InteractionZone.IsTargetInRange && _alien.CurrentMovementMode != Alien.MovementMode.Flee && !_isPlayerFarEnough)
         {
             _alien.StartFleeingTarget(_alien.InteractionZone.TargetToDetect.transform, _fleeDistance);  
