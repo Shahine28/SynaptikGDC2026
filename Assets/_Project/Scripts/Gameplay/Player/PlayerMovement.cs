@@ -16,7 +16,8 @@ public sealed class PlayerMovement : MonoBehaviour
     [SerializeField] private bool _cameraRelative = true;
     [SerializeField, ShowIf(nameof(_cameraRelative))] private Camera _targetCamera;
 
-    [Header("Settings - Ability (Fear Boost)")]
+    [Header("Settings - Ability (Fear Boost)")] 
+    [SerializeField] private bool _activateBoostOnFear = false;
     [SerializeField, Min(0f)] private float _boostSpeedBonus = 3f;
     [SerializeField, Min(0f)] private float _boostDuration = 2f;
     [SerializeField, Min(0f)] private float _boostCooldown = 3f;
@@ -74,7 +75,7 @@ public sealed class PlayerMovement : MonoBehaviour
         bool canBoost = _cooldownTimer <= 0f;
         bool isFearAction = input.emotionType == EmotionType.Fearful && input.actionType == ActionType.Action;
 
-        if (canBoost && isFearAction)
+        if (canBoost && isFearAction && _activateBoostOnFear)
         {
             ActivateBoost();
         }
@@ -124,7 +125,8 @@ public sealed class PlayerMovement : MonoBehaviour
     private void ApplyMovementPhysics(Vector3 direction)
     {
         float currentMaxSpeed = _baseSpeed + _currentSpeedBonus;
-        
+
+
         Vector3 currentVelocity = _rb.linearVelocity;
         Vector3 horizontalVelocity = new Vector3(currentVelocity.x, 0f, currentVelocity.z);
         
@@ -133,10 +135,9 @@ public sealed class PlayerMovement : MonoBehaviour
         bool isTryingToMove = direction.sqrMagnitude > 0.01f;
         float speedChangeRate = isTryingToMove ? _acceleration : _deceleration;
         
-        float maxChange = speedChangeRate * Time.fixedDeltaTime;
-        Vector3 deltaV = Vector3.ClampMagnitude(targetVelocity - horizontalVelocity, maxChange);
-        
-        _rb.AddForce(deltaV, ForceMode.VelocityChange);
+        Vector3 newHorizontalVelocity = Vector3.MoveTowards(horizontalVelocity, targetVelocity, speedChangeRate * Time.fixedDeltaTime);
+
+        _rb.linearVelocity = new Vector3(newHorizontalVelocity.x, currentVelocity.y, newHorizontalVelocity.z);
     }
 
     private void ApplyRotation(Vector3 direction)

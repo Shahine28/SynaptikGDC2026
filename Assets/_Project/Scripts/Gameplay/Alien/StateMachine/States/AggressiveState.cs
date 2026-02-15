@@ -15,6 +15,7 @@ public class AggressiveState : State
     
     private bool _hasHitPlayer;
     private bool _hasTryToHitPlayer;
+    
 
     private void OnValidate()
     {
@@ -58,18 +59,18 @@ public class AggressiveState : State
 
     public override void CheckMovement()
     {
-        base.CheckMovement();
         if (_isStatic) return;
         
         if (!_alien.InteractionZone.IsTargetInRange)
         {
             if (_isPlayerFarEnough && !_isRoaming)
             {
+                _hasTryToHitPlayer = false;
                 StopAllCoroutines();
                 _alien.StopMoving();
                 StartRoaming();
             }
-            else if (!_isPlayerFarEnough && _alien.CurrentMovementMode != Alien.MovementMode.Follow)
+            else if (!_isPlayerFarEnough && _alien.CurrentMovementMode != Alien.MovementMode.Follow && !_hasTryToHitPlayer)
             {
                 StopAllCoroutines();
                 _alien.StopMoving();
@@ -93,6 +94,7 @@ public class AggressiveState : State
         
     }
     
+    
     private void Punch()
     {
         _hasTryToHitPlayer = true;
@@ -110,7 +112,6 @@ public class AggressiveState : State
 
     public void OnPunchCompleted()
     {
-        _hasTryToHitPlayer = false;
         if (_hasHitPlayer) return;
         if (_alienHitZone.IsTargetInRange)
         {
