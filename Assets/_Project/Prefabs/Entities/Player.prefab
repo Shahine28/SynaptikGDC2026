@@ -42,11 +42,13 @@ GameObject:
   - component: {fileID: 519521097647880677}
   - component: {fileID: 2565673419303979581}
   - component: {fileID: 2017406082755594533}
+  - component: {fileID: 3171077327916065353}
   - component: {fileID: 4174637969976801663}
   - component: {fileID: 8317182544908626716}
   - component: {fileID: 3366463422202364895}
   - component: {fileID: 7968921228244856452}
-  - component: {fileID: 6943024452398623467}
+  - component: {fileID: 8853175190893686317}
+  - component: {fileID: 4373696650642269674}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -120,6 +122,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &3171077327916065353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717372861038130110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621bb22f5855b1d49ab376366642b626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentSynaptikInput:
+    emotionType: 0
+    actionType: 0
+  _moveInput: {x: 0, y: 0}
+  _isTalkInput: 0
+  _isActionInput: 0
+  _isFriendlyInput: 0
+  _isAgressiveInput: 0
+  _isFearfulInput: 0
+  _isCuriousInput: 0
 --- !u!114 &4174637969976801663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,17 +156,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 125b18129fc78bd4896d0afa7e29d5b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbodyComponent: {fileID: 2017406082755594533}
-  maxSpeed: 15
-  acceleration: 45
-  deceleration: 45
-  fearfulActionSpeedBonus: 0
-  fearfulActionBoostDuration: 0
-  fearfulActionBoostDecayDuration: 0
-  fearfulActionBoostCooldown: 0
-  cameraRelative: 1
-  targetCamera: {fileID: 0}
-  rotationSpeed: 10
+  _rb: {fileID: 0}
+  _inputSystem: {fileID: 0}
+  _baseSpeed: 5
+  _acceleration: 20
+  _deceleration: 25
+  _rotationSpeed: 10
+  _cameraRelative: 1
+  _targetCamera: {fileID: 0}
+  _boostSpeedBonus: 3
+  _boostDuration: 2
+  _boostCooldown: 3
+  _boostDecayTime: 1
 --- !u!114 &8317182544908626716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,55 +180,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f17a219a07eaff4d8661351ee4701a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handSocket: {fileID: 7867670605248477314}
-  pickupRadius: 1.2
-  pickupMask:
+  _playerInputSystem: {fileID: 0}
+  _handSocket: {fileID: 0}
+  _pickupMask:
     serializedVersion: 2
-    m_Bits: 64
-  dropForwardSpeed: 0
-  aimZone: {fileID: 519521097647880677}
-  interactRadius: 2
-  interactHalfFov: 45
-  interactMask:
+    m_Bits: 0
+  _interactionTransform: {fileID: 0}
+  _interactionZoneSize: {x: 0, y: 0, z: 0}
+  _interactMask:
     serializedVersion: 2
-    m_Bits: 192
-  defaultComboBubbleDuration: 1.75
-  comboSymbolDefinitions:
-  - Emotion: 1
-    Behavior: 1
-    Symbols: "\U0001F92C"
-    Duration: 2
-  - Emotion: 2
-    Behavior: 1
-    Symbols: "\u2764"
-    Duration: 2
-  - Emotion: 3
-    Behavior: 1
-    Symbols: "\u2753"
-    Duration: 2
-  - Emotion: 4
-    Behavior: 1
-    Symbols: "\U0001F631"
-    Duration: 2
-  - Emotion: 1
-    Behavior: 2
-    Symbols: "\U0001F44A"
-    Duration: 1.75
-  - Emotion: 2
-    Behavior: 2
-    Symbols: "\U0001FAF4"
-    Duration: 1.75
-  - Emotion: 3
-    Behavior: 2
-    Symbols: "\U0001FAF3"
-    Duration: 1.75
-  - Emotion: 4
-    Behavior: 2
-    Symbols: "\U0001F62D"
-    Duration: 1.75
-  _playerAnimation: {fileID: 3366463422202364895}
-  AngryQuestAlienId: bagarre
-  AngryQuestAlien: {fileID: 0}
+    m_Bits: 0
+  _dialogueSymbolBySynaptikInput: {fileID: 0}
 --- !u!114 &3366463422202364895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,12 +208,20 @@ MonoBehaviour:
   _maxReportedSpeed: 8
   _speedDampTime: 0.1
   _paramSpeed: Speed
-  _paramIsAngry: IsAngry
-  _paramIsCurious: IsCurious
-  _paramIsHappy: IsHappy
-  _paramIsAfraid: IsAfraid
   _paramHitTrig: Punch
+  _paramEmotions:
+    _serializedList:
+    - Key: 1
+      Value: IsHappy
+    - Key: 2
+      Value: IsAngry
+    - Key: 3
+      Value: IsAfraid
+    - Key: 4
+      Value: IsCurious
   _paramIsGrabbing: IsGrabbing
+  _playerInputSystem: {fileID: 0}
+  _playerInteraction: {fileID: 0}
 --- !u!114 &7968921228244856452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,21 +234,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ede64c5bd349f391e90bf1870c2ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emotionRenderers:
+  _alienColorSO: {fileID: 0}
+  _defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  _emotionRenderers:
   - {fileID: 4440899268978521979}
   - {fileID: 5132441173365851644}
-  defaultColor: {r: 0.9056604, g: 0.61089355, b: 0.6212662, a: 1}
-  emotionColors:
-  - emotion: 1
-    color: {r: 0.9411765, g: 0.3254902, b: 0.3254902, a: 1}
-  - emotion: 3
-    color: {r: 0.49803922, g: 0.8352941, b: 0.3647059, a: 1}
-  - emotion: 4
-    color: {r: 0.05882353, g: 0.7529412, b: 0.87058824, a: 1}
-  - emotion: 2
-    color: {r: 1, g: 0.8666667, b: 0.38039216, a: 1}
-  colorFadeDuration: 0.3
---- !u!114 &6943024452398623467
+  _colorFadeDuration: 0.3
+  _inputSystem: {fileID: 0}
+--- !u!114 &8853175190893686317
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -262,35 +250,192 @@ MonoBehaviour:
   m_GameObject: {fileID: 6717372861038130110}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 340b948e76f947346a60bd2eff8265f7, type: 3}
+  m_Script: {fileID: 11500000, guid: d4b9a65f1bb04776b3d27173fef81a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubblePrefab: {fileID: 3989471895941643016, guid: 4263e1fd48922eb4bbaf2025a83e5e5f, type: 3}
-  verticalOffset: 2.6
-  worldScale: 0.03
-  bubbleOffset: {x: -0.8, y: -2, z: 0}
-  minBubbleSize: {x: 120, y: 60}
-  padding: {x: 55, y: -25}
-  defaultLifetime: 1.75
-  backgroundColor: {r: 1, g: 1, b: 1, a: 0.8352941}
-  textColor: {r: 0, g: 0, b: 0, a: 1}
-  fontAsset: {fileID: 11400000, guid: 1d9475e087986d74a84e0afd2166fdf6, type: 2}
-  bubbleImage: {fileID: 2866277534391345941, guid: 4263e1fd48922eb4bbaf2025a83e5e5f, type: 3}
-  defaultBubbleSprite: {fileID: 21300000, guid: a3a49a1772677a0478137de01b53b985, type: 3}
-  emotionSpecificSprites:
-  - emotion: 1
-    sprite: {fileID: 21300000, guid: a3a49a1772677a0478137de01b53b985, type: 3}
-  - emotion: 3
-    sprite: {fileID: 21300000, guid: 01207400fc4ae94439f929af6e117852, type: 3}
-  - emotion: 4
-    sprite: {fileID: 21300000, guid: 504b444210ee4d24fb31b3474a93c33e, type: 3}
-  - emotion: 2
-    sprite: {fileID: 21300000, guid: a6cbe048314ecd2458767e5f6333d6ae, type: 3}
-  _attributedVoice: 0
-  minScale: 0.5
-  maxScale: 0.6
-  minDistance: 2
-  maxDistance: 15
+  _entityID: {fileID: 0}
+--- !u!114 &4373696650642269674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717372861038130110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 6807afcf081abe34c9db91f569cd6482, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171077327916065353}
+        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnMoveInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 55d46ee0-8001-47dc-aa2f-8ece4a2c1ad2
+    m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171077327916065353}
+        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnTalkInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: eddfe554-82ae-49fb-b589-02fa3259a256
+    m_ActionName: 'Player/Talk[/Keyboard/f5]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171077327916065353}
+        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnActionInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2583fa2f-fb7d-498d-b855-b6746dd72150
+    m_ActionName: 'Player/Action[/Keyboard/f6]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171077327916065353}
+        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnFriendlyInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 995d4be8-6642-41ca-aae7-bb888280ac19
+    m_ActionName: 'Player/Friendly[/Keyboard/f1]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171077327916065353}
+        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnAgressiveInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b69f81a3-fbfc-4cb7-9cc1-88166e9b9b15
+    m_ActionName: 'Player/Agressive[/Keyboard/f2]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171077327916065353}
+        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnFearfulInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 26f8c608-ca53-4059-a885-446a423d41f6
+    m_ActionName: 'Player/Fearful[/Keyboard/f3]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3171077327916065353}
+        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnCuriousInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dad30f23-6312-4753-9fdb-59d8bd909b8c
+    m_ActionName: 'Player/Curious[/Keyboard/f4]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9b011d22-4ede-4351-931d-0819bc87d98f
+    m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 88f27444-010c-4004-a219-c61928463632
+    m_ActionName: 'UI/Submit[/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a9badca5-e1b3-4231-b675-ce1731867f5b
+    m_ActionName: 'UI/Cancel[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 50247550-28d3-4dc7-8a2d-f04e53fb9859
+    m_ActionName: 'UI/Point[/Mouse/position,/Touchscreen/touch0/position,/Touchscreen/touch1/position,/Touchscreen/touch2/position,/Touchscreen/touch3/position,/Touchscreen/touch4/position,/Touchscreen/touch5/position,/Touchscreen/touch6/position,/Touchscreen/touch7/position,/Touchscreen/touch8/position,/Touchscreen/touch9/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7bc64548-5ce6-431d-a2e1-44b7b1c4c522
+    m_ActionName: 'UI/Click[/Mouse/leftButton,/Touchscreen/touch0/press,/Touchscreen/touch1/press,/Touchscreen/touch2/press,/Touchscreen/touch3/press,/Touchscreen/touch4/press,/Touchscreen/touch5/press,/Touchscreen/touch6/press,/Touchscreen/touch7/press,/Touchscreen/touch8/press,/Touchscreen/touch9/press]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5d324add-3f1b-4f20-9b1a-12278a440def
+    m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b0081f88-665a-4ff0-b878-c9d186bd38c7
+    m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1773823f-a2d5-417b-a962-cd890db53f05
+    m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 19d35cf5-d7e6-42a8-a3d3-e54a1c018073
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3dcd618f-9234-41f0-a0da-7d9b768ba915
+    m_ActionName: UI/TrackedDeviceOrientation
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &7667603070375797736
 PrefabInstance:
   m_ObjectHideFlags: 0

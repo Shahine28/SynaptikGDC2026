@@ -1,95 +1,72 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public sealed class NoteBook : MonoBehaviour
 {
     [Header("UI Elements")]
-    [SerializeField]
-    private Transform missionListContainer;
+    [SerializeField, Required] private Transform _noteboolEntryContainer;
+    [SerializeField, Required] private NotebookEntry _notebookEntryPrefab;
 
-    [SerializeField]
-    private GameObject missionEntryPrefab;
+    [Header("Quest Manager")]
+    [SerializeField, Required] private QuestManager _questManager;
+    
+    private Dictionary<QuestData, NotebookEntry> _notebookEntryFromQuestData = new();
+    
+    [SerializeField, Required] SmoothListAnimator _smoothListAnimator;
 
-    [SerializeField]
-    private ScrollRect scrollRect;
 
-    private readonly List<Mission> missions = new();
-    private GameManager gameManager;
-
-    private IEnumerator Start()
+    private void Start()
     {
-        yield return new WaitUntil(TryCacheGameManager);
-
-        if (gameManager == null)
+        if (!_noteboolEntryContainer)
         {
-            yield break;
-        }
-
-        gameManager.OnTaskEnd += HandleTaskEnd;
-        SyncMissions();
-        RefreshNotebookUI();
-    }
-
-    private bool TryCacheGameManager()
-    {
-        gameManager = GameManager.Instance;
-        return gameManager != null && gameManager.IsInitialized;
-    }
-
-    private void OnDestroy()
-    {
-        if (gameManager != null)
-        {
-            gameManager.OnTaskEnd -= HandleTaskEnd;
-        }
-    }
-
-    private void HandleTaskEnd(Mission mission, AlienDefinition alienDefinition)
-    {
-        SyncMissions();
-        RefreshNotebookUI();
-    }
-
-    private void SyncMissions()
-    {
-        missions.Clear();
-
-        if (!gameManager)
+            Debug.LogWarning("NoteBook: Note Container is missing");
             return;
+        }
 
-        var gmMissions = gameManager.GetMissions();
-        Debug.Log($"[Notebook] Found {gmMissions.Count} missions in GameManager.");
-        
-        missions.AddRange(gmMissions);
+        if (!_notebookEntryPrefab)
+        {
+            Debug.LogWarning("NoteBook: NotebookEntryPrefab is missing");
+            return;
+        }
+
+        foreach (QuestData quest in _questManager.Quests)
+        {
+            NotebookEntry notebookEntry = Instantiate(_notebookEntryPrefab, _noteboolEntryContainer);
+            notebookEntry.Initialize(quest);
+            quest.OnQuestCompleted += OnQuestCompleted;
+            _notebookEntryFromQuestData.Add(quest, notebookEntry);
+        }
     }
 
-    private void RefreshNotebookUI()
+    private void OnEnable()
     {
-        if (!missionListContainer || !missionEntryPrefab)
-            return;
-
-        for (var i = missionListContainer.childCount - 1; i >= 0; i--)
+        foreach (var variable in _notebookEntryFromQuestData)
         {
-            Destroy(missionListContainer.GetChild(i).gameObject);
+            variable.Key.OnQuestCompleted += OnQuestCompleted;
         }
+    }
 
-        foreach (var mission in missions)
+    private void OnDisable()
+    {
+        foreach (var variable in _notebookEntryFromQuestData)
         {
-            var entry = Instantiate(missionEntryPrefab, missionListContainer);
-            var notebookEntry = entry.GetComponentInChildren<NotebookEntry>();
-
-            if (!notebookEntry)
-                continue;
-
-            notebookEntry.Initialize(mission);
-            notebookEntry.SetToggle(mission.IsFinished);
+            variable.Key.OnQuestCompleted -= OnQuestCompleted;
         }
+    }
 
-        if (scrollRect)
+
+    private void OnQuestCompleted(QuestData data)
+    {
+        _notebookEntryFromQuestData[data].SetToggle(data.IsCompleted);
+        if (data.IsCompleted)
         {
-            scrollRect.verticalNormalizedPosition = 1f;
+            // _notebookEntryFromQuestData[data].transform.SetAsLastSibling();
+            _smoothListAnimator?.MoveQuestToBottom(_notebookEntryFromQuestData[data].GetComponent<RectTransform>());
         }
     }
 }

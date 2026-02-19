@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,21 +15,22 @@ public sealed class NotebookEntry : MonoBehaviour
     [SerializeField]
     private Toggle notebookToggle;
 
-    public void Initialize(Mission mission)
+    public void Initialize(QuestData quest)
     {
         if (titleText)
         {
-            titleText.text = mission.Title;
+            titleText.text = quest.Title;
         }
 
         if (descriptionText)
         {
-            descriptionText.text = mission.Description;
+            descriptionText.text = quest.DisplayDescription;
         }
 
-        SetToggle(mission.IsFinished);
+        SetToggle(quest.IsCompleted);
     }
 
+    
     public void SetToggle(bool isOn)
     {
         if (!notebookToggle)

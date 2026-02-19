@@ -69,7 +69,7 @@ public sealed class CameraFollow : MonoBehaviour
 
         if (playerInteraction != null)
         {
-            playerInteraction.InteractionZoneChanged += HandleInteractionZoneChanged;
+            // playerInteraction.InteractionZoneChanged += HandleInteractionZoneChanged;
         }
         else
         {
@@ -111,7 +111,7 @@ public sealed class CameraFollow : MonoBehaviour
     {
         if (playerInteraction != null)
         {
-            playerInteraction.InteractionZoneChanged -= HandleInteractionZoneChanged;
+            // playerInteraction.InteractionZoneChanged -= HandleInteractionZoneChanged;
         }
     }
 

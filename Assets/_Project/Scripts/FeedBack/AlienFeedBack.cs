@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 public struct FeedBack
 {
-    public Emotion emotion;
+    public EmotionType emotion;
     public Color emotionColor;
     public string talkingReaction;
 }
@@ -16,8 +16,8 @@ public sealed class AlienFeedBack : MonoBehaviour
     [SerializeField]
     private List<FeedBack> feedbackList = new();
 
-    private readonly Dictionary<Emotion, Color> feedbackColors = new();
-    private readonly Dictionary<Emotion, string> feedbackTalking = new();
+    private readonly Dictionary<EmotionType, Color> feedbackColors = new();
+    private readonly Dictionary<EmotionType, string> feedbackTalking = new();
 
     private void Start()
     {
@@ -28,7 +28,7 @@ public sealed class AlienFeedBack : MonoBehaviour
         }
     }
 
-    private void ActionFeedback(IAlienReaction alien, Emotion emotion, Behavior behavior)
+    private void ActionFeedback(IAlienReaction alien, EmotionType emotion, ActionType behavior)
     {
         if (alien == null)
         {
@@ -40,7 +40,7 @@ public sealed class AlienFeedBack : MonoBehaviour
             alien.FeedbackColor(color);
         }
 
-        if (behavior == Behavior.Talking && feedbackTalking.TryGetValue(emotion, out var reaction))
+        if (behavior == ActionType.Word && feedbackTalking.TryGetValue(emotion, out var reaction))
         {
             alien.FeedbackTalking(reaction);
         }
