@@ -15,7 +15,7 @@ MonoBehaviour:
   SymbolFromEmotion:
     _serializedList:
     - Key: 2
-      Value: "\u26A1"
+      Value: "\u26A1(DialogueReaction)"
     - Key: 1
       Value: "\u2764\uFE0F"
     - Key: 4
