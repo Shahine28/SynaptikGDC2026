@@ -369,7 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   mode:
     m_OverrideState: 1
     m_Value: 0
@@ -669,7 +669,7 @@ MonoBehaviour:
     m_Value: 0
   tintColor:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.6720659, g: 0.79695344, b: 0.8867924, a: 1}
   bloomMip:
     m_OverrideState: 1
     m_Value: 1
@@ -736,7 +736,7 @@ MonoBehaviour:
     m_Value: 0
   contrast:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 11
   colorFilter:
     m_OverrideState: 1
     m_Value: {r: 0.98742133, g: 0.88200384, b: 0.7110675, a: 1}
@@ -789,7 +789,7 @@ MonoBehaviour:
   active: 1
   distance:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.025
   cropToFit:
     m_OverrideState: 1
     m_Value: 1
