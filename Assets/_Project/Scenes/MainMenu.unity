@@ -185,8 +185,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4289127151
-  m_fontColor: {r: 0.9372549, g: 0.8862745, b: 0.6509804, a: 1}
+    rgba: 4290376703
+  m_fontColor: {r: 1, g: 0.9512794, b: 0.72641504, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -397,8 +397,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4293037700
-  m_fontColor: {r: 0.5159012, g: 0.5574964, b: 0.8867924, a: 1}
+    rgba: 4294949040
+  m_fontColor: {r: 0.68867916, g: 0.7217984, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -838,7 +838,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: quit?
+  m_text: confirm exit?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: df4798e121a66984f9bcc88962d90adc, type: 2}
   m_sharedMaterial: {fileID: -4291527784825509839, guid: df4798e121a66984f9bcc88962d90adc, type: 2}
@@ -847,8 +847,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282335164
-  m_fontColor: {r: 0.7372549, g: 0.24705882, b: 0.24705882, a: 1}
+    rgba: 4284901119
+  m_fontColor: {r: 1, g: 0.4, b: 0.4, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -865,8 +865,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 22.44
+  m_fontSizeBase: 22.44
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1878,7 +1878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1344896973
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1914,14 +1914,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.98039216}
+  m_Color: {r: 0, g: 0.8113208, b: 0.764626, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 64c7916b43b40e44fa8e65cc79780ea9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 575790c148482ac47b05dc9a648b596e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
