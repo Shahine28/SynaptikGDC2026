@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 public struct AlienEmotionAudioData
 {
-    public AudioClip Clip;
+    public AudioClip[] Clips;
     [Min(0f)] public float Delay;
 }
 
