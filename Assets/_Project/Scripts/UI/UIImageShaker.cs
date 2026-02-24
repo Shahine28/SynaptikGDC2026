@@ -44,6 +44,24 @@ public sealed class UIObjectShaker : MonoBehaviour
     private float shakeTimer;
     private bool isShaking;
 
+    
+    private void OnEnable()
+    {
+        if (MistrustManager.Instance != null)
+        {
+            MistrustManager.Instance.OnMistrustChanged += HandleMistrust;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (MistrustManager.Instance != null)
+        {
+            MistrustManager.Instance.OnMistrustChanged -= HandleMistrust;
+        }
+    }
+    
+    
     private void Awake()
     {
         if (targetUI != null)
@@ -57,21 +75,7 @@ public sealed class UIObjectShaker : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        if (MistrustManager.Instance != null)
-        {
-            MistrustManager.Instance.OnMistrust += HandleMistrust;
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (MistrustManager.Instance != null)
-        {
-            MistrustManager.Instance.OnMistrust -= HandleMistrust;
-        }
-    }
+    
 
     private void Update()
     {

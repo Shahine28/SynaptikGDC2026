@@ -13,153 +13,617 @@ AvatarMask:
     m_Weight: 1
   - m_Path: Armature
     m_Weight: 1
-  - m_Path: Armature/mixamorig:Hips
+  - m_Path: Armature/ROOT
     m_Weight: 1
-  - m_Path: Armature/mixamorig:Hips/mixamorig:LeftUpLeg
+  - m_Path: Armature/ROOT/CTRL_Global
     m_Weight: 1
-  - m_Path: Armature/mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg
+  - m_Path: Armature/ROOT/CTRL_Global/Global
     m_Weight: 1
-  - m_Path: Armature/mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg/mixamorig:LeftFoot
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Hips
     m_Weight: 1
-  - m_Path: Armature/mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg/mixamorig:LeftFoot/mixamorig:LeftToeBase
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Hips/CTRL_Hips_end
     m_Weight: 1
-  - m_Path: Armature/mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg/mixamorig:LeftFoot/mixamorig:LeftToeBase/mixamorig:LeftToe_End
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Spine
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Spine/CTRL_Spine1
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Spine/CTRL_Spine1/CTRL_Spine2
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Spine/CTRL_Spine1/CTRL_Spine2/CTRL_Spine3
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Spine/CTRL_Spine1/CTRL_Spine2/CTRL_Spine3/CTRL_Neck
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Spine/CTRL_Spine1/CTRL_Spine2/CTRL_Spine3/CTRL_Neck/CTRL_Head
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Spine/CTRL_Spine1/CTRL_Spine2/CTRL_Spine3/CTRL_Neck/CTRL_Head/CTRL_eyeBotTarget_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Spine/CTRL_Spine1/CTRL_Spine2/CTRL_Spine3/CTRL_Neck/CTRL_Head/CTRL_eyeBotTarget_L/CTRL_eyeBotTarget_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Spine/CTRL_Spine1/CTRL_Spine2/CTRL_Spine3/CTRL_Neck/CTRL_Head/CTRL_eyeBotTarget_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Spine/CTRL_Spine1/CTRL_Spine2/CTRL_Spine3/CTRL_Neck/CTRL_Head/CTRL_eyeBotTarget_R/CTRL_eyeBotTarget_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Spine/CTRL_Spine1/CTRL_Spine2/CTRL_Spine3/CTRL_Neck/CTRL_Head/CTRL_eyeTopTarget_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Spine/CTRL_Spine1/CTRL_Spine2/CTRL_Spine3/CTRL_Neck/CTRL_Head/CTRL_eyeTopTarget_L/CTRL_eyeTopTarget_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Spine/CTRL_Spine1/CTRL_Spine2/CTRL_Spine3/CTRL_Neck/CTRL_Head/CTRL_eyeTopTarget_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/CTRL_Spine/CTRL_Spine1/CTRL_Spine2/CTRL_Spine3/CTRL_Neck/CTRL_Head/CTRL_eyeTopTarget_R/CTRL_eyeTopTarget_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips
     m_Weight: 1
-  - m_Path: Armature/mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg/mixamorig:LeftFoot/mixamorig:LeftToeBase/mixamorig:LeftToe_End/mixamorig:LeftToe_End_end
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_L
     m_Weight: 1
-  - m_Path: Armature/mixamorig:Hips/mixamorig:RightUpLeg
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_L/DEF_Leg_L
     m_Weight: 1
-  - m_Path: Armature/mixamorig:Hips/mixamorig:RightUpLeg/mixamorig:RightLeg
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_L/DEF_Leg_L/DEF_Foot_L
     m_Weight: 1
-  - m_Path: Armature/mixamorig:Hips/mixamorig:RightUpLeg/mixamorig:RightLeg/mixamorig:RightFoot
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_L/DEF_Leg_L/DEF_Foot_L/DEF_Toe01_L
     m_Weight: 1
-  - m_Path: Armature/mixamorig:Hips/mixamorig:RightUpLeg/mixamorig:RightLeg/mixamorig:RightFoot/mixamorig:RightToeBase
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_L/DEF_Leg_L/DEF_Foot_L/DEF_Toe01_L/DEF_ToeEnd01_L
     m_Weight: 1
-  - m_Path: Armature/mixamorig:Hips/mixamorig:RightUpLeg/mixamorig:RightLeg/mixamorig:RightFoot/mixamorig:RightToeBase/mixamorig:RightToe_End
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_L/DEF_Leg_L/DEF_Foot_L/DEF_Toe01_L/DEF_ToeEnd01_L/DEF_ToeEnd01_L_end
     m_Weight: 1
-  - m_Path: Armature/mixamorig:Hips/mixamorig:RightUpLeg/mixamorig:RightLeg/mixamorig:RightFoot/mixamorig:RightToeBase/mixamorig:RightToe_End/mixamorig:RightToe_End_end
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_L/DEF_Leg_L/DEF_Foot_L/DEF_Toe02_L
     m_Weight: 1
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1/mixamorig:LeftHandIndex2
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1/mixamorig:LeftHandIndex2/mixamorig:LeftHandIndex3
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1/mixamorig:LeftHandIndex2/mixamorig:LeftHandIndex3/mixamorig:LeftHandIndex4
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1/mixamorig:LeftHandIndex2/mixamorig:LeftHandIndex3/mixamorig:LeftHandIndex4/mixamorig:LeftHandIndex4_end
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandMiddle1
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandMiddle1/mixamorig:LeftHandMiddle2
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandMiddle1/mixamorig:LeftHandMiddle2/mixamorig:LeftHandMiddle3
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandMiddle1/mixamorig:LeftHandMiddle2/mixamorig:LeftHandMiddle3/mixamorig:LeftHandMiddle4
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandMiddle1/mixamorig:LeftHandMiddle2/mixamorig:LeftHandMiddle3/mixamorig:LeftHandMiddle4/mixamorig:LeftHandMiddle4_end
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1/mixamorig:LeftHandThumb2
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1/mixamorig:LeftHandThumb2/mixamorig:LeftHandThumb3
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1/mixamorig:LeftHandThumb2/mixamorig:LeftHandThumb3/mixamorig:LeftHandThumb4
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1/mixamorig:LeftHandThumb2/mixamorig:LeftHandThumb3/mixamorig:LeftHandThumb4/mixamorig:LeftHandThumb4_end
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck/mixamorig:Head
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck/mixamorig:Head/mixamorig:AntLeft
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck/mixamorig:Head/mixamorig:AntLeft/mixamorig:AntLeft.001
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck/mixamorig:Head/mixamorig:AntLeft/mixamorig:AntLeft.001/mixamorig:AntLeft.002
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck/mixamorig:Head/mixamorig:AntLeft/mixamorig:AntLeft.001/mixamorig:AntLeft.002/mixamorig:AntLeft.002_end
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck/mixamorig:Head/mixamorig:AntRight
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck/mixamorig:Head/mixamorig:AntRight/mixamorig:AntRight.001
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck/mixamorig:Head/mixamorig:AntRight/mixamorig:AntRight.001/mixamorig:AntRight.002
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck/mixamorig:Head/mixamorig:AntRight/mixamorig:AntRight.001/mixamorig:AntRight.002/mixamorig:AntRight.002_end
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/mixamorig:RightHandIndex3
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/mixamorig:RightHandIndex3/mixamorig:RightHandIndex4
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/mixamorig:RightHandIndex3/mixamorig:RightHandIndex4/mixamorig:RightHandIndex4_end
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandMiddle1
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandMiddle1/mixamorig:RightHandMiddle2
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandMiddle1/mixamorig:RightHandMiddle2/mixamorig:RightHandMiddle3
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandMiddle1/mixamorig:RightHandMiddle2/mixamorig:RightHandMiddle3/mixamorig:RightHandMiddle4
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandMiddle1/mixamorig:RightHandMiddle2/mixamorig:RightHandMiddle3/mixamorig:RightHandMiddle4/mixamorig:RightHandMiddle4_end
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2/mixamorig:RightHandThumb3
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2/mixamorig:RightHandThumb3/mixamorig:RightHandThumb4
-    m_Weight: 0
-  - m_Path: Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2/mixamorig:RightHandThumb3/mixamorig:RightHandThumb4/mixamorig:RightHandThumb4_end
-    m_Weight: 0
-  - m_Path: ceinture.007
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_L/DEF_Leg_L/DEF_Foot_L/DEF_Toe02_L/DEF_ToeEnd02_L
     m_Weight: 1
-  - m_Path: ceinture.008
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_L/DEF_Leg_L/DEF_Foot_L/DEF_Toe02_L/DEF_ToeEnd02_L/DEF_ToeEnd02_L_end
     m_Weight: 1
-  - m_Path: Corps.009
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_L/DEF_Leg_L/DEF_Foot_L/DEF_Toe03_L
     m_Weight: 1
-  - m_Path: Eye.017
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_L/DEF_Leg_L/DEF_Foot_L/DEF_Toe03_L/DEF_ToeEnd03_L
     m_Weight: 1
-  - m_Path: Eye.018
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_L/DEF_Leg_L/DEF_Foot_L/DEF_Toe03_L/DEF_ToeEnd03_L/DEF_ToeEnd03_L_end
     m_Weight: 1
-  - m_Path: Poignet.003
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_R
     m_Weight: 1
-  - m_Path: Poignet2.003
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_R/DEF_Leg_R
     m_Weight: 1
-  - m_Path: Sphere.004
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_R/DEF_Leg_R/DEF_Foot_R
     m_Weight: 1
-  - m_Path: zabzabzab.009
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_R/DEF_Leg_R/DEF_Foot_R/DEF_Toe01_R
     m_Weight: 1
-  - m_Path: "\xE9paule1.004"
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_R/DEF_Leg_R/DEF_Foot_R/DEF_Toe01_R/DEF_ToeEnd01_R
     m_Weight: 1
-  - m_Path: "\xE9paule2.004"
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_R/DEF_Leg_R/DEF_Foot_R/DEF_Toe01_R/DEF_ToeEnd01_R/DEF_ToeEnd01_R_end
     m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_R/DEF_Leg_R/DEF_Foot_R/DEF_Toe02_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_R/DEF_Leg_R/DEF_Foot_R/DEF_Toe02_R/DEF_ToeEnd02_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_R/DEF_Leg_R/DEF_Foot_R/DEF_Toe02_R/DEF_ToeEnd02_R/DEF_ToeEnd02_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_R/DEF_Leg_R/DEF_Foot_R/DEF_Toe03_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_R/DEF_Leg_R/DEF_Foot_R/DEF_Toe03_R/DEF_ToeEnd03_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/DEF_UpLeg_R/DEF_Leg_R/DEF_Foot_R/DEF_Toe03_R/DEF_ToeEnd03_R/DEF_ToeEnd03_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L/FK_Leg_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L/FK_Leg_L/FK_Foot_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L/FK_Leg_L/FK_Foot_L/FK_FootCtrl_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L/FK_Leg_L/FK_Foot_L/FK_FootCtrl_L/FK_LegTarget_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L/FK_Leg_L/FK_Foot_L/FK_FootCtrl_L/FK_LegTarget_L/FK_LegTarget_L_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L/FK_Leg_L/FK_Foot_L/FK_Toe01_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L/FK_Leg_L/FK_Foot_L/FK_Toe01_L/FK_ToeEnd01_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L/FK_Leg_L/FK_Foot_L/FK_Toe01_L/FK_ToeEnd01_L/FK_ToeEnd01_L_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L/FK_Leg_L/FK_Foot_L/FK_Toe02_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L/FK_Leg_L/FK_Foot_L/FK_Toe02_L/FK_ToeEnd02_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L/FK_Leg_L/FK_Foot_L/FK_Toe02_L/FK_ToeEnd02_L/FK_ToeEnd02_L_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L/FK_Leg_L/FK_Foot_L/FK_Toe03_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L/FK_Leg_L/FK_Foot_L/FK_Toe03_L/FK_ToeEnd03_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_L/FK_Leg_L/FK_Foot_L/FK_Toe03_L/FK_ToeEnd03_L/FK_ToeEnd03_L_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R/FK_Leg_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R/FK_Leg_R/FK_Foot_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R/FK_Leg_R/FK_Foot_R/FK_FootCtrl_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R/FK_Leg_R/FK_Foot_R/FK_FootCtrl_R/FK_LegTarget_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R/FK_Leg_R/FK_Foot_R/FK_FootCtrl_R/FK_LegTarget_R/FK_LegTarget_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R/FK_Leg_R/FK_Foot_R/FK_Toe01_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R/FK_Leg_R/FK_Foot_R/FK_Toe01_R/FK_ToeEnd01_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R/FK_Leg_R/FK_Foot_R/FK_Toe01_R/FK_ToeEnd01_R/FK_ToeEnd01_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R/FK_Leg_R/FK_Foot_R/FK_Toe02_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R/FK_Leg_R/FK_Foot_R/FK_Toe02_R/FK_ToeEnd02_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R/FK_Leg_R/FK_Foot_R/FK_Toe02_R/FK_ToeEnd02_R/FK_ToeEnd02_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R/FK_Leg_R/FK_Foot_R/FK_Toe03_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R/FK_Leg_R/FK_Foot_R/FK_Toe03_R/FK_ToeEnd03_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/FK_UpLeg_R/FK_Leg_R/FK_Foot_R/FK_Toe03_R/FK_ToeEnd03_R/FK_ToeEnd03_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/IK_UpLeg_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/IK_UpLeg_L/IK_Leg_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/IK_UpLeg_L/IK_Leg_L/IK_Leg_L_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/IK_UpLeg_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/IK_UpLeg_R/IK_Leg_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Hips/IK_UpLeg_R/IK_Leg_R/IK_Leg_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/CTRL_Ear_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/CTRL_Ear_L/CTRL_Ear01_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/CTRL_Ear_L/CTRL_Ear01_L/CTRL_Ear02_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/CTRL_Ear_L/CTRL_Ear01_L/CTRL_Ear02_L/CTRL_Ear03_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/CTRL_Ear_L/CTRL_Ear01_L/CTRL_Ear02_L/CTRL_Ear03_L/CTRL_Ear03_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/CTRL_Ear_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/CTRL_Ear_R/CTRL_Ear01_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/CTRL_Ear_R/CTRL_Ear01_R/CTRL_Ear02_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/CTRL_Ear_R/CTRL_Ear01_R/CTRL_Ear02_R/CTRL_Ear03_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/CTRL_Ear_R/CTRL_Ear01_R/CTRL_Ear02_R/CTRL_Ear03_R/CTRL_Ear03_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/CTRL_faceTop_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/CTRL_faceTop_L/CTRL_faceTop_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/CTRL_faceTop_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/CTRL_faceTop_R/CTRL_faceTop_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_Ear_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_Ear_L/DEF_Ear01_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_Ear_L/DEF_Ear01_L/DEF_Ear02_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_Ear_L/DEF_Ear01_L/DEF_Ear02_L/DEF_Ear03_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_Ear_L/DEF_Ear01_L/DEF_Ear02_L/DEF_Ear03_L/DEF_Ear03_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_Ear_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_Ear_R/DEF_Ear01_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_Ear_R/DEF_Ear01_R/DEF_Ear02_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_Ear_R/DEF_Ear01_R/DEF_Ear02_R/DEF_Ear03_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_Ear_R/DEF_Ear01_R/DEF_Ear02_R/DEF_Ear03_R/DEF_Ear03_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_eyeBot_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_eyeBot_L/DEF_eyeBot_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_eyeBot_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_eyeBot_R/DEF_eyeBot_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_eyeTop_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_eyeTop_L/DEF_eyeTop_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_eyeTop_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_eyeTop_R/DEF_eyeTop_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_faceTop_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_faceTop_L/DEF_faceTop_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_faceTop_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/DEF_Head/DEF_faceTop_R/DEF_faceTop_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/Parameter
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Neck/Parameter/Parameter_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_L/DEF_Arm_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_L/DEF_Arm_L/DEF_ForeArm_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_L/DEF_Arm_L/DEF_ForeArm_L/DEF_Hand_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_L/DEF_Arm_L/DEF_ForeArm_L/DEF_Hand_L/DEF_Finger01_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_L/DEF_Arm_L/DEF_ForeArm_L/DEF_Hand_L/DEF_Finger01_L/DEF_FingerEnd01_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_L/DEF_Arm_L/DEF_ForeArm_L/DEF_Hand_L/DEF_Finger01_L/DEF_FingerEnd01_L/DEF_FingerEnd01_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_L/DEF_Arm_L/DEF_ForeArm_L/DEF_Hand_L/DEF_Finger02_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_L/DEF_Arm_L/DEF_ForeArm_L/DEF_Hand_L/DEF_Finger02_L/DEF_FingerEnd02_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_L/DEF_Arm_L/DEF_ForeArm_L/DEF_Hand_L/DEF_Finger02_L/DEF_FingerEnd02_L/DEF_FingerEnd02_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_L/DEF_Arm_L/DEF_ForeArm_L/DEF_Hand_L/DEF_Finger03_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_L/DEF_Arm_L/DEF_ForeArm_L/DEF_Hand_L/DEF_Finger03_L/DEF_FingerEnd03_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_L/DEF_Arm_L/DEF_ForeArm_L/DEF_Hand_L/DEF_Finger03_L/DEF_FingerEnd03_L/DEF_FingerEnd03_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_R/DEF_Arm_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_R/DEF_Arm_R/DEF_ForeArm_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_R/DEF_Arm_R/DEF_ForeArm_R/DEF_Hand_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_R/DEF_Arm_R/DEF_ForeArm_R/DEF_Hand_R/DEF_Finger01_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_R/DEF_Arm_R/DEF_ForeArm_R/DEF_Hand_R/DEF_Finger01_R/DEF_FingerEnd01_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_R/DEF_Arm_R/DEF_ForeArm_R/DEF_Hand_R/DEF_Finger01_R/DEF_FingerEnd01_R/DEF_FingerEnd01_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_R/DEF_Arm_R/DEF_ForeArm_R/DEF_Hand_R/DEF_Finger02_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_R/DEF_Arm_R/DEF_ForeArm_R/DEF_Hand_R/DEF_Finger02_R/DEF_FingerEnd02_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_R/DEF_Arm_R/DEF_ForeArm_R/DEF_Hand_R/DEF_Finger02_R/DEF_FingerEnd02_R/DEF_FingerEnd02_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_R/DEF_Arm_R/DEF_ForeArm_R/DEF_Hand_R/DEF_Finger03_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_R/DEF_Arm_R/DEF_ForeArm_R/DEF_Hand_R/DEF_Finger03_R/DEF_FingerEnd03_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/DEF_Shoulder_R/DEF_Arm_R/DEF_ForeArm_R/DEF_Hand_R/DEF_Finger03_R/DEF_FingerEnd03_R/DEF_FingerEnd03_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L/FK_Arm_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L/FK_Arm_L/FK_ForeArm_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L/FK_Arm_L/FK_ForeArm_L/FK_Hand_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L/FK_Arm_L/FK_ForeArm_L/FK_Hand_L/FK_ArmTarget_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L/FK_Arm_L/FK_ForeArm_L/FK_Hand_L/FK_ArmTarget_L/FK_ArmTarget_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L/FK_Arm_L/FK_ForeArm_L/FK_Hand_L/FK_Finger01_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L/FK_Arm_L/FK_ForeArm_L/FK_Hand_L/FK_Finger01_L/FK_FingerEnd01_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L/FK_Arm_L/FK_ForeArm_L/FK_Hand_L/FK_Finger01_L/FK_FingerEnd01_L/FK_FingerEnd01_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L/FK_Arm_L/FK_ForeArm_L/FK_Hand_L/FK_Finger02_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L/FK_Arm_L/FK_ForeArm_L/FK_Hand_L/FK_Finger02_L/FK_FingerEnd02_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L/FK_Arm_L/FK_ForeArm_L/FK_Hand_L/FK_Finger02_L/FK_FingerEnd02_L/FK_FingerEnd02_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L/FK_Arm_L/FK_ForeArm_L/FK_Hand_L/FK_Finger03_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L/FK_Arm_L/FK_ForeArm_L/FK_Hand_L/FK_Finger03_L/FK_FingerEnd03_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_L/FK_Arm_L/FK_ForeArm_L/FK_Hand_L/FK_Finger03_L/FK_FingerEnd03_L/FK_FingerEnd03_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R/FK_Arm_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R/FK_Arm_R/FK_ForeArm_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R/FK_Arm_R/FK_ForeArm_R/FK_Hand_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R/FK_Arm_R/FK_ForeArm_R/FK_Hand_R/FK_ArmTarget_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R/FK_Arm_R/FK_ForeArm_R/FK_Hand_R/FK_ArmTarget_R/FK_ArmTarget_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R/FK_Arm_R/FK_ForeArm_R/FK_Hand_R/FK_Finger01_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R/FK_Arm_R/FK_ForeArm_R/FK_Hand_R/FK_Finger01_R/FK_FingerEnd01_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R/FK_Arm_R/FK_ForeArm_R/FK_Hand_R/FK_Finger01_R/FK_FingerEnd01_R/FK_FingerEnd01_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R/FK_Arm_R/FK_ForeArm_R/FK_Hand_R/FK_Finger02_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R/FK_Arm_R/FK_ForeArm_R/FK_Hand_R/FK_Finger02_R/FK_FingerEnd02_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R/FK_Arm_R/FK_ForeArm_R/FK_Hand_R/FK_Finger02_R/FK_FingerEnd02_R/FK_FingerEnd02_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R/FK_Arm_R/FK_ForeArm_R/FK_Hand_R/FK_Finger03_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R/FK_Arm_R/FK_ForeArm_R/FK_Hand_R/FK_Finger03_R/FK_FingerEnd03_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/FK_Shoulder_R/FK_Arm_R/FK_ForeArm_R/FK_Hand_R/FK_Finger03_R/FK_FingerEnd03_R/FK_FingerEnd03_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_L/IK_Arm_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_L/IK_Arm_L/IK_ForeArm_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_L/IK_Arm_L/IK_ForeArm_L/IK_Hand_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_L/IK_Arm_L/IK_ForeArm_L/IK_Hand_L/IK_Finger01_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_L/IK_Arm_L/IK_ForeArm_L/IK_Hand_L/IK_Finger01_L/IK_FingerEnd01_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_L/IK_Arm_L/IK_ForeArm_L/IK_Hand_L/IK_Finger01_L/IK_FingerEnd01_L/IK_FingerEnd01_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_L/IK_Arm_L/IK_ForeArm_L/IK_Hand_L/IK_Finger02_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_L/IK_Arm_L/IK_ForeArm_L/IK_Hand_L/IK_Finger02_L/IK_FingerEnd02_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_L/IK_Arm_L/IK_ForeArm_L/IK_Hand_L/IK_Finger02_L/IK_FingerEnd02_L/IK_FingerEnd02_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_L/IK_Arm_L/IK_ForeArm_L/IK_Hand_L/IK_Finger03_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_L/IK_Arm_L/IK_ForeArm_L/IK_Hand_L/IK_Finger03_L/IK_FingerEnd03_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_L/IK_Arm_L/IK_ForeArm_L/IK_Hand_L/IK_Finger03_L/IK_FingerEnd03_L/IK_FingerEnd03_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_R/IK_Arm_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_R/IK_Arm_R/IK_ForeArm_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_R/IK_Arm_R/IK_ForeArm_R/IK_Hand_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_R/IK_Arm_R/IK_ForeArm_R/IK_Hand_R/IK_Finger01_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_R/IK_Arm_R/IK_ForeArm_R/IK_Hand_R/IK_Finger01_R/IK_FingerEnd01_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_R/IK_Arm_R/IK_ForeArm_R/IK_Hand_R/IK_Finger01_R/IK_FingerEnd01_R/IK_FingerEnd01_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_R/IK_Arm_R/IK_ForeArm_R/IK_Hand_R/IK_Finger02_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_R/IK_Arm_R/IK_ForeArm_R/IK_Hand_R/IK_Finger02_R/IK_FingerEnd02_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_R/IK_Arm_R/IK_ForeArm_R/IK_Hand_R/IK_Finger02_R/IK_FingerEnd02_R/IK_FingerEnd02_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_R/IK_Arm_R/IK_ForeArm_R/IK_Hand_R/IK_Finger03_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_R/IK_Arm_R/IK_ForeArm_R/IK_Hand_R/IK_Finger03_R/IK_FingerEnd03_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/CTRL_Global/Global/DEF_Spine/DEF_Spine1/DEF_Spine2/DEF_Spine3/IK_Shoulder_R/IK_Arm_R/IK_ForeArm_R/IK_Hand_R/IK_Finger03_R/IK_FingerEnd03_R/IK_FingerEnd03_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_L/IK_ArmTarget_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_L/IK_ArmTarget_L/IK_ArmTarget_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_L/IK_Finger02AllCtrl_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_L/IK_Finger02AllCtrl_L/IK_Finger01Ctrl_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_L/IK_Finger02AllCtrl_L/IK_Finger01Ctrl_L/IK_Finger01Target_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_L/IK_Finger02AllCtrl_L/IK_Finger01Ctrl_L/IK_Finger01Target_L/IK_Finger01Target_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_L/IK_Finger02AllCtrl_L/IK_Finger02Ctrl_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_L/IK_Finger02AllCtrl_L/IK_Finger02Ctrl_L/IK_Finger02Target_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_L/IK_Finger02AllCtrl_L/IK_Finger02Ctrl_L/IK_Finger02Target_L/IK_Finger02Target_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_L/IK_Finger02AllCtrl_L/IK_Finger03Ctrl_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_L/IK_Finger02AllCtrl_L/IK_Finger03Ctrl_L/IK_Finger03Target_L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_L/IK_Finger02AllCtrl_L/IK_Finger03Ctrl_L/IK_Finger03Target_L/IK_Finger03Target_L_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_R/IK_ArmTarget_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_R/IK_ArmTarget_R/IK_ArmTarget_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_R/IK_Finger02AllCtrl_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_R/IK_Finger02AllCtrl_R/IK_Finger01Ctrl_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_R/IK_Finger02AllCtrl_R/IK_Finger01Ctrl_R/IK_Finger01Target_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_R/IK_Finger02AllCtrl_R/IK_Finger01Ctrl_R/IK_Finger01Target_R/IK_Finger01Target_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_R/IK_Finger02AllCtrl_R/IK_Finger02Ctrl_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_R/IK_Finger02AllCtrl_R/IK_Finger02Ctrl_R/IK_Finger02Target_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_R/IK_Finger02AllCtrl_R/IK_Finger02Ctrl_R/IK_Finger02Target_R/IK_Finger02Target_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_R/IK_Finger02AllCtrl_R/IK_Finger03Ctrl_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_R/IK_Finger02AllCtrl_R/IK_Finger03Ctrl_R/IK_Finger03Target_R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_ArmCtrl_R/IK_Finger02AllCtrl_R/IK_Finger03Ctrl_R/IK_Finger03Target_R/IK_Finger03Target_R_end
+    m_Weight: 0
+  - m_Path: Armature/ROOT/IK_FootCtrl_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L/IK_FootRoll02_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L/IK_FootRoll02_L/IK_FootRoll01_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L/IK_FootRoll02_L/IK_FootRoll01_L/IK_Foot_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L/IK_FootRoll02_L/IK_FootRoll01_L/IK_Foot_L/IK_Toe01_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L/IK_FootRoll02_L/IK_FootRoll01_L/IK_Foot_L/IK_Toe01_L/IK_ToeEnd01_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L/IK_FootRoll02_L/IK_FootRoll01_L/IK_Foot_L/IK_Toe01_L/IK_ToeEnd01_L/IK_ToeEnd01_L_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L/IK_FootRoll02_L/IK_FootRoll01_L/IK_Foot_L/IK_Toe02_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L/IK_FootRoll02_L/IK_FootRoll01_L/IK_Foot_L/IK_Toe02_L/IK_ToeEnd02_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L/IK_FootRoll02_L/IK_FootRoll01_L/IK_Foot_L/IK_Toe02_L/IK_ToeEnd02_L/IK_ToeEnd02_L_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L/IK_FootRoll02_L/IK_FootRoll01_L/IK_Foot_L/IK_Toe03_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L/IK_FootRoll02_L/IK_FootRoll01_L/IK_Foot_L/IK_Toe03_L/IK_ToeEnd03_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L/IK_FootRoll02_L/IK_FootRoll01_L/IK_Foot_L/IK_Toe03_L/IK_ToeEnd03_L/IK_ToeEnd03_L_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L/IK_FootRoll02_L/IK_FootRoll01_L/IK_LegCtrl_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll05_L/IK_FootRoll04_L/IK_FootRoll03_L/IK_FootRoll02_L/IK_FootRoll01_L/IK_LegCtrl_L/IK_LegCtrl_L_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_FootRoll_L/IK_FootRoll_L_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_LegTarget_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_LegTarget_L/IK_LegTarget_L_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_ToeAllCtrl_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_ToeAllCtrl_L/IK_Toe01Ctrl_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_ToeAllCtrl_L/IK_Toe01Ctrl_L/IK_Toe01Target_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_ToeAllCtrl_L/IK_Toe01Ctrl_L/IK_Toe01Target_L/IK_Toe01Target_L_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_ToeAllCtrl_L/IK_Toe02Ctrl_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_ToeAllCtrl_L/IK_Toe02Ctrl_L/IK_Toe02Target_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_ToeAllCtrl_L/IK_Toe02Ctrl_L/IK_Toe02Target_L/IK_Toe02Target_L_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_ToeAllCtrl_L/IK_Toe03Ctrl_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_ToeAllCtrl_L/IK_Toe03Ctrl_L/IK_Toe03Target_L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_L/IK_ToeAllCtrl_L/IK_Toe03Ctrl_L/IK_Toe03Target_L/IK_Toe03Target_L_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R/IK_FootRoll02_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R/IK_FootRoll02_R/IK_FootRoll01_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R/IK_FootRoll02_R/IK_FootRoll01_R/IK_Foot_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R/IK_FootRoll02_R/IK_FootRoll01_R/IK_Foot_R/IK_Toe01_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R/IK_FootRoll02_R/IK_FootRoll01_R/IK_Foot_R/IK_Toe01_R/IK_ToeEnd01_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R/IK_FootRoll02_R/IK_FootRoll01_R/IK_Foot_R/IK_Toe01_R/IK_ToeEnd01_R/IK_ToeEnd01_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R/IK_FootRoll02_R/IK_FootRoll01_R/IK_Foot_R/IK_Toe02_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R/IK_FootRoll02_R/IK_FootRoll01_R/IK_Foot_R/IK_Toe02_R/IK_ToeEnd02_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R/IK_FootRoll02_R/IK_FootRoll01_R/IK_Foot_R/IK_Toe02_R/IK_ToeEnd02_R/IK_ToeEnd02_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R/IK_FootRoll02_R/IK_FootRoll01_R/IK_Foot_R/IK_Toe03_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R/IK_FootRoll02_R/IK_FootRoll01_R/IK_Foot_R/IK_Toe03_R/IK_ToeEnd03_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R/IK_FootRoll02_R/IK_FootRoll01_R/IK_Foot_R/IK_Toe03_R/IK_ToeEnd03_R/IK_ToeEnd03_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R/IK_FootRoll02_R/IK_FootRoll01_R/IK_LegCtrl_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll05_R/IK_FootRoll04_R/IK_FootRoll03_R/IK_FootRoll02_R/IK_FootRoll01_R/IK_LegCtrl_R/IK_LegCtrl_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_FootRoll_R/IK_FootRoll_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_LegTarget_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_LegTarget_R/IK_LegTarget_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_ToeAllCtrl_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_ToeAllCtrl_R/IK_Toe01Ctrl_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_ToeAllCtrl_R/IK_Toe01Ctrl_R/IK_Toe01Target_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_ToeAllCtrl_R/IK_Toe01Ctrl_R/IK_Toe01Target_R/IK_Toe01Target_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_ToeAllCtrl_R/IK_Toe02Ctrl_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_ToeAllCtrl_R/IK_Toe02Ctrl_R/IK_Toe02Target_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_ToeAllCtrl_R/IK_Toe02Ctrl_R/IK_Toe02Target_R/IK_Toe02Target_R_end
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_ToeAllCtrl_R/IK_Toe03Ctrl_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_ToeAllCtrl_R/IK_Toe03Ctrl_R/IK_Toe03Target_R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/IK_FootCtrl_R/IK_ToeAllCtrl_R/IK_Toe03Ctrl_R/IK_Toe03Target_R/IK_Toe03Target_R_end
+    m_Weight: 1
+  - m_Path: MESH_belt01
+    m_Weight: 0
+  - m_Path: MESH_belt02
+    m_Weight: 0
+  - m_Path: MESH_beltMid
+    m_Weight: 0
+  - m_Path: MESH_body
+    m_Weight: 1
+  - m_Path: MESH_bracelet01
+    m_Weight: 0
+  - m_Path: MESH_bracelet02
+    m_Weight: 0
+  - m_Path: MESH_eyeDown
+    m_Weight: 0
+  - m_Path: MESH_eyeUp
+    m_Weight: 0
+  - m_Path: MESH_head
+    m_Weight: 0
+  - m_Path: MESH_shoulder01
+    m_Weight: 0
+  - m_Path: MESH_shoulder02
+    m_Weight: 0

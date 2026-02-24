@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ac6c21e77e417ebcac4f4fda737f8b, type: 3}
+  m_Name: DestroyWall
+  m_EditorClassIdentifier: 
+  Description: "Detruit le mur fissur\xE9"
+  _isMet: 0
+  _targetOwner: {fileID: 11400000, guid: 6e03e29c11ec1ff4083883e222969b92, type: 2}
+  _targetItem: {fileID: 11400000, guid: 6e6dd44394067514482c4fc99725308a, type: 2}

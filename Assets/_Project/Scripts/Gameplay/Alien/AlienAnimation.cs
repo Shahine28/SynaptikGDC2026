@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using NaughtyAttributes;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CharacterController))]
 public class AlienAnimation : CharacterAnimationBase
@@ -8,6 +12,10 @@ public class AlienAnimation : CharacterAnimationBase
 
     private CharacterController _controller;
     private Vector3 _lastPosition;
+
+    [SerializeField, Required] private WorldEntity _punchTaget;
+    public UnityEvent OnPlayerHitByPunch;
+
 
     protected override void Awake()
     {
@@ -20,7 +28,6 @@ public class AlienAnimation : CharacterAnimationBase
 
     protected override void Update()
     {
-
         Vector3 delta = transform.position - _lastPosition;
         delta.y = 0f; // ignore les mouvements verticaux
 
@@ -33,5 +40,29 @@ public class AlienAnimation : CharacterAnimationBase
         _lastPosition = transform.position;
     }
 
-    public void PlayPuke() => _animator.SetTrigger(_hashPukeTrig);
+    public override void OnPunch()
+    {
+        base.OnPunch();
+        int hitCount = _punchCollider.Count(x => x != null);
+        for (int i = 0; i < hitCount; i++)
+        {
+            if (_punchCollider[i].TryGetComponent(out WorldEntity worldEntity))
+            {
+                if (worldEntity.EntityID == _punchTaget.EntityID)
+                {
+                    OnPlayerHitByPunch?.Invoke();
+                    Debug.Log("Player punched");
+                }
+            }
+        }
+    }
+
+    public void PlayPuke()
+    {
+        if (TryGetComponent(out WorldEntity worldEntity))
+        {
+            GameEvents.TriggerAnimationAction(worldEntity.EntityID, "Puke");
+        }
+        _animator.SetTrigger(_hashPukeTrig);
+    } 
 }

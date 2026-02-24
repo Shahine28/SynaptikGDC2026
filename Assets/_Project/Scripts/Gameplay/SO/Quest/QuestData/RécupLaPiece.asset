@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aa4bb8852eb4000a806036a706e3a6e, type: 3}
+  m_Name: "R\xE9cupLaPiece"
+  m_EditorClassIdentifier: 
+  Title: "Recup\xE8re la pi\xE8ce co\xF1o "
+  DisplayDescription: "Prendre une pi\xE8ce"
+  Goals:
+  - {fileID: 11400000, guid: 568b869354492c14b8d406380d21bca2, type: 2}
