@@ -15,7 +15,7 @@ MonoBehaviour:
   AlienColorFromEmotion:
     _serializedList:
     - Key: 0
-      Value: {r: 0.9137255, g: 0.52156866, b: 0.52156866, a: 1}
+      Value: {r: 0.9056604, g: 0.74332494, b: 0.74332494, a: 1}
     - Key: 1
       Value: {r: 1, g: 1, b: 0, a: 1}
     - Key: 2

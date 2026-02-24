@@ -3738,8 +3738,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionType: 0
-  size: 1.55
-  weight: 0
+  zoneOffset: {x: 0, y: 0, z: 0}
+  zoneRadius: 5
+  zoneSize: {x: 10, y: 10}
+  weight: -3
   behavior: 2
   smoothTime: 0.2
   smoothTimeTransition: 1
@@ -8624,7 +8626,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionType: 1
-  size: 8.75
+  zoneOffset: {x: 0, y: 0, z: 0}
+  zoneRadius: 5
+  zoneSize: {x: 16.25, y: 12.91}
   weight: 0
   behavior: 0
   smoothTime: 0.2

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa4bb8852eb4000a806036a706e3a6e, type: 3}
   m_Name: Puke
   m_EditorClassIdentifier: 
-  Title: "R\xE9conforter un alien"
-  DisplayDescription: Donner une peluche
+  Title: make an alien Puke
+  DisplayDescription: seems linked to strong emotions
   Goals:
   - {fileID: 11400000, guid: 4405513e5cb430649933dca01ff089b3, type: 2}
