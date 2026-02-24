@@ -55,10 +55,10 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: e8c1e68770490b849b6e3fcad2191d4e, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: 490bf097c15f14b0eb0bc61fd4f7a2c1, type: 2}
+      objectReference: {fileID: 2100000, guid: 0cce770ddedae0b41945416526603d33, type: 2}
     - target: {fileID: 919132149155446097, guid: e8c1e68770490b849b6e3fcad2191d4e, type: 3}
       propertyPath: m_Name
-      value: MESH_Fence
+      value: Fence
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
