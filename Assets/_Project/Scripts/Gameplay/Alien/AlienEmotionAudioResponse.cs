@@ -30,20 +30,25 @@ public class AlienEmotionAudioResponse : MonoBehaviour
 
         if (_alienAudioSO.AudioDataFromEmotion.TryGetValue(synaptikInput.emotionType, out AlienEmotionAudioData audioData))
         {
-            if (audioData.Clip != null)
+            if (audioData.Clips != null && audioData.Clips.Length > 0)
             {
                 if (_playCoroutine != null)
                 {
                     StopCoroutine(_playCoroutine);
                 }
                 
-                if (audioData.Delay > 0f)
+                AudioClip randomClip = audioData.Clips[UnityEngine.Random.Range(0, audioData.Clips.Length)];
+                
+                if (randomClip != null)
                 {
-                    _playCoroutine = StartCoroutine(PlayWithDelayRoutine(audioData.Clip, audioData.Delay));
-                }
-                else
-                {
-                    PlayAudio(audioData.Clip);
+                    if (audioData.Delay > 0f)
+                    {
+                        _playCoroutine = StartCoroutine(PlayWithDelayRoutine(randomClip, audioData.Delay));
+                    }
+                    else
+                    {
+                        PlayAudio(randomClip);
+                    }
                 }
             }
         }
