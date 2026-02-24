@@ -6,6 +6,7 @@ using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 // using FMODUnity;
@@ -64,7 +65,12 @@ public class Alien : MonoBehaviour, IInteraction
     
     
     [SerializeField, SerializedDictionary("ItemIdToReceive", "DialogueSymbol")] 
-    private SerializedDictionary<ItemID, AlienDialogueSymbolBySynaptikInput> _DialogueSymbolFromItemIdsToReceive = new();
+    private SerializedDictionary<ItemID, string> _DialogueSymbolFromItemIdsToReceive = new();
+
+    [Tooltip("L'objet sera supprimé de la liste, l'alien recevant à nouveau ce même objet ne donnera plus de dialogue personnalisé")]
+    [SerializeField] private bool _deleteItemOnReceive = true;
+
+    public UnityEvent OnItemReceived;
     
     
     // [Header("Sound")]
@@ -131,41 +137,42 @@ public class Alien : MonoBehaviour, IInteraction
     {
         
         _stateMachine?.UpdateState(action.emotionType);
-        
+
+        if (_stateMachine != null) action.emotionType = _stateMachine.GetCurrentEmotionType();
         _alienEmotionColorVisuals?.OnEmotionColorChanged(action);
         
-        AlienDialogueSymbolBySynaptikInput targetDialogueSymbol = _dialogueSymbolBySynaptikInput;
         
         if (!item)
         {
-            if (_DialogueSymbolFromItemIdsToReceive.Count > 0)
+            AlienDialogueSymbolBySynaptikInput targetDialogueSymbol = _dialogueSymbolBySynaptikInput;
+            var dialogueData = targetDialogueSymbol?.GetDialogue(action);
+            if (dialogueData != null)
             {
-                targetDialogueSymbol = _DialogueSymbolFromItemIdsToReceive.Values.First(); 
+                StartCoroutine(StartDialogueDelayed(transform, action, dialogueData));
             }
         }
-        else
-        {
-            playerInteraction?.ItemDrop();
-            if (_DialogueSymbolFromItemIdsToReceive.TryGetValue(item.itemID, out AlienDialogueSymbolBySynaptikInput itemDialogue))
-            {
-                targetDialogueSymbol = itemDialogue;
 
-                if (TryGetComponent(out WorldEntity worldEntity))
-                {
-                    GameEvents.TriggerInventoryChange(worldEntity.EntityID, item.itemID, true);
-                }
-
-                _DialogueSymbolFromItemIdsToReceive.Remove(item.itemID);
-                playerInteraction?.ItemDrop();
-                Destroy(item.gameObject);
-            }
-        }
+        if (!item) return;
         
-        var dialogueData = targetDialogueSymbol?.GetDialogue(action);
-        if (dialogueData != null)
+        playerInteraction?.ItemDrop();
+        if (_DialogueSymbolFromItemIdsToReceive.TryGetValue(item.itemID, out string itemDialogue))
         {
-            StartCoroutine(StartDialogueDelayed(transform, action, dialogueData));
+            if (TryGetComponent(out WorldEntity worldEntity))
+            {
+                GameEvents.TriggerInventoryChange(worldEntity.EntityID, item.itemID, true);
+            }
+
+            if (_deleteItemOnReceive)
+            {
+                _DialogueSymbolFromItemIdsToReceive.Remove(item.itemID);
+            }
+            playerInteraction?.ItemDrop();
+            Destroy(item.gameObject);
+            OnItemReceived?.Invoke();
+            StartCoroutine(StartDialogueDelayed(transform, action, itemDialogue));
         }
+
+
     }
 
     private IEnumerator StartDialogueDelayed(Transform tr, SynaptikInput action, string text)

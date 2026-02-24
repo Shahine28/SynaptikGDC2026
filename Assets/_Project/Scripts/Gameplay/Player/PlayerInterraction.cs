@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using ExternPropertyAttributes;
 using UnityEngine;
-
+using UnityEngine.Events;
 
 
 public class PlayerInteraction : MonoBehaviour
@@ -28,8 +28,8 @@ public class PlayerInteraction : MonoBehaviour
     private readonly Collider[] _pickableHitBuffer = new Collider[10];
     private readonly Collider[] _interactableHitBuffer = new Collider[10];
 
-    public event Action OnItemPickedUp;
-    public event Action OnItemDropped;
+    public UnityEvent OnItemPickedUp;
+    public UnityEvent OnItemDropped;
     public event Action<SynaptikInput, HoldableItem> OnSynaptikInterraction;
     
     void Awake()
@@ -96,7 +96,7 @@ public class PlayerInteraction : MonoBehaviour
                 || synaptikInput is not { actionType: ActionType.Action, emotionType: EmotionType.Friendly }) return;
             
             
-            if (_heldItem.TryDrop())
+            if (_heldItem.TryDrop(transform))
             {
                 ItemDrop();
             }

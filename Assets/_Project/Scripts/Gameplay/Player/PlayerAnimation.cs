@@ -28,8 +28,8 @@ public class PlayerAnimation : CharacterAnimationBase
             _playerInputSystem.OnSynaptikInput += OnPlayerAnimationChanged;
 
         if (!_playerInteraction) return;
-        _playerInteraction.OnItemPickedUp += OnPickedUpItem;
-        _playerInteraction.OnItemDropped += OnDroppedItem;
+        _playerInteraction.OnItemPickedUp.AddListener(OnPickedUpItem);
+        _playerInteraction.OnItemDropped.AddListener(OnDroppedItem);
     }
     
     
@@ -40,8 +40,8 @@ public class PlayerAnimation : CharacterAnimationBase
             _playerInputSystem.OnSynaptikInput -= OnPlayerAnimationChanged;
 
         if (!_playerInteraction) return;
-        _playerInteraction.OnItemPickedUp -= OnPickedUpItem;
-        _playerInteraction.OnItemDropped -= OnDroppedItem;
+        _playerInteraction.OnItemPickedUp.RemoveListener(OnPickedUpItem);
+        _playerInteraction.OnItemDropped.RemoveListener(OnDroppedItem);
     }
 
     private void OnPlayerAnimationChanged(SynaptikInput synaptikInput)

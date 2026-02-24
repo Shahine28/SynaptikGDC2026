@@ -19,6 +19,8 @@ public sealed class HoldableItem : MonoBehaviour
 
     [SerializeField] private GameObject despawnVfxPrefab;
 
+    [SerializeField] private bool _isLock;
+
     private Rigidbody rigidbodyComponent;
     private Collider[] colliders = Array.Empty<Collider>();
     private Transform originalParent;
@@ -47,9 +49,14 @@ public sealed class HoldableItem : MonoBehaviour
 
     public bool TryPick(Transform handSocket)
     {
+        if (_isLock)
+        {
+            Debug.LogWarning($"Ramassage invalide pour '{name}' (IsLock={_isLock}).");
+            return false;
+        }
         if (IsHeld || !canTake)
         {
-            Debug.LogWarning($"{gameObject.name} Ramassage invalide pour '{name}' (IsHeld={IsHeld}, CanTake={canTake}).");
+            Debug.LogWarning($"Ramassage invalide pour '{name}' (IsHeld={IsHeld}, CanTake={canTake}).");
             return false;
         }
 
@@ -78,7 +85,7 @@ public sealed class HoldableItem : MonoBehaviour
     }
     
 
-    public bool TryDrop()
+    public bool TryDrop(Transform playerTransform = null)
     {
         if (!IsHeld)
         {
@@ -86,9 +93,13 @@ public sealed class HoldableItem : MonoBehaviour
             return false;
         }
         
-        transform.position += transform.forward * 0.8f; // pour pas se faire pousser par l'objet qu'on drop 
+        Vector3 dropDirection = playerTransform != null ? playerTransform.forward : transform.parent.forward;
         
         transform.SetParent(originalParent);
+        
+        transform.position += dropDirection.normalized * 0.8f; // pour pas se faire pousser par l'objet qu'on drop
+        
+        
         rigidbodyComponent.isKinematic = false;
         rigidbodyComponent.linearVelocity = Vector3.zero;
         rigidbodyComponent.angularVelocity = Vector3.zero;
@@ -129,6 +140,10 @@ public sealed class HoldableItem : MonoBehaviour
 
         SetAtSpawn();
     }
+    
+    public bool IsLocked() => _isLock;
+    public void Lock() => _isLock = true;
+    public void Unlock() => _isLock = false;
 
     public void SetAtSpawn()
     {
