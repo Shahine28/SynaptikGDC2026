@@ -5586,7 +5586,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5860345576262981266, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
   m_PrefabInstance: {fileID: 508635579}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1741670846}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d11f1f85694c46799bc09273efe75511, type: 3}
@@ -5597,7 +5597,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
   m_PrefabInstance: {fileID: 508635579}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1741670846}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19dc2b6ccdef46c7a3db78b687f5d30d, type: 3}
@@ -53394,7 +53394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4030290080076899297, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: m_Radius
-      value: 2.18
+      value: 1.22
       objectReference: {fileID: 0}
     - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[0].Value
@@ -53410,7 +53410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4821834838382460898, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: m_Radius
-      value: 1.59
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4881040003445499302, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _showGizmos
@@ -53492,7 +53492,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7729655330460185349, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       insertIndex: 0
       addedObject: {fileID: 375393549}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6746439393017018253, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1741670858}
   m_SourcePrefab: {fileID: 100100000, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
 --- !u!1001 &511562819
 PrefabInstance:
@@ -211261,7 +211264,6 @@ Transform:
   - {fileID: 2145463527}
   - {fileID: 230633272}
   - {fileID: 1879020617}
-  - {fileID: 1411599284}
   - {fileID: 613164054}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -226682,11 +226684,11 @@ Transform:
   m_GameObject: {fileID: 1411599283}
   serializedVersion: 2
   m_LocalRotation: {x: -0.2461599, y: -0.39980108, z: 0.107213385, w: -0.8763959}
-  m_LocalPosition: {x: -375.43872, y: -139.16096, z: -49.387127}
+  m_LocalPosition: {x: 14.956533, y: 91.29507, z: -90.452835}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1325113918}
+  m_Father: {fileID: 1521697852}
   m_LocalEulerAnglesHint: {x: 0, y: 135, z: 0}
 --- !u!114 &1411599285
 MonoBehaviour:
@@ -233126,6 +233128,7 @@ Transform:
   - {fileID: 1105641018}
   - {fileID: 486928716}
   - {fileID: 1153530305}
+  - {fileID: 1411599284}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &1527193041 stripped
@@ -260537,6 +260540,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8656522925563801548, guid: e509867be4f82f246a95eca1ee5a2d61, type: 3}
   m_PrefabInstance: {fileID: 1766416396}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1741670846 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6746439393017018253, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+  m_PrefabInstance: {fileID: 508635579}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1741670858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741670846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6712f78be0980c0459cf5c88c7b30d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _alienAudioSO: {fileID: 0}
+  _audioSource: {fileID: 0}
 --- !u!137 &1744948620 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 979134929519920216, guid: b18bbd782356fdf4c9a2dab36dbcf87f, type: 3}
