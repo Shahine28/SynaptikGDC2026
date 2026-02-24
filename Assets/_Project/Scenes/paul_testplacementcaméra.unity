@@ -25218,7 +25218,7 @@ MonoBehaviour:
   detectionType: 1
   zoneOffset: {x: -7.283701, y: -4.3367615, z: -19.70482}
   zoneRadius: 4
-  zoneSize: {x: 11.543232, y: 6.4}
+  zoneSize: {x: 12.943232, y: 6.4}
   weight: 7
   behavior: 0
   smoothTime: 0.2
@@ -33083,9 +33083,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionType: 1
-  zoneOffset: {x: 0.4749702, y: -0.51768565, z: 10.165445}
+  zoneOffset: {x: 0.11612981, y: -0.517066, z: 10.16793}
   zoneRadius: 4
-  zoneSize: {x: 6.3100004, y: 8.508518}
+  zoneSize: {x: 5.7100005, y: 6.708519}
   weight: 0
   behavior: 0
   smoothTime: 0.2
@@ -47875,6 +47875,7 @@ MonoBehaviour:
   _destroyableItemID: {fileID: 11400000, guid: 6e6dd44394067514482c4fc99725308a, type: 2}
   _itemToSpawnOnDestroy: {fileID: 1153530302}
   _spawnTransform: {fileID: 0}
+  _destroyOnInteract: 1
   _onItemDestroyed:
     m_PersistentCalls:
       m_Calls:
@@ -47890,6 +47891,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _onItemInteracted:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &441606049
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -53312,6 +53316,10 @@ PrefabInstance:
       propertyPath: _interactionZoneRadius
       value: 1.22
       objectReference: {fileID: 0}
+    - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _dialogueSymbolBySynaptikInput
+      value: 
+      objectReference: {fileID: 11400000, guid: 3a8ef22a09c8043479de5fb69d0a8588, type: 2}
     - target: {fileID: 399943161194476976, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: m_LocalPosition.x
       value: -47.162495
@@ -53378,7 +53386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3904076779506702457, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: m_Speed
-      value: 1.7
+      value: 2.7
       objectReference: {fileID: 0}
     - target: {fileID: 3904076779506702457, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: m_AngularSpeed
@@ -128829,10 +128837,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: cb69718fb38cf7049875b74dff0ac2bc, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7094318412682071071, guid: f90c5e2de7cff0a4aa741743aba407f9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2088106929}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f90c5e2de7cff0a4aa741743aba407f9, type: 3}
 --- !u!4 &888031397 stripped
@@ -221123,7 +221128,11 @@ MonoBehaviour:
   _destroyableItemID: {fileID: 11400000, guid: cfe2eef195e15864bb02d22211b73ba9, type: 2}
   _itemToSpawnOnDestroy: {fileID: 1345591815463597200, guid: 3eefb09e789b0714d9dd218668760688, type: 3}
   _spawnTransform: {fileID: 0}
+  _destroyOnInteract: 1
   _onItemDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
+  _onItemInteracted:
     m_PersistentCalls:
       m_Calls: []
 --- !u!54 &1372779239
@@ -221236,7 +221245,7 @@ Transform:
   m_GameObject: {fileID: 1372779237}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.3330423, z: -0, w: -0.9429119}
-  m_LocalPosition: {x: 33.417, y: 85.71, z: -102.45}
+  m_LocalPosition: {x: 33.417, y: 86.71, z: -102.45}
   m_LocalScale: {x: 0.6502425, y: 0.65024245, z: 0.6502425}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -252035,6 +252044,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   respawnAtDrop: 0
   despawnVfxPrefab: {fileID: 104829970813648393, guid: d3015b7eea383f64d8b81f965cc466e7, type: 3}
+  _isLock: 0
   canTake: 1
 --- !u!54 &1660008584
 Rigidbody:
@@ -260358,7 +260368,7 @@ MonoBehaviour:
   followOffset: {x: 0, y: 2.4566498, z: -3.3445969}
   lookAheadAmount: 0
   lockYAxis: 0
-  viewOffset: {x: -3.96, y: 3.21, z: -1.91}
+  viewOffset: {x: -2.7061367, y: 3.2987964, z: -2.7732925}
   viewRotationOffset: {x: 0, y: 0, z: 0}
   staticPosition: {x: 11.368713, y: -1.7339935, z: -11.088882}
   staticRotationEuler: {x: 32.29261, y: 263.49426, z: 0.021304678}
@@ -273200,7 +273210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8656522925564163052, guid: e509867be4f82f246a95eca1ee5a2d61, type: 3}
       propertyPath: m_Name
-      value: Walk
+      value: Walkparticle
       objectReference: {fileID: 0}
     - target: {fileID: 8656522925564163052, guid: e509867be4f82f246a95eca1ee5a2d61, type: 3}
       propertyPath: m_IsActive
@@ -281263,6 +281273,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   respawnAtDrop: 0
   despawnVfxPrefab: {fileID: 104829970813648393, guid: d3015b7eea383f64d8b81f965cc466e7, type: 3}
+  _isLock: 0
   canTake: 1
 --- !u!54 &1859245224
 Rigidbody:
@@ -294669,6 +294680,7 @@ Transform:
   - {fileID: 769548908}
   - {fileID: 1094057047}
   - {fileID: 2138893125}
+  - {fileID: 2088106929}
   - {fileID: 888031397}
   - {fileID: 234273052}
   - {fileID: 276292824}
@@ -307237,14 +307249,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2088106928}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7015591, y: -0.71261126, z: -0, w: 0}
-  m_LocalPosition: {x: -0.00014916951, y: 0, z: 0.0031801632}
-  m_LocalScale: {x: 0.0021885152, y: 0.0021885152, z: 0.0021885152}
+  m_LocalRotation: {x: 0.9999695, y: -0.007815002, z: -0, w: 0}
+  m_LocalPosition: {x: -0.08460999, y: 0.023400828, z: 0.0031801425}
+  m_LocalScale: {x: 0.0021885154, y: 0.0021885154, z: 0.0021885152}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 784283300}
   - {fileID: 1037460740}
-  m_Father: {fileID: 888031397}
+  m_Father: {fileID: 1956501100}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!199 &2088106930
 ParticleSystemRenderer:
