@@ -13,4 +13,29 @@ MonoBehaviour:
   m_Name: enfantaudiotest
   m_EditorClassIdentifier: 
   AudioDataFromEmotion:
-    _serializedList: []
+    _serializedList:
+    - Key: 1
+      Value:
+        Clips:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        Delay: 0
+    - Key: 2
+      Value:
+        Clips: []
+        Delay: 0
+    - Key: 3
+      Value:
+        Clips:
+        - {fileID: 8300000, guid: 0e32f7964576ed34caba9dbc8f582a6b, type: 3}
+        - {fileID: 8300000, guid: aad3c2ff3d8f5b849851be0b2b42fe42, type: 3}
+        - {fileID: 8300000, guid: c0177b373964b6142b099cf9ea61ed08, type: 3}
+        - {fileID: 8300000, guid: 9c9526e752e050644b6e7fb04bcb5644, type: 3}
+        - {fileID: 8300000, guid: c3572ef4f067bdd41bfe545b48adb230, type: 3}
+        - {fileID: 8300000, guid: c3572ef4f067bdd41bfe545b48adb230, type: 3}
+        Delay: 0.5
+    - Key: 4
+      Value:
+        Clips: []
+        Delay: 0
