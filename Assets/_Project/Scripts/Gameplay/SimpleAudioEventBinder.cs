@@ -27,6 +27,9 @@ public class SimpleAudioEventBinder : MonoBehaviour
     [Header("Configuration")]
     [Tooltip("L'AudioSource optionnelle à utiliser. Si vide, tentera d'utiliser celle de cet objet.")]
     [SerializeField] private AudioSource _audioSource;
+    
+    [Tooltip("L'AudioMixerGroup à utiliser lors d'un 'PlayAtPoint' (optionnel).")]
+    [SerializeField] private UnityEngine.Audio.AudioMixerGroup _audioMixerGroup;
 
     [Header("Bindings (GD Only)")]
     [Tooltip("Liste des sons disponibles qui pourront être appelés depuis des UnityEvents.")]
@@ -44,6 +47,7 @@ public class SimpleAudioEventBinder : MonoBehaviour
     /// <param name="index">L'index du son dans la liste.</param>
     public void PlaySoundByIndex(int index)
     {
+        Debug.Log($"[SimpleAudioEventBinder] PlaySoundByIndex appelé avec l'index {index}");
         if (_audioBindings == null || index < 0 || index >= _audioBindings.Length)
         {
             Debug.LogWarning($"[SimpleAudioEventBinder] Indice invalide ({index}) sur {gameObject.name}");
@@ -61,6 +65,7 @@ public class SimpleAudioEventBinder : MonoBehaviour
     /// <param name="eventName">Le nom donné dans l'inspecteur.</param>
     public void PlaySoundByName(string eventName)
     {
+        Debug.Log($"[SimpleAudioEventBinder] PlaySoundByName appelé avec le nom '{eventName}'");
         if (_audioBindings == null) return;
 
         foreach (var binding in _audioBindings)
@@ -77,17 +82,48 @@ public class SimpleAudioEventBinder : MonoBehaviour
 
     private void Play(AudioEventBinding binding)
     {
-        if (binding.Clip == null) return;
+        if (binding.Clip == null)
+        {
+            Debug.LogWarning($"[SimpleAudioEventBinder] Le clip audio pour l'événement '{binding.EventName}' est NULL !");
+            return;
+        }
 
         float volume = binding.VolumeScale > 0 ? binding.VolumeScale : 1f;
+        Debug.Log($"[SimpleAudioEventBinder] Lecture de {binding.Clip.name} à un volume de {volume}");
 
         if (binding.PlayAtPoint || _audioSource == null)
         {
-            AudioSource.PlayClipAtPoint(binding.Clip, transform.position, volume);
+            PlayClipAtPointCustom(binding.Clip, transform.position, volume, _audioMixerGroup);
+            Debug.Log($"[SimpleAudioEventBinder] Joué via PlayClipAtPoint ! (Mixer: {(_audioMixerGroup ? _audioMixerGroup.name : "None")})");
         }
         else
         {
             _audioSource.PlayOneShot(binding.Clip, volume);
+            Debug.Log($"[SimpleAudioEventBinder] Joué via l'AudioSource du composant !");
         }
+    }
+    
+    /// <summary>
+    /// Version personnalisée de AudioSource.PlayClipAtPoint qui permet d'assigner un AudioMixerGroup.
+    /// </summary>
+    private static void PlayClipAtPointCustom(AudioClip clip, Vector3 position, float volume, UnityEngine.Audio.AudioMixerGroup mixerGroup = null)
+    {
+        if (clip == null) return;
+        
+        GameObject tempGO = new GameObject("TempAudio_" + clip.name);
+        tempGO.transform.position = position;
+        
+        AudioSource aSource = tempGO.AddComponent<AudioSource>();
+        aSource.clip = clip;
+        aSource.spatialBlend = 0f; // Force l'audio 2D pour le test (ignorer la distance)
+        aSource.volume = volume;
+        
+        if (mixerGroup != null)
+        {
+            aSource.outputAudioMixerGroup = mixerGroup;
+        }
+        
+        aSource.Play();
+        Destroy(tempGO, clip.length);
     }
 }
