@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 88d93637e9e491f4b861cf0db0e99deb
+guid: 37574cd47603b7a44b52a80f914aeb7b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: VendingMachine
-    second: {fileID: 2100000, guid: bc021148c54e66240af54b4f17b0ce81, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

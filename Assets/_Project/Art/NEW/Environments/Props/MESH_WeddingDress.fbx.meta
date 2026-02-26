@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 88d93637e9e491f4b861cf0db0e99deb
+guid: 91c819d5b66b9dc47ab48728969d2f51
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: VendingMachine
-    second: {fileID: 2100000, guid: bc021148c54e66240af54b4f17b0ce81, type: 2}
+      name: robe_marie_holo
+    second: {fileID: 2100000, guid: 62dbbd99f2c69384990e2be3295fd72c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

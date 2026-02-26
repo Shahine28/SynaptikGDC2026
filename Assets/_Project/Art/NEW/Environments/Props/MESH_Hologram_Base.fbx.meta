@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 88d93637e9e491f4b861cf0db0e99deb
+guid: b01c94d8d72c83e4cb5b74202be1c2b9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: VendingMachine
-    second: {fileID: 2100000, guid: bc021148c54e66240af54b4f17b0ce81, type: 2}
+      name: Hologram_Base
+    second: {fileID: 2100000, guid: 10df7d1d6ae3c7a4ca0b1cb5891e3dc6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
