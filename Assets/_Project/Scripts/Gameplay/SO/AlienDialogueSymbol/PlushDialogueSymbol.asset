@@ -15,16 +15,16 @@ MonoBehaviour:
   SymbolFromEmotion:
     _serializedList:
     - Key: 2
-      Value: "\U0001F9F8(plush)"
+      Value: MC
     - Key: 1
-      Value: "\U0001F9F8\U0001F97A"
+      Value: MC
     - Key: 4
-      Value: "\U0001F9F8\U0001F9D0"
+      Value: MC
     - Key: 3
-      Value: "\U0001F9F8\U0001F630"
+      Value: MC
   SymbolFromAction:
     _serializedList:
     - Key: 2
-      Value: "\U0001F4AC"
+      Value: 
     - Key: 1
-      Value: "\u270B"
+      Value: 

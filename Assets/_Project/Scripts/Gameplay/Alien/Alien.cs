@@ -44,6 +44,9 @@ public class Alien : MonoBehaviour, IInteraction
     [Header("EmotionColorVisual")]
     [SerializeField, Required] private AlienEmotionVisuals _alienEmotionColorVisuals;
     
+    [Header("EmotionAudioResponse")]
+    [SerializeField] private AlienEmotionAudioResponse _alienEmotionAudioResponse;
+    
     public Action OnRoamingDestinationReachedAction;
     public Action OnFollowDestinationReachedAction;
     public Action OnFleeDestinationReachedAction;
@@ -95,6 +98,9 @@ public class Alien : MonoBehaviour, IInteraction
         
         if (!_alienEmotionColorVisuals)
             _alienEmotionColorVisuals = GetComponent<AlienEmotionVisuals>();
+            
+        if (!_alienEmotionAudioResponse)
+            _alienEmotionAudioResponse = GetComponent<AlienEmotionAudioResponse>();
     }
 
     private void Start()
@@ -112,6 +118,7 @@ public class Alien : MonoBehaviour, IInteraction
             actionType = ActionType.Action
         };
         _alienEmotionColorVisuals?.OnEmotionColorChanged(synaptikInput);
+        _alienEmotionAudioResponse?.OnEmotionChanged(synaptikInput);
     }
     
     private void Update()
@@ -140,6 +147,7 @@ public class Alien : MonoBehaviour, IInteraction
 
         if (_stateMachine != null) action.emotionType = _stateMachine.GetCurrentEmotionType();
         _alienEmotionColorVisuals?.OnEmotionColorChanged(action);
+        _alienEmotionAudioResponse?.OnEmotionChanged(action);
         
         
         if (!item)
