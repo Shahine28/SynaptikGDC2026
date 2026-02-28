@@ -14,6 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioDataFromEmotion:
     _serializedList:
+    - Key: 3
+      Value:
+        Clips:
+        - {fileID: 8300000, guid: e7e2468f7de07944f91fc3fc834fed47, type: 3}
+        - {fileID: 8300000, guid: d93e1cc501d77224aab0bf6a4b30230b, type: 3}
+        - {fileID: 8300000, guid: 5b363c805f976a4488174c6a4d24cf6a, type: 3}
+        - {fileID: 8300000, guid: d07cc34438581594bb104bbf1b230f28, type: 3}
+        - {fileID: 8300000, guid: 373846bacd97e324d965c6a5b5916a1e, type: 3}
+        - {fileID: 8300000, guid: 42f07ffa1f014234896f4da79fa108e1, type: 3}
+        - {fileID: 8300000, guid: e29397832d304a54790140ad0dd10525, type: 3}
+        - {fileID: 8300000, guid: 361f3308474141d4182375fee8e56a6f, type: 3}
+        Delay: 0.5
+    - Key: 4
+      Value:
+        Clips:
+        - {fileID: 8300000, guid: f3c87904db19c6b41b89da6f3a38c971, type: 3}
+        - {fileID: 8300000, guid: 8d7583fccb2da934fb75754dd37fc1d0, type: 3}
+        - {fileID: 8300000, guid: c4ce350e43363184db491737db1af160, type: 3}
+        - {fileID: 8300000, guid: 2ff5093a2ba53c7409beaa908c9f5727, type: 3}
+        - {fileID: 8300000, guid: aa2d6144081168c4aa61734f2c30a170, type: 3}
+        Delay: 0.5
     - Key: 1
       Value:
         Clips:
@@ -29,4 +50,7 @@ MonoBehaviour:
         - {fileID: 8300000, guid: 51f39c32c3aa4e047a3e47625ce086e4, type: 3}
         - {fileID: 8300000, guid: 07d4c6601a0f75544a569c28625dfc36, type: 3}
         - {fileID: 8300000, guid: 987a400e7f7f42b4eada4c144ecd208d, type: 3}
+        - {fileID: 8300000, guid: f215dc2bd68c44d46ac04efd7d7b12a9, type: 3}
+        - {fileID: 8300000, guid: c78ab8ba16cedb042bdfc64084ae6eb2, type: 3}
+        - {fileID: 8300000, guid: 4be02aa9dc7c25849be211bb98f0023b, type: 3}
         Delay: 0.5
