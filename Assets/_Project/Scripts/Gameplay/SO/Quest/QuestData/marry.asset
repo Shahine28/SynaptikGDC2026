@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7aa4bb8852eb4000a806036a706e3a6e, type: 3}
-  m_Name: ComfortingAnAlien
+  m_Name: marry
   m_EditorClassIdentifier: 
-  Title: "R\xE9conforter un alien"
-  DisplayDescription: Donner une peluche
+  Title: marry your soulmate
+  DisplayDescription: a suitor seems to be waiting for her proposal
   Goals:
-  - {fileID: 11400000, guid: 22efda3e2630ee445a4b7b9d431e5b79, type: 2}
+  - {fileID: 11400000, guid: d126579d10b6efb4896c65d963152ce8, type: 2}

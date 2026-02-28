@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa4bb8852eb4000a806036a706e3a6e, type: 3}
   m_Name: Fight
   m_EditorClassIdentifier: 
-  Title: Provoquer une bagarre
-  DisplayDescription: "Fais s'insulter les deux ma\xE7ons"
+  Title: start a fight
+  DisplayDescription: The masons seem to be fired up.
   Goals:
   - {fileID: 11400000, guid: 34ed55fe8713a3c4e862608b299a73ef, type: 2}
   - {fileID: 11400000, guid: 0cad4b6049caef3479b5ee1ab18dc889, type: 2}

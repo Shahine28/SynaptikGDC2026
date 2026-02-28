@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 867dcefbe6c94cf78f88f52bb58da9ce, type: 3}
   m_Name: Goal_HasItem
   m_EditorClassIdentifier: 
-  Description: "Donne la peluche \xE0 l'enfant"
+  Description: t
+  _isMet: 0
   _targetOwner: {fileID: 11400000, guid: 27b7ab2b4882b2249980afe5750677e5, type: 2}
   _targetItem: {fileID: 11400000, guid: 6ee90202fde152544a2d15955f982966, type: 2}
