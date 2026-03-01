@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3818ad94bcc0c514997c0c9ed4e502ae, type: 3}
-  m_Name: voicetest
+  m_Name: Set_Voix_Titouan
   m_EditorClassIdentifier: 
   AudioDataFromEmotion:
     _serializedList:
