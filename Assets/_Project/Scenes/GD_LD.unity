@@ -171057,6 +171057,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: cbb14be1496488544b6f1f168a13d284, type: 2}
     - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value
+      value: <color=yellow>CN</color>
+      objectReference: {fileID: 0}
+    - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: OnItemReceived.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ItemID, Assembly-CSharp
       objectReference: {fileID: 0}
