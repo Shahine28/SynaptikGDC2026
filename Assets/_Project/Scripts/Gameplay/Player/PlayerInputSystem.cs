@@ -26,6 +26,7 @@ public class PlayerInputSystem : MonoBehaviour
     private List<EmotionType> _activeEmotions = new List<EmotionType>();
     
     public event Action<SynaptikInput> OnSynaptikInput;
+    
 
     void UpdateCurrentSynaptikInput()
     {

@@ -14234,6 +14234,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d6dc28eed13e47e4b9d1e41c94f454d0, type: 3}
   m_PrefabInstance: {fileID: 1096422760}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1201481492 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6746439393017018253, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+  m_PrefabInstance: {fileID: 7506163913794878530}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1208813820 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7583997652218271397, guid: f90c5e2de7cff0a4aa741743aba407f9, type: 3}
@@ -24208,6 +24213,78 @@ PrefabInstance:
       propertyPath: _punchSocket
       value: 
       objectReference: {fileID: 942879485}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnHitByPunch.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnPunchEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnPunchCompletedEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnHitByPunch.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnPunchEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnHitByPunch.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7506163913794878532}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnPunchEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1201481492}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnHitByPunch.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnPunchEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnHitByPunch.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPlayerHit
+      objectReference: {fileID: 0}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnPunchCompletedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnPunchCompletedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7506163913794878532}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnPunchCompletedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnPunchCompletedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPunchCompleted
+      objectReference: {fileID: 0}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnHitByPunch.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AggressiveState, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnPunchCompletedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AggressiveState, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnHitByPunch.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: OnPunchCompletedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _defaultStateID
       value: 3
@@ -24336,7 +24413,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5860345576262981266, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
   m_PrefabInstance: {fileID: 7506163913794878530}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1201481492}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d11f1f85694c46799bc09273efe75511, type: 3}
@@ -24347,7 +24424,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 185238569139723440, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
   m_PrefabInstance: {fileID: 7506163913794878530}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1201481492}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19dc2b6ccdef46c7a3db78b687f5d30d, type: 3}
