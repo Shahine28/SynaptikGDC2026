@@ -52,6 +52,7 @@ public class CameraManager : MonoBehaviour
 
     private CameraZone _currentZone;
     private bool _isTransitioning = false;
+    private bool _isNearProximityTarget = false;
 
     void Start()
     {
@@ -62,6 +63,16 @@ public class CameraManager : MonoBehaviour
         
         if (playerTarget) 
             _lastPlayerPos = playerTarget.position;
+    }
+
+    /// <summary>
+    /// Fonction appelée par les UnityEvents des cibles de proximité (ex: Alien)
+    /// pour activer/désactiver le zoom dynamique du joueur.
+    /// </summary>
+    public void SetProximityZoom(bool isNear)
+    {
+        Debug.Log($"[CameraManager] SetProximityZoom called with value: {isNear}");
+        _isNearProximityTarget = isNear;
     }
 
     void LateUpdate()
@@ -77,7 +88,8 @@ public class CameraManager : MonoBehaviour
         CameraZone sourceZone = (_currentZone) ? _currentZone : defaultZone;
         if (sourceZone)
         {
-            CameraZone.CameraState targetState = sourceZone.CalculateTargetState(playerTarget, _playerVelocity);
+            // On passe notre nouvel état local _isNearProximityTarget à la zone
+            CameraZone.CameraState targetState = sourceZone.CalculateTargetState(playerTarget, _playerVelocity, _isNearProximityTarget);
             Vector3 finalTargetPos = HandleObstacles(targetState.Position, playerTarget.position);
 
             UpdateShake();

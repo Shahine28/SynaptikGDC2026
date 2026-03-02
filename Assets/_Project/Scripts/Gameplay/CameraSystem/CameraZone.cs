@@ -44,6 +44,11 @@ public class CameraZone : MonoBehaviour
     
     [Range(10f, 120f)] public float targetFOV = 60f;
 
+    [Header("Proximity Zoom (Alien)")]
+    [Tooltip("Cochez pour activer le zoom quand le joueur est près d'un point d'intérêt (Alien).")]
+    public bool enableProximityZoom = false;
+    [Range(10f, 120f)] public float proximityFOV = 40f;
+
     [Header("Follow Settings")]
     public Vector3 followOffset = new Vector3(0, 10, -10);
     
@@ -67,10 +72,12 @@ public class CameraZone : MonoBehaviour
         public float SmoothTimeTransition;
     }
 
-    public CameraState CalculateTargetState(Transform player, Vector3 playerVelocity)
+    public CameraState CalculateTargetState(Transform player, Vector3 playerVelocity, bool isNearFocus)
     {
         CameraState state = new CameraState();
-        state.FOV = targetFOV;
+        
+        state.FOV = (isNearFocus && enableProximityZoom) ? proximityFOV : targetFOV;
+        
         state.SmoothTime = smoothTime;
         state.SmoothTimeTransition = smoothTimeTransition;
 
@@ -263,6 +270,8 @@ public class CameraZoneEditor : Editor
     SerializedProperty _behavior;
     SerializedProperty _followOffset;
     SerializedProperty _viewOffset;
+    SerializedProperty _enableProximityZoom;
+    SerializedProperty _proximityFOV;
 
     private void OnEnable()
     {
@@ -275,6 +284,8 @@ public class CameraZoneEditor : Editor
         _behavior = serializedObject.FindProperty("behavior");
         _followOffset = serializedObject.FindProperty("followOffset");
         _viewOffset = serializedObject.FindProperty("viewOffset");
+        _enableProximityZoom = serializedObject.FindProperty("enableProximityZoom");
+        _proximityFOV = serializedObject.FindProperty("proximityFOV");
     }
 
     public override void OnInspectorGUI()
@@ -333,6 +344,14 @@ public class CameraZoneEditor : Editor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("smoothTime"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("smoothTimeTransition"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("targetFOV"));
+
+            EditorGUILayout.Space(5);
+            EditorGUILayout.LabelField("Proximity Zoom", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(_enableProximityZoom);
+            if (_enableProximityZoom.boolValue)
+            {
+                EditorGUILayout.PropertyField(_proximityFOV);
+            }
         }
         EditorGUILayout.EndVertical();
 
@@ -345,6 +364,7 @@ public class CameraZoneEditor : Editor
 
         serializedObject.ApplyModifiedProperties();
     }
+
 
     private void OnSceneGUI()
     {

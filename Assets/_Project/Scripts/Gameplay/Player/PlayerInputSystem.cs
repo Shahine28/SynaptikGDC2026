@@ -15,7 +15,11 @@ public class PlayerInputSystem : MonoBehaviour
     
     [Header("Action Type")]
     [SerializeField, ReadOnly] private bool _isTalkInput;
+    public bool IsTalkInput => _isTalkInput;
+
     [SerializeField, ReadOnly] private bool _isActionInput;
+    public bool IsActionInput => _isActionInput;
+
     private List<ActionType> _activeActions = new List<ActionType>();
 
     [Header("Emotion Type")] 

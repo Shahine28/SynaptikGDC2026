@@ -2,21 +2,21 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerInteraction))]
+[RequireComponent(typeof(PlayerInputSystem))]
 public class PlayerInteractionAudioResponse : MonoBehaviour
 {
     [Header("Configuration")]
     [SerializeField] private PlayerAudioFromInputSO _playerAudioSO;
     [SerializeField] private AudioSource _audioSource;
 
-    private PlayerInteraction _playerInteraction;
+    private PlayerInputSystem _playerInputSystem;
     private SynaptikInput _currentInput;
     private Coroutine _playCoroutine;
     private bool _canPlayAudio = false;
 
     private void Awake()
     {
-        _playerInteraction = GetComponent<PlayerInteraction>();
+        _playerInputSystem = GetComponent<PlayerInputSystem>();
 
         if (_audioSource == null)
             _audioSource = GetComponent<AudioSource>();
@@ -33,17 +33,17 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_playerInteraction != null)
+        if (_playerInputSystem != null)
         {
-            _playerInteraction.OnSynaptikInterraction += OnPlayerInteraction;
+            _playerInputSystem.OnSynaptikInput += OnPlayerInput;
         }
     }
 
     private void OnDisable()
     {
-        if (_playerInteraction != null)
+        if (_playerInputSystem != null)
         {
-            _playerInteraction.OnSynaptikInterraction -= OnPlayerInteraction;
+            _playerInputSystem.OnSynaptikInput -= OnPlayerInput;
         }
     }
 
@@ -53,12 +53,12 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
         _canPlayAudio = true;
     }
 
-    private void OnPlayerInteraction(SynaptikInput synaptikInput, HoldableItem item)
+    private void OnPlayerInput(SynaptikInput synaptikInput)
     {
-        if (!_canPlayAudio || _playerAudioSO == null)
+        if (!_canPlayAudio || _playerAudioSO == null || synaptikInput.actionType == ActionType.None || synaptikInput.emotionType == EmotionType.None)
             return;
         
-        Debug.Log($"[PlayerAudioResponse] Interaction reçue : ({synaptikInput.emotionType}, {synaptikInput.actionType})");
+        Debug.Log($"[PlayerAudioResponse] Input reçu : ({synaptikInput.emotionType}, {synaptikInput.actionType})");
         _currentInput = synaptikInput;
 
         if (_playerAudioSO.AudioDataFromInput != null && _playerAudioSO.AudioDataFromInput.TryGetValue(synaptikInput, out PlayerInteractionAudioData audioData))
