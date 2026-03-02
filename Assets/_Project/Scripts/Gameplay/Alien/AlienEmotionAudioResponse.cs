@@ -10,22 +10,36 @@ public class AlienEmotionAudioResponse : MonoBehaviour
 
     private SynaptikInput _currentInput;
     private Coroutine _playCoroutine;
+    private bool _canPlayAudio = false;
 
     private void Awake()
     {
         if (_audioSource == null)
             _audioSource = GetComponent<AudioSource>();
             
-        if (_audioSource == null)
+        if (_audioSource != null)
+        {
+            _audioSource.playOnAwake = false;
+        }
+        else
+        {
             Debug.LogWarning("No AudioSource attached and none found on AlienEmotionAudioResponse!", this);
+        }
+    }
+
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(0.2f);
+        _canPlayAudio = true;
     }
 
     public void OnEmotionChanged(SynaptikInput synaptikInput)
     {
-        if (_alienAudioSO == null) return;
+        if (!_canPlayAudio || _alienAudioSO == null)
+            return;
         
-        // Eviter de spammer le son si on a pas changé ni d'émotion, ni d'action
-        if (_currentInput.emotionType == synaptikInput.emotionType && _currentInput.actionType == synaptikInput.actionType) return;
+        if (_currentInput.emotionType == synaptikInput.emotionType && _currentInput.actionType == synaptikInput.actionType)
+            return;
         
         Debug.Log($"[AudioResponse] Changer d'input de ({_currentInput.emotionType}, {_currentInput.actionType}) vers ({synaptikInput.emotionType}, {synaptikInput.actionType})");
         _currentInput = synaptikInput;
@@ -33,13 +47,11 @@ public class AlienEmotionAudioResponse : MonoBehaviour
         AlienEmotionAudioData audioData = default;
         bool hasFoundData = false;
 
-        // On cherche en priorité dans le nouveau dictionnaire (Emotion + Action)
         if (_alienAudioSO.AudioDataFromInput != null && _alienAudioSO.AudioDataFromInput.TryGetValue(synaptikInput, out var newAudioData))
         {
             audioData = newAudioData;
             hasFoundData = true;
         }
-        // Sinon on fallback sur l'ancien dictionnaire (Emotion seule, pour rétrocompatibilité)
         else if (_alienAudioSO.AudioDataFromEmotion != null && _alienAudioSO.AudioDataFromEmotion.TryGetValue(synaptikInput.emotionType, out var oldAudioData))
         {
             audioData = oldAudioData;
@@ -60,7 +72,6 @@ public class AlienEmotionAudioResponse : MonoBehaviour
                 
                 if (randomClip != null)
                 {
-                    // Rétrocompatibilité : si Volume est à 0 (cas des anciens SO non mis à jour) on le met à 1 par défaut
                     float volume = audioData.Volume <= 0f ? 1f : audioData.Volume;
 
                     Debug.Log($"[AudioResponse] Son choisi : {randomClip.name}. Délai : {audioData.Delay}s, Volume : {volume}");
