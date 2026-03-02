@@ -26,7 +26,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 473922856696705037}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.417}
+  m_LocalPosition: {x: 0, y: 0, z: -0.18799998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.187}
+  m_AnchoredPosition: {x: -0.01, y: 0.03978941}
   m_SizeDelta: {x: 4, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6935533824346438486
@@ -65,10 +65,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: tt
+  m_text: aaaa
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 751f8bd7ce8451b42945de2f717f4874, type: 2}
-  m_sharedMaterial: {fileID: -6595241025770418738, guid: 751f8bd7ce8451b42945de2f717f4874, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 22ab2400d2dfab9478acc0ad3c19b7ca, type: 2}
+  m_sharedMaterial: {fileID: 64278906804787262, guid: 22ab2400d2dfab9478acc0ad3c19b7ca, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,11 +92,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1.35
+  m_fontSize: 1.07
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 0.12
+  m_fontSizeMin: 1.07
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -379,6 +379,6 @@ MonoBehaviour:
       Value: {fileID: 21300000, guid: 8c924982f2cc91c4096b8c4f7c1ef006, type: 3}
   _secondPerCharacter: 1
   _minDisplayTime: 2
-  _scaleRange: {x: 0.3, y: 1.5}
+  _scaleRange: {x: 0.3, y: 0.8}
   _distanceRange: {x: 5, y: 20}
-  _positionYRange: {x: 1.3, y: 1.6}
+  _positionYRange: {x: 1.0521404, y: 1.3521404}

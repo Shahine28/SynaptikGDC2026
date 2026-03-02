@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f2aef5ddff14bd4818f35dad7b7059e, type: 3}
-  m_Name: Enfantdialogue
+  m_Name: PlayerDialogueSymbol
   m_EditorClassIdentifier: 
   SymbolFromEmotion:
     _serializedList:
     - Key: 2
-      Value: J
+      Value: A
     - Key: 1
-      Value: J
+      Value: C
     - Key: 4
-      Value: J
+      Value: '?'
     - Key: 3
-      Value: <color=yellow>M</color>EB
+      Value: B
   SymbolFromAction:
     _serializedList:
     - Key: 2
