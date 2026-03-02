@@ -1,27 +1,28 @@
 
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
-using FMODUnity;
 using NaughtyAttributes;
 
 public class SFXPlayer : MonoBehaviour
 {
-    [SerializeField, Required] private StudioEventEmitter _eventEmitter;
+    [SerializeField, Required] private AudioSource _audioSource;
     
-    
-    [SerializeField, SerializedDictionary("Clip Name", "Event Reference")]
-    private SerializedDictionary<string, EventReference> _eventReferenceFromName;
+    [SerializeField, SerializedDictionary("Clip Name", "Audio Clip")]
+    private SerializedDictionary<string, AudioClip> _clipFromName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
     [SerializeField] string eventNameToUseForDebug;
 
     
-    
     public void PlayOneshotByName(string eventName)
     {
-        if (!_eventEmitter || !_eventReferenceFromName.ContainsKey(eventNameToUseForDebug)) return;
-        _eventEmitter.EventReference = _eventReferenceFromName[eventName];
-        _eventEmitter?.Play();
+        if (!_audioSource || !_clipFromName.ContainsKey(eventName)) return;
+        
+        AudioClip clip = _clipFromName[eventName];
+        if (clip != null)
+        {
+            _audioSource.PlayOneShot(clip);
+        }
     }
     
     [Button]
@@ -33,7 +34,7 @@ public class SFXPlayer : MonoBehaviour
     [Button]
     public void Stop()
     {
-        if (!_eventEmitter || !_eventEmitter.IsPlaying()) return;
-        _eventEmitter.Stop();
+        if (!_audioSource || !_audioSource.isPlaying) return;
+        _audioSource.Stop();
     }
 }

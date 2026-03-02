@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b182a2c8e94394a6a8084c9937e330, type: 3}
   m_Name: Goal_EmotionState
   m_EditorClassIdentifier: 
-  Description: "Faire mettre en col\xE8re l'alien"
+  Description: '-'
   _isMet: 0
   _targetEntity: {fileID: 11400000, guid: fb581bdc2ee27bb49827d0caa7fabef7, type: 2}
   _requiredEmotion: 1

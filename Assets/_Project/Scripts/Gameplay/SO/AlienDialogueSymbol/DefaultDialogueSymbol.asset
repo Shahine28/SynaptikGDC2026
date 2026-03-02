@@ -15,16 +15,16 @@ MonoBehaviour:
   SymbolFromEmotion:
     _serializedList:
     - Key: 2
-      Value: "\u26A1(DialogueReaction)"
+      Value: A
     - Key: 1
-      Value: "\u2764\uFE0F"
+      Value: C
     - Key: 4
-      Value: "\u2753"
+      Value: D
     - Key: 3
-      Value: "\U0001F631"
+      Value: B
   SymbolFromAction:
     _serializedList:
     - Key: 2
-      Value: "\U0001F4AC"
+      Value: 
     - Key: 1
-      Value: "\u270B"
+      Value: 
