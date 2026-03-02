@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: 118617b344d40d54eba23aa6e2fc2ecf
+guid: ba7dce16c999e9245867b816790d58d5
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BodySuit.003
+    second: {fileID: 2100000, guid: d21e6b1429d8bda47824a9611376409d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skin.003
+    second: {fileID: 2100000, guid: d21e6b1429d8bda47824a9611376409d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Suit
+    second: {fileID: 2100000, guid: 69db5f31b5fe0374db2d33aa104f4b96, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -30,7 +45,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -76,7 +91,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 0
+  importAnimation: 1
   humanDescription:
     serializedVersion: 3
     human: []
