@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c486f320e6f6c6448bcc7ab3a77713f7, type: 3}
-  m_Name: ScreenShakeProfile
+  m_Name: Shakedebase
   m_EditorClassIdentifier: 
   IntensityPos: 0.5
-  IntensityRot: 1.5
-  Duration: 0.3
+  IntensityRot: 3.5
+  Duration: 0.5
