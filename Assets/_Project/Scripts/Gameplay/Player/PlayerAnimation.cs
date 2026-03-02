@@ -97,6 +97,7 @@ public class PlayerAnimation : CharacterAnimationBase
         }
 
         if (nearbyInteraction == null) return;
+        OnHitByPunch?.Invoke();
         _playerInteraction?.HandlePunchImpact(nearbyInteraction);
     }
 
