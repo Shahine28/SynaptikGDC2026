@@ -68,7 +68,7 @@ public class Alien : MonoBehaviour, IInteraction
     
     
     [SerializeField, SerializedDictionary("ItemIdToReceive", "DialogueSymbol")] 
-    private SerializedDictionary<ItemID, string> _DialogueSymbolFromItemIdsToReceive = new();
+    private SerializedDictionary<ItemID, AlienDialogueSymbolBySynaptikInput.AlienDialogueAndTrust> _DialogueSymbolFromItemIdsToReceive = new();
 
     [Tooltip("L'objet sera supprimé de la liste, l'alien recevant à nouveau ce même objet ne donnera plus de dialogue personnalisé")]
     [SerializeField] private bool _deleteItemOnReceive = true;
@@ -142,7 +142,7 @@ public class Alien : MonoBehaviour, IInteraction
     
     public void Interact(SynaptikInput action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
     {
-        
+        SynaptikInput playerInput = action;
         _stateMachine?.UpdateState(action.emotionType);
 
         if (_stateMachine != null) action.emotionType = _stateMachine.GetCurrentEmotionType();
@@ -153,17 +153,18 @@ public class Alien : MonoBehaviour, IInteraction
         if (!item)
         {
             AlienDialogueSymbolBySynaptikInput targetDialogueSymbol = _dialogueSymbolBySynaptikInput;
-            var dialogueData = targetDialogueSymbol?.GetDialogue(action);
+            var dialogueData = targetDialogueSymbol?.GetDialogue(playerInput);
+            var dialogueMistrustModifier = targetDialogueSymbol.GetMissTrustModifier(playerInput.emotionType);
             if (dialogueData != null)
             {
-                StartCoroutine(StartDialogueDelayed(transform, action, dialogueData));
+                StartCoroutine(StartDialogueDelayed(transform, playerInput, dialogueData, dialogueMistrustModifier));
             }
+            return;
         }
-
-        if (!item) return;
+        
         
         playerInteraction?.ItemDrop();
-        if (_DialogueSymbolFromItemIdsToReceive.TryGetValue(item.itemID, out string itemDialogue))
+        if (_DialogueSymbolFromItemIdsToReceive.TryGetValue(item.itemID, out AlienDialogueSymbolBySynaptikInput.AlienDialogueAndTrust itemDialogue))
         {
             if (TryGetComponent(out WorldEntity worldEntity))
             {
@@ -177,16 +178,15 @@ public class Alien : MonoBehaviour, IInteraction
             playerInteraction?.ItemDrop();
             Destroy(item.gameObject);
             OnItemReceived?.Invoke();
-            StartCoroutine(StartDialogueDelayed(transform, action, itemDialogue));
+            StartCoroutine(StartDialogueDelayed(transform, playerInput, itemDialogue.Symbol, itemDialogue.MisstrustModifier));
         }
-
-
     }
 
-    private IEnumerator StartDialogueDelayed(Transform tr, SynaptikInput action, string text)
+    private IEnumerator StartDialogueDelayed(Transform tr, SynaptikInput action, string text, int MisstrutsModifier)
     {
         yield return new WaitForSeconds(_secondBeforeReactingToPlayer);
         SpeechBubbleManager.Instance?.SpawnBubble(tr, action, text);
+        MistrustManager.Instance?.AddMistrust(MisstrutsModifier);
     }
     
     
