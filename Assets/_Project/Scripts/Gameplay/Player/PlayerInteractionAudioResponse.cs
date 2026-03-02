@@ -49,14 +49,12 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
 
     private IEnumerator Start()
     {
-        // Petite sécurité pour ne pas jouer de sons lors du chargement initial/relâchement de boutons au spawn
         yield return new WaitForSeconds(0.2f);
         _canPlayAudio = true;
     }
 
     private void OnPlayerInput(SynaptikInput synaptikInput)
     {
-        // On ne joue de son que s'il y a une vraie action et émotion
         if (!_canPlayAudio || _playerAudioSO == null || synaptikInput.actionType == ActionType.None || synaptikInput.emotionType == EmotionType.None)
             return;
         
