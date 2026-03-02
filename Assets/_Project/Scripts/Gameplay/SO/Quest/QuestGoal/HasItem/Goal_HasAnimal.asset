@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 867dcefbe6c94cf78f88f52bb58da9ce, type: 3}
+  m_Name: Goal_HasAnimal
+  m_EditorClassIdentifier: 
+  Description: t
+  _isMet: 1
+  _targetOwner: {fileID: 11400000, guid: c40afa11d480c3e46ba5f4e020d501fe, type: 2}
+  _targetItem: {fileID: 11400000, guid: cbb14be1496488544b6f1f168a13d284, type: 2}
