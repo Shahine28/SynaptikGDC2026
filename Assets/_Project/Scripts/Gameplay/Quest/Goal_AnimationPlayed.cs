@@ -25,5 +25,9 @@ public class Goal_AnimationPlayed : QuestGoal
         {
             Complete();
         }
+        else
+        {
+            Uncomplete();
+        }
     }
 }
