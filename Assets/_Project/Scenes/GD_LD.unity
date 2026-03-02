@@ -952,6 +952,8 @@ MonoBehaviour:
   smoothTime: 0.2
   smoothTimeTransition: 1
   targetFOV: 60
+  enableProximityZoom: 0
+  proximityFOV: 40
   followOffset: {x: 0.6, y: 7.3, z: -4}
   lookAheadAmount: 0
   lockYAxis: 0
@@ -1289,6 +1291,7 @@ Transform:
   - {fileID: 2007996067}
   - {fileID: 5146891949161694945}
   - {fileID: 1298741402}
+  - {fileID: 780532534}
   m_Father: {fileID: 1628562862}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &43155449
@@ -18214,7 +18217,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1628562862}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 332238566436024673, guid: 543f7c6265bd3df4a85de32a24959783, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -18266,15 +18269,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 519521097647880677, guid: 543f7c6265bd3df4a85de32a24959783, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.362
+      value: -10.25118
       objectReference: {fileID: 0}
     - target: {fileID: 519521097647880677, guid: 543f7c6265bd3df4a85de32a24959783, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 86.837
+      value: -2.91568
       objectReference: {fileID: 0}
     - target: {fileID: 519521097647880677, guid: 543f7c6265bd3df4a85de32a24959783, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -99.33029
+      value: -11.012134
       objectReference: {fileID: 0}
     - target: {fileID: 519521097647880677, guid: 543f7c6265bd3df4a85de32a24959783, type: 3}
       propertyPath: m_LocalRotation.w
@@ -25073,6 +25076,8 @@ MonoBehaviour:
   smoothTime: 0.2
   smoothTimeTransition: 1
   targetFOV: 60
+  enableProximityZoom: 0
+  proximityFOV: 40
   followOffset: {x: 0, y: 10, z: -10}
   lookAheadAmount: 0
   lockYAxis: 0
@@ -28102,6 +28107,8 @@ MonoBehaviour:
   smoothTime: 0.2
   smoothTimeTransition: 0.7
   targetFOV: 60
+  enableProximityZoom: 0
+  proximityFOV: 40
   followOffset: {x: 0, y: 10, z: -10}
   lookAheadAmount: 0
   lockYAxis: 0
@@ -28115,19 +28122,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 41960158}
     m_Modifications:
     - target: {fileID: 5003251044769798311, guid: 2aa3eed663cbe0e48b677adf3ccc6d7c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.696012
+      value: 2.5696402
       objectReference: {fileID: 0}
     - target: {fileID: 5003251044769798311, guid: 2aa3eed663cbe0e48b677adf3ccc6d7c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.9500759
+      value: 0.3304901
       objectReference: {fileID: 0}
     - target: {fileID: 5003251044769798311, guid: 2aa3eed663cbe0e48b677adf3ccc6d7c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.58134
+      value: 23.828514
       objectReference: {fileID: 0}
     - target: {fileID: 5003251044769798311, guid: 2aa3eed663cbe0e48b677adf3ccc6d7c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -28135,15 +28142,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5003251044769798311, guid: 2aa3eed663cbe0e48b677adf3ccc6d7c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5003251044769798311, guid: 2aa3eed663cbe0e48b677adf3ccc6d7c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5003251044769798311, guid: 2aa3eed663cbe0e48b677adf3ccc6d7c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5003251044769798311, guid: 2aa3eed663cbe0e48b677adf3ccc6d7c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -53781,6 +53788,8 @@ MonoBehaviour:
   smoothTime: 0.2
   smoothTimeTransition: 0.5
   targetFOV: 60
+  enableProximityZoom: 0
+  proximityFOV: 40
   followOffset: {x: 0, y: 10, z: -10}
   lookAheadAmount: 0
   lockYAxis: 0
@@ -84854,6 +84863,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6025634d034a5e648aa19c05e5f621f7, type: 3}
+--- !u!4 &780532534 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5003251044769798311, guid: 2aa3eed663cbe0e48b677adf3ccc6d7c, type: 3}
+  m_PrefabInstance: {fileID: 263434677}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &782061701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -154190,6 +154204,10 @@ PrefabInstance:
       value: 0.000009626873
       objectReference: {fileID: 0}
     - target: {fileID: 979134929519920216, guid: b18bbd782356fdf4c9a2dab36dbcf87f, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 5529789351460457872, guid: 4daf9e3e9847f634ba4904c8da4825d3, type: 3}
+    - target: {fileID: 979134929519920216, guid: b18bbd782356fdf4c9a2dab36dbcf87f, type: 3}
       propertyPath: m_Materials.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -154780,6 +154798,10 @@ PrefabInstance:
     - target: {fileID: 2681627368245077850, guid: b18bbd782356fdf4c9a2dab36dbcf87f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 6.3971615
+      objectReference: {fileID: 0}
+    - target: {fileID: 2870171037378407284, guid: b18bbd782356fdf4c9a2dab36dbcf87f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2899624070549876210, guid: b18bbd782356fdf4c9a2dab36dbcf87f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -176547,7 +176569,6 @@ Transform:
   - {fileID: 1546692528}
   - {fileID: 881503075}
   - {fileID: 41960158}
-  - {fileID: 1022849294}
   - {fileID: 212621504}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -183323,6 +183344,8 @@ MonoBehaviour:
   smoothTime: 0.2
   smoothTimeTransition: 0.8
   targetFOV: 38
+  enableProximityZoom: 0
+  proximityFOV: 40
   followOffset: {x: 0, y: 2.4566498, z: -3.3445969}
   lookAheadAmount: 0
   lockYAxis: 0
@@ -199101,6 +199124,8 @@ MonoBehaviour:
   smoothTime: 0.2
   smoothTimeTransition: 0.7
   targetFOV: 50
+  enableProximityZoom: 0
+  proximityFOV: 40
   followOffset: {x: 0, y: 10, z: -10}
   lookAheadAmount: 0
   lockYAxis: 0
@@ -199614,6 +199639,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8550018041499614862, guid: 56c4b796b49cb5f4593be0847e1254b8, type: 3}
   m_PrefabInstance: {fileID: 281060128}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1912437976
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 11beef7875ba9084dbf7a54585f90a3e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.993037
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11beef7875ba9084dbf7a54585f90a3e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.7326813
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11beef7875ba9084dbf7a54585f90a3e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.264702
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11beef7875ba9084dbf7a54585f90a3e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11beef7875ba9084dbf7a54585f90a3e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11beef7875ba9084dbf7a54585f90a3e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11beef7875ba9084dbf7a54585f90a3e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11beef7875ba9084dbf7a54585f90a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11beef7875ba9084dbf7a54585f90a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11beef7875ba9084dbf7a54585f90a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 11beef7875ba9084dbf7a54585f90a3e, type: 3}
+      propertyPath: m_Name
+      value: MESH_ZipZoup_BodyFixed
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 11beef7875ba9084dbf7a54585f90a3e, type: 3}
 --- !u!1001 &1913596586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -207766,6 +207848,8 @@ MonoBehaviour:
   smoothTime: 0.2
   smoothTimeTransition: 0.7
   targetFOV: 50
+  enableProximityZoom: 0
+  proximityFOV: 40
   followOffset: {x: 0, y: 10, z: -10}
   lookAheadAmount: 0
   lockYAxis: 0
@@ -229657,6 +229741,8 @@ MonoBehaviour:
   smoothTime: 0.2
   smoothTimeTransition: 0.5
   targetFOV: 60
+  enableProximityZoom: 0
+  proximityFOV: 40
   followOffset: {x: 0, y: 10, z: -10}
   lookAheadAmount: 0
   lockYAxis: 0
@@ -244276,4 +244362,5 @@ SceneRoots:
   - {fileID: 2006080917}
   - {fileID: 1628562862}
   - {fileID: 1325113918}
-  - {fileID: 263434677}
+  - {fileID: 1912437976}
+  - {fileID: 192126803}

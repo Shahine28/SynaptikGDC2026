@@ -26,7 +26,7 @@ MonoBehaviour:
         - {fileID: 8300000, guid: e29397832d304a54790140ad0dd10525, type: 3}
         - {fileID: 8300000, guid: 361f3308474141d4182375fee8e56a6f, type: 3}
         Volume: 0.1
-        Delay: 0.5
+        Delay: 0.8
     - Key: 4
       Value:
         Clips:
@@ -36,7 +36,7 @@ MonoBehaviour:
         - {fileID: 8300000, guid: 2ff5093a2ba53c7409beaa908c9f5727, type: 3}
         - {fileID: 8300000, guid: aa2d6144081168c4aa61734f2c30a170, type: 3}
         Volume: 0.1
-        Delay: 0.5
+        Delay: 0.8
     - Key: 1
       Value:
         Clips:
@@ -46,7 +46,7 @@ MonoBehaviour:
         - {fileID: 8300000, guid: 20f062aab5879fd4182f023868ed3e85, type: 3}
         - {fileID: 8300000, guid: a72dbaa45c53df340b3b42993e8d8dcc, type: 3}
         Volume: 0.1
-        Delay: 0.5
+        Delay: 0.8
     - Key: 2
       Value:
         Clips:
@@ -57,7 +57,7 @@ MonoBehaviour:
         - {fileID: 8300000, guid: c78ab8ba16cedb042bdfc64084ae6eb2, type: 3}
         - {fileID: 8300000, guid: 4be02aa9dc7c25849be211bb98f0023b, type: 3}
         Volume: 0.1
-        Delay: 0.5
+        Delay: 0.8
   AudioDataFromInput:
     _serializedList:
     - Key:

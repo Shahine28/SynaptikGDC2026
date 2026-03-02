@@ -60,11 +60,13 @@ MonoBehaviour:
         actionType: 2
       Value:
         Clips:
-        - {fileID: 8300000, guid: f63a91108d87f39458c487dba8a87b5d, type: 3}
-        - {fileID: 8300000, guid: f51f9519660afdf4bb02de3271919025, type: 3}
-        - {fileID: 8300000, guid: 591cbd546455e2c449830f71de75f049, type: 3}
-        - {fileID: 8300000, guid: a86ff129505e01343b5a231e3028a49f, type: 3}
-        - {fileID: 8300000, guid: c848be7ccd48e8d4fa19c4d531764deb, type: 3}
+        - {fileID: 8300000, guid: a6c859132a2490d4ea928d65f2a92da3, type: 3}
+        - {fileID: 8300000, guid: 85c5d94798d4c4c47b274d49d1d50285, type: 3}
+        - {fileID: 8300000, guid: 5abad2d7dcc467c4890c093cc8053737, type: 3}
+        - {fileID: 8300000, guid: 51faede3476cac443ba06d11f1066028, type: 3}
+        - {fileID: 8300000, guid: 5cc8326f73940a5469d52fa134028c16, type: 3}
+        - {fileID: 8300000, guid: b976236a8d74012498afbc85c76c136e, type: 3}
+        - {fileID: 8300000, guid: 76dd85a7c94e09b42a36bd6307a21623, type: 3}
         Volume: 0.1
         Delay: 0
     - Key:
