@@ -15,13 +15,21 @@ MonoBehaviour:
   SymbolFromEmotion:
     _serializedList:
     - Key: 2
-      Value: A
+      Value:
+        Symbol: "\u26A1"
+        MisstrustModifier: -20
     - Key: 1
-      Value: C
+      Value:
+        Symbol: "\u2764\uFE0F"
+        MisstrustModifier: 0
     - Key: 4
-      Value: D
+      Value:
+        Symbol: "\u2753"
+        MisstrustModifier: 0
     - Key: 3
-      Value: J
+      Value:
+        Symbol: "\U0001F631"
+        MisstrustModifier: 0
   SymbolFromAction:
     _serializedList:
     - Key: 2
