@@ -12,27 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f2aef5ddff14bd4818f35dad7b7059e, type: 3}
   m_Name: PlayerDialogueSymbol
   m_EditorClassIdentifier: 
-  SymbolFromEmotion:
+  SymbolFromSynaptikInput:
     _serializedList:
-    - Key: 2
+    - Key:
+        emotionType: 1
+        actionType: 1
       Value:
-        Symbol: "\u26A1"
-        MisstrustModifier: 20
-    - Key: 1
-      Value:
-        Symbol: "\u2764\uFE0F"
-        MisstrustModifier: -30
-    - Key: 4
-      Value:
-        Symbol: "\u2753"
-        MisstrustModifier: 0
-    - Key: 3
-      Value:
-        Symbol: "\U0001F631"
-        MisstrustModifier: 35
-  SymbolFromAction:
-    _serializedList:
-    - Key: 2
-      Value: 
-    - Key: 1
-      Value: 
+        Symbol: LAD
+        MisstrustModifier: -28

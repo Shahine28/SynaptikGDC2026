@@ -12,19 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f2aef5ddff14bd4818f35dad7b7059e, type: 3}
   m_Name: PlushDialogueSymbol
   m_EditorClassIdentifier: 
-  SymbolFromEmotion:
+  SymbolFromSynaptikInput:
     _serializedList:
-    - Key: 2
-      Value: MC
-    - Key: 1
-      Value: MC
-    - Key: 4
-      Value: MC
-    - Key: 3
-      Value: MC
-  SymbolFromAction:
-    _serializedList:
-    - Key: 2
-      Value: 
-    - Key: 1
-      Value: 
+    - Key:
+        emotionType: 0
+        actionType: 0
+      Value:
+        Symbol: 
+        MisstrustModifier: 0

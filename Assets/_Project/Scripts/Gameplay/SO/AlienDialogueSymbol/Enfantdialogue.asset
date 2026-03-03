@@ -12,19 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f2aef5ddff14bd4818f35dad7b7059e, type: 3}
   m_Name: Enfantdialogue
   m_EditorClassIdentifier: 
-  SymbolFromEmotion:
+  SymbolFromSynaptikInput:
     _serializedList:
-    - Key: 2
-      Value: J
-    - Key: 1
-      Value: J
-    - Key: 4
-      Value: J
-    - Key: 3
-      Value: <color=yellow>M</color>EB
-  SymbolFromAction:
-    _serializedList:
-    - Key: 2
-      Value: 
-    - Key: 1
-      Value: 
+    - Key:
+        emotionType: 1
+        actionType: 1
+      Value:
+        Symbol: ff
+        MisstrustModifier: 10

@@ -6,36 +6,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AlienDialogueSymbolBySynaptikInput", menuName = "Synaptik/Alien/AlienDialogueSymbol")]
 public class AlienDialogueSymbolBySynaptikInput : ScriptableObject
 {
-    public SerializedDictionary<EmotionType, AlienDialogueAndTrust> SymbolFromEmotion = new()
-    {
-        { EmotionType.Aggressive, new AlienDialogueAndTrust("⚡", 0) },
-        { EmotionType.Friendly, new AlienDialogueAndTrust("❤️",0) },
-        { EmotionType.Curious, new AlienDialogueAndTrust("❓",0) },
-        { EmotionType.Fearful, new AlienDialogueAndTrust("😱",0) }
-    };
-
-    public SerializedDictionary<ActionType, string> SymbolFromAction = new()
-    {
-        { ActionType.Word, "💬" },
-        { ActionType.Action, "✋" }
-    };
-
+    public SerializedDictionary<SynaptikInput, AlienDialogueAndTrust> SymbolFromSynaptikInput =  new SerializedDictionary<SynaptikInput, AlienDialogueAndTrust>();
+    
+    
     public string GetDialogue(SynaptikInput input)
     {
         var sb = new System.Text.StringBuilder();
         
-        if (SymbolFromAction.TryGetValue(input.actionType, out var actionSymbol))
-            sb.Append(actionSymbol);
-        
-        if (SymbolFromEmotion.TryGetValue(input.emotionType, out var emotionSymbol))
+        if (SymbolFromSynaptikInput.TryGetValue(input, out var emotionSymbol))
             sb.Append(emotionSymbol.Symbol);
         
         return sb.ToString();
     }
 
-    public int GetMissTrustModifier(EmotionType emotionType)
+    public int GetMissTrustModifier(SynaptikInput input)
     {
-        return SymbolFromEmotion.TryGetValue(emotionType, out var emotionSymbol) 
+        return SymbolFromSynaptikInput.TryGetValue(input, out var emotionSymbol) 
             ? emotionSymbol.MisstrustModifier 
             : 0;
     }
