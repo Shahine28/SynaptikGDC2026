@@ -26,6 +26,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - DR_CEL_EXTRA_ON
+  - DR_ENABLE_LIGHTMAP_DIR
   - DR_OUTLINE_ON
   - DR_RIM_ON
   - _CELPRIMARYMODE_SINGLE
@@ -48,11 +49,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 2926b8476361b3a4da5615c43cc15b86, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0e5f551dd039edf428d9c7c102dfd198, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 5be058aede094a24891f6ef3d57c4f9b, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CelCurveTexture:
