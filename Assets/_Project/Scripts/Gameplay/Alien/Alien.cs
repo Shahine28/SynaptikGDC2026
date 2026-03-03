@@ -153,12 +153,14 @@ public class Alien : MonoBehaviour, IInteraction
         if (!item)
         {
             AlienDialogueSymbolBySynaptikInput targetDialogueSymbol = _dialogueSymbolBySynaptikInput;
-            var dialogueData = targetDialogueSymbol?.GetDialogue(playerInput);
-            var dialogueMistrustModifier = targetDialogueSymbol.GetMissTrustModifier(playerInput.emotionType);
+            if (targetDialogueSymbol == null) return;
+            var dialogueData = targetDialogueSymbol.GetDialogue(playerInput);
+            var dialogueMistrustModifier = targetDialogueSymbol.GetMissTrustModifier(playerInput);
             if (dialogueData != null)
             {
                 StartCoroutine(StartDialogueDelayed(transform, playerInput, dialogueData, dialogueMistrustModifier));
             }
+
             return;
         }
         
