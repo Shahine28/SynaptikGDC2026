@@ -68,7 +68,7 @@ public class Alien : MonoBehaviour, IInteraction
     
     
     [SerializeField, SerializedDictionary("ItemIdToReceive", "DialogueSymbol")] 
-    private SerializedDictionary<ItemID, AlienDialogueSymbolBySynaptikInput.AlienDialogueAndTrust> _DialogueSymbolFromItemIdsToReceive = new();
+    private SerializedDictionary<ItemID, AlienDialogueTrustAndEvent> _DialogueSymbolFromItemIdsToReceive = new();
 
     [Tooltip("L'objet sera supprimé de la liste, l'alien recevant à nouveau ce même objet ne donnera plus de dialogue personnalisé")]
     [SerializeField] private bool _deleteItemOnReceive = true;
@@ -166,7 +166,7 @@ public class Alien : MonoBehaviour, IInteraction
         
         
         playerInteraction?.ItemDrop();
-        if (_DialogueSymbolFromItemIdsToReceive.TryGetValue(item.itemID, out AlienDialogueSymbolBySynaptikInput.AlienDialogueAndTrust itemDialogue))
+        if (_DialogueSymbolFromItemIdsToReceive.TryGetValue(item.itemID, out AlienDialogueTrustAndEvent itemDialogue))
         {
             if (TryGetComponent(out WorldEntity worldEntity))
             {
@@ -180,7 +180,8 @@ public class Alien : MonoBehaviour, IInteraction
             playerInteraction?.ItemDrop();
             Destroy(item.gameObject);
             OnItemReceived?.Invoke();
-            StartCoroutine(StartDialogueDelayed(transform, playerInput, itemDialogue.Symbol, itemDialogue.MisstrustModifier));
+            StartCoroutine(StartDialogueDelayed(transform, playerInput, itemDialogue.AlienDialogueAndTrust.Symbol, itemDialogue.AlienDialogueAndTrust.MisstrustModifier));
+            itemDialogue.DialogueEvent?.Invoke();
         }
     }
 
@@ -366,5 +367,12 @@ public class Alien : MonoBehaviour, IInteraction
             _roamZone.transform.position = transform.position;
         }
     }
+}
+
+[Serializable]
+public class AlienDialogueTrustAndEvent
+{
+    public AlienDialogueSymbolBySynaptikInput.AlienDialogueAndTrust AlienDialogueAndTrust;
+    public UnityEvent DialogueEvent;
 }
 
