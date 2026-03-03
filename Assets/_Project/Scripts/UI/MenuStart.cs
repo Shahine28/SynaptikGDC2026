@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
 // using FMODUnity;
@@ -44,7 +45,7 @@ public sealed class MenuStart : MonoBehaviour
 
     private bool panelHelpEnabled;
     private bool panelQuitEnabled;
-    private PlayerInputSystem _playerInputSystem;
+    [SerializeField, Required] private PlayerInputSystem _playerInputSystem;
     private bool subscribedToInputs;
 
     private bool windowOpened;
@@ -142,8 +143,8 @@ public sealed class MenuStart : MonoBehaviour
 
     private void Update()
     {
-        if (!subscribedToInputs)
-            return;
+        // if (!subscribedToInputs)
+        //     return;
 
         // var comboActive = inputsDetection.MoveVector == Vector2.zero;
         // if (!comboActive && isCharging)

@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class PlayerAnimation : CharacterAnimationBase
 {
-    [SerializeField] private string _paramIsGrabbing = "IsGrabbing";
+    [SerializeField] private string _paramIsGrabbing =  "IsGrabbing";
+    [SerializeField] private string _paramGrab = "Grab";
+    [SerializeField] private string _paramGive = "Give";
+    
     private int _hashIsGrabbing;
+    private int _hashGrab;
+    private int _hashGive;
     
     [SerializeField, Required] private PlayerInputSystem _playerInputSystem;
     [SerializeField, Required] private PlayerInteraction _playerInteraction;
@@ -14,6 +19,8 @@ public class PlayerAnimation : CharacterAnimationBase
     {
         base.Awake();
         _hashIsGrabbing = Animator.StringToHash(_paramIsGrabbing);
+        _hashGrab = Animator.StringToHash(_paramGrab);
+        _hashGive = Animator.StringToHash(_paramGive);
 
         if (!_playerInputSystem)
             _playerInputSystem = GetComponent<PlayerInputSystem>();
@@ -28,6 +35,11 @@ public class PlayerAnimation : CharacterAnimationBase
             _playerInputSystem.OnSynaptikInput += OnPlayerAnimationChanged;
 
         if (!_playerInteraction) return;
+        
+        _playerInteraction.OnPickUp.AddListener(OnPickUp);
+        _playerInteraction.OnGive.AddListener(OnGive);
+        
+        
         _playerInteraction.OnItemPickedUp.AddListener(OnPickedUpItem);
         _playerInteraction.OnItemDropped.AddListener(OnDroppedItem);
     }
@@ -40,6 +52,10 @@ public class PlayerAnimation : CharacterAnimationBase
             _playerInputSystem.OnSynaptikInput -= OnPlayerAnimationChanged;
 
         if (!_playerInteraction) return;
+        
+        _playerInteraction.OnPickUp.RemoveListener(OnPickUp);
+        _playerInteraction.OnGive.RemoveListener(OnGive);
+        
         _playerInteraction.OnItemPickedUp.RemoveListener(OnPickedUpItem);
         _playerInteraction.OnItemDropped.RemoveListener(OnDroppedItem);
     }
@@ -81,12 +97,30 @@ public class PlayerAnimation : CharacterAnimationBase
         }
 
         if (nearbyInteraction == null) return;
+        OnHitByPunch?.Invoke();
         _playerInteraction?.HandlePunchImpact(nearbyInteraction);
     }
 
-    private void SetGrabbing(bool grabbing)
-        => _animator.SetBool(_hashIsGrabbing, grabbing);
+    // private void SetGrabbing(bool grabbing)
+    //     => _animator.SetBool(_hashGrab, grabbing);
 
-    private void OnPickedUpItem() => SetGrabbing(true);
-    private void OnDroppedItem() => SetGrabbing(false);
+    private void OnPickUp()
+    {
+        _animator.SetTrigger(_hashGrab);
+    }
+
+    private void OnGive()
+    {
+        _animator.SetTrigger(_hashGive);
+    }
+    
+    private void OnPickedUpItem()
+    {
+        _animator.SetBool(_hashIsGrabbing, true);
+    }
+
+    private void OnDroppedItem()
+    {
+        _animator.SetBool(_hashIsGrabbing, false);
+    }
 }

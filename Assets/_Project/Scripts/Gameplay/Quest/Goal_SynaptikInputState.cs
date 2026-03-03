@@ -24,5 +24,9 @@ public class Goal_SynaptikInputState : QuestGoal
         {
             Complete();
         }
+        else
+        {
+            Uncomplete();
+        }
     }
 }

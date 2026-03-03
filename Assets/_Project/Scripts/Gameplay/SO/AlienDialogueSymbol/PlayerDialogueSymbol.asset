@@ -10,18 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f2aef5ddff14bd4818f35dad7b7059e, type: 3}
-  m_Name: DefaultDialogueSymbol
+  m_Name: PlayerDialogueSymbol
   m_EditorClassIdentifier: 
   SymbolFromEmotion:
     _serializedList:
     - Key: 2
-      Value: A
+      Value:
+        Symbol: "\u26A1"
+        MisstrustModifier: 20
     - Key: 1
-      Value: C
+      Value:
+        Symbol: "\u2764\uFE0F"
+        MisstrustModifier: -30
     - Key: 4
-      Value: '?'
+      Value:
+        Symbol: "\u2753"
+        MisstrustModifier: 0
     - Key: 3
-      Value: B
+      Value:
+        Symbol: "\U0001F631"
+        MisstrustModifier: 35
   SymbolFromAction:
     _serializedList:
     - Key: 2

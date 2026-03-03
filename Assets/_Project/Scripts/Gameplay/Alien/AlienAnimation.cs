@@ -14,9 +14,8 @@ public class AlienAnimation : CharacterAnimationBase
     private Vector3 _lastPosition;
 
     [SerializeField, Required] private WorldEntity _punchTaget;
-    public UnityEvent OnPlayerHitByPunch;
-
-
+    
+    
     protected override void Awake()
     {
         base.Awake();
@@ -50,8 +49,17 @@ public class AlienAnimation : CharacterAnimationBase
             {
                 if (worldEntity.EntityID == _punchTaget.EntityID)
                 {
-                    OnPlayerHitByPunch?.Invoke();
-                    Debug.Log("Player punched");
+                    if (_punchCollider[i].TryGetComponent(out PlayerInputSystem playerInputSystem))
+                    {
+                        if (playerInputSystem.CurrentSynaptikInput is { emotionType: EmotionType.Fearful, actionType: ActionType.Action })
+                        {
+                            Debug.Log("Player punched but crouched");
+                            break;
+                        }
+                    }
+                    OnHitByPunch?.Invoke();
+                    Debug.Log("Target punched");
+                    break;
                 }
             }
         }

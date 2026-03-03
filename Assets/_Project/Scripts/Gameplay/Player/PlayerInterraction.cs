@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using ExternPropertyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -28,6 +29,9 @@ public class PlayerInteraction : MonoBehaviour
     private readonly Collider[] _pickableHitBuffer = new Collider[10];
     private readonly Collider[] _interactableHitBuffer = new Collider[10];
 
+    public UnityEvent OnPickUp;
+    public UnityEvent OnGive;
+    
     public UnityEvent OnItemPickedUp;
     public UnityEvent OnItemDropped;
     public event Action<SynaptikInput, HoldableItem> OnSynaptikInterraction;
@@ -69,18 +73,7 @@ public class PlayerInteraction : MonoBehaviour
         SpeechBubbleManager.Instance?.SpawnBubble(transform, synaptikInput, _dialogueSymbolBySynaptikInput?.GetDialogue(synaptikInput));
         if (!_heldItem && synaptikInput is { actionType: ActionType.Action, emotionType: EmotionType.Curious })
         {
-            if (TryFindClosest(_pickupMask, _pickableHitBuffer, out HoldableItem item))
-            {
-                if (item.TryPick(_handSocket))
-                {
-                    _heldItem = item;
-                    OnItemPickedUp?.Invoke();
-                    if (TryGetComponent(out WorldEntity worldEntity))
-                    {
-                        GameEvents.TriggerInventoryChange(worldEntity.EntityID,  _heldItem.itemID, true);
-                    }
-                }
-            }
+            OnPickUp?.Invoke();
             return;
         }
         
@@ -92,14 +85,33 @@ public class PlayerInteraction : MonoBehaviour
         }
         else
         {
-            if (_heldItem == null
-                || synaptikInput is not { actionType: ActionType.Action, emotionType: EmotionType.Friendly }) return;
-            
-            
-            if (_heldItem.TryDrop(transform))
+            if (synaptikInput is not { actionType: ActionType.Action, emotionType: EmotionType.Friendly }) return;
+            OnGive?.Invoke();
+        }
+    }
+
+    public void TryItemPickup()
+    {
+        if (TryFindClosest(_pickupMask, _pickableHitBuffer, out HoldableItem item))
+        {
+            if (item.TryPick(_handSocket))
             {
-                ItemDrop();
+                _heldItem = item;
+                OnItemPickedUp?.Invoke();
+                if (TryGetComponent(out WorldEntity worldEntity))
+                {
+                    GameEvents.TriggerInventoryChange(worldEntity.EntityID,  _heldItem.itemID, true);
+                }
             }
+        }
+    }
+
+    public void TryItemDrop()
+    {
+        if (!_heldItem) return;
+        if (_heldItem.TryDrop(transform))
+        {
+            ItemDrop();
         }
     }
 

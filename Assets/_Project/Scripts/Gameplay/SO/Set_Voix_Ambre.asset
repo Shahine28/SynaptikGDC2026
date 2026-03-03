@@ -27,7 +27,8 @@ MonoBehaviour:
         - {fileID: 8300000, guid: 97f8a6256699b694e8e78881203ddb2a, type: 3}
         - {fileID: 8300000, guid: ba0d2712798677c4a864a79b5d7bfcd2, type: 3}
         - {fileID: 8300000, guid: 01583d26920d029479f7a9810abbf334, type: 3}
-        Delay: 0.5
+        Volume: 0.1
+        Delay: 0.8
     - Key: 4
       Value:
         Clips:
@@ -36,7 +37,8 @@ MonoBehaviour:
         - {fileID: 8300000, guid: 591cbd546455e2c449830f71de75f049, type: 3}
         - {fileID: 8300000, guid: a86ff129505e01343b5a231e3028a49f, type: 3}
         - {fileID: 8300000, guid: c848be7ccd48e8d4fa19c4d531764deb, type: 3}
-        Delay: 0.5
+        Volume: 0.1
+        Delay: 0.8
     - Key: 1
       Value:
         Clips:
@@ -51,7 +53,8 @@ MonoBehaviour:
         - {fileID: 8300000, guid: 3b69a88cfbbc0c9479c1f71485607436, type: 3}
         - {fileID: 8300000, guid: 3dc10a1f2d04fcd4f930c17eb8abcaf2, type: 3}
         - {fileID: 8300000, guid: 5c0cb60516dc1a04a837488597a89393, type: 3}
-        Delay: 0.5
+        Volume: 0.1
+        Delay: 0.8
     - Key: 2
       Value:
         Clips:
@@ -59,4 +62,7 @@ MonoBehaviour:
         - {fileID: 8300000, guid: a62d60ceaa0c3c34ebc90ce820f1019d, type: 3}
         - {fileID: 8300000, guid: ed051fb78e6924b47924c9fa786f68fa, type: 3}
         - {fileID: 8300000, guid: 9aafe2ade3ad36442a08d22de3c91ba8, type: 3}
-        Delay: 0.5
+        Volume: 0.1
+        Delay: 0.8
+  AudioDataFromInput:
+    _serializedList: []

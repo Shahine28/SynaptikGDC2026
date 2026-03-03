@@ -24,5 +24,9 @@ public class Goal_EmotionState : QuestGoal
         {
             Complete();
         }
+        else
+        {
+            Uncomplete();
+        }
     }
 }

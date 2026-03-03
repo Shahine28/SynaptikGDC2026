@@ -21,7 +21,7 @@ MonoBehaviour:
     - Key: 4
       Value: J
     - Key: 3
-      Value: MEB
+      Value: <color=yellow>M</color>EB
   SymbolFromAction:
     _serializedList:
     - Key: 2
