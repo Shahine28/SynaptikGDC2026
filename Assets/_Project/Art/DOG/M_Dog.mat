@@ -20,12 +20,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Pillar_New_02
+  m_Name: M_Dog
   m_Shader: {fileID: 4800000, guid: bee44b4a58655ee4cbff107302a3e131, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - DR_CEL_EXTRA_ON
+  - DR_ENABLE_LIGHTMAP_DIR
   - DR_OUTLINE_ON
   - DR_RIM_ON
   - _CELPRIMARYMODE_SINGLE
@@ -37,7 +38,7 @@ Material:
   - _UNITYSHADOWMODE_NONE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: Opaque
@@ -49,7 +50,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 6a702b9bc1829474d85e9a18b5ebb685, type: 3}
+        m_Texture: {fileID: 2800000, guid: b6bf3c2886c27d44eba0e3c94a0f3217, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -140,9 +141,9 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FlatRimEdgeSmoothness: 0.552
+    - _FlatRimEdgeSmoothness: 1
     - _FlatRimLightAlign: 0
-    - _FlatRimSize: 0.292
+    - _FlatRimSize: 0.181
     - _FlatSpecularEdgeSmoothness: 1
     - _FlatSpecularSize: 0.795
     - _Flatness: 0
@@ -166,7 +167,7 @@ Material:
     - _OutlineEnabled: 1
     - _OutlineScale: 1
     - _OutlineSpace: 1
-    - _OutlineWidth: 2
+    - _OutlineWidth: 1
     - _OverrideLightmapDir: 0
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -194,19 +195,19 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.18142033, g: 0, b: 1, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorDim: {r: 0.84603053, g: 0.8875196, b: 0.9245283, a: 1}
+    - _ColorDim: {r: 0.7660983, g: 0.99371064, b: 0.30936265, a: 1}
     - _ColorDimCurve: {r: 0.85023, g: 0.85034, b: 0.8504499, a: 0.85056}
-    - _ColorDimExtra: {r: 0.08176088, g: 0.044565104, b: 0.015683677, a: 1}
+    - _ColorDimExtra: {r: 0.17997763, g: 0.27672952, b: 0.056564193, a: 1}
     - _ColorDimSteps: {r: 0.85023, g: 0.85034, b: 0.8504499, a: 0.85056}
     - _ColorGradient: {r: 0.91764706, g: 0.06666663, b: 0.7059424, a: 1}
     - _DetailMapColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FlatRimColor: {r: 0.12776382, g: 0.39364004, b: 0.47798735, a: 1}
+    - _FlatRimColor: {r: 0.075235985, g: 0.14465404, b: 0.029567638, a: 1}
     - _FlatSpecularColor: {r: 0.93962264, g: 0.83280444, b: 0.7073763, a: 1}
     - _LightmapDirection: {r: 0, g: 1, b: 0, a: 0}
-    - _OutlineColor: {r: 0, g: 0.09411765, b: 0.17254902, a: 1}
+    - _OutlineColor: {r: 0.08843533, g: 0.17254902, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _UnityShadowColor: {r: 0.85023, g: 0.85034, b: 0.8504499, a: 0.85056}
   m_BuildTextureStacks: []
