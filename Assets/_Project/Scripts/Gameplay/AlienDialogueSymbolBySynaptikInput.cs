@@ -27,7 +27,7 @@ public class AlienDialogueSymbolBySynaptikInput : ScriptableObject
     }
 
     [Serializable]
-    public struct AlienDialogueAndTrust
+    public class AlienDialogueAndTrust
     {
         public string Symbol;
         [Range(-100f, 100f)] public int MisstrustModifier;

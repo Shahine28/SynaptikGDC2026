@@ -94,6 +94,7 @@ public class StateMachine : MonoBehaviour
         {
             _currentState.StateEnter(previousStateID);
         }
+        _alien.AlienAnimation.SetEmotion(GetEmotionTypeFromStateId(_currentStateID));
     }
 
     public void UpdateState(EmotionType playerEmotionType)
@@ -110,7 +111,6 @@ public class StateMachine : MonoBehaviour
             {
                 GameEvents.TriggerEmotionChange(worldEntity.EntityID, playerEmotionType);
             }
-            _alien.AlienAnimation.SetEmotion(playerEmotionType);
             ChangeState(_alienStateFromPlayerEmotion[playerEmotionType]);   
         }
     }

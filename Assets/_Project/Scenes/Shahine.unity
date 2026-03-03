@@ -24301,6 +24301,26 @@ PrefabInstance:
       propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value.MisstrustModifier
       value: 31
       objectReference: {fileID: 0}
+    - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value.AlienDialogueAndTrust.Symbol
+      value: LAA
+      objectReference: {fileID: 0}
+    - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value.AlienDialogueAndTrust.MisstrustModifier
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value.DialogueEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value.DialogueEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value.DialogueEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 399943161194476976, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

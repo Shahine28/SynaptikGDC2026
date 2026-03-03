@@ -111,12 +111,13 @@ public class AggressiveState : State
     }
 
     public void OnPunchCompleted()
-    {
+    {   
+        _hasTryToHitPlayer = false;
+        
         if (_hasHitPlayer) return;
-        if (_alienHitZone.IsTargetInRange)
-        {
-            CheckMovement();
-        }
+        
+        CheckMovement();
+        
 
     }
     
