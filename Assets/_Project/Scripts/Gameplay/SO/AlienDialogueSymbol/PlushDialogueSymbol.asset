@@ -15,13 +15,21 @@ MonoBehaviour:
   SymbolFromEmotion:
     _serializedList:
     - Key: 2
-      Value: MC
+      Value:
+        Symbol: MC
+        MisstrustModifier: 0
     - Key: 1
-      Value: MC
+      Value:
+        Symbol: MC
+        MisstrustModifier: 0
     - Key: 4
-      Value: MC
+      Value:
+        Symbol: MC
+        MisstrustModifier: 0
     - Key: 3
-      Value: MC
+      Value:
+        Symbol: MC
+        MisstrustModifier: 0
   SymbolFromAction:
     _serializedList:
     - Key: 2
