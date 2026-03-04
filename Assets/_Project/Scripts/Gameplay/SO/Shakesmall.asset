@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7aa4bb8852eb4000a806036a706e3a6e, type: 3}
-  m_Name: Puke
+  m_Script: {fileID: 11500000, guid: c486f320e6f6c6448bcc7ab3a77713f7, type: 3}
+  m_Name: Shakesmall
   m_EditorClassIdentifier: 
-  Title: Make an alien puke
-  DisplayDescription: seems linked emotions changes
-  MisstrustModifier: -23.6
-  Goals:
-  - {fileID: 11400000, guid: d147dfe2dec112844900c6d93b33caf7, type: 2}
+  IntensityPos: 0.3
+  IntensityRot: 1.5
+  Duration: 0.3

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Title: Comfort an Alien
   DisplayDescription: The child looks like he wants something.
+  MisstrustModifier: 0
   Goals:
   - {fileID: 11400000, guid: 22efda3e2630ee445a4b7b9d431e5b79, type: 2}

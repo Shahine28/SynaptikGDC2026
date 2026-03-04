@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraManager: {fileID: 0}
-  defaultProfile: {fileID: 11400000, guid: 4cb37b5f6f0bbc149b6d72b822eade60, type: 2}
+  defaultProfile: {fileID: 11400000, guid: da459b192f5fa9b47bd7437b6d7000b2, type: 2}
 --- !u!4 &5407559991183740558 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 88d93637e9e491f4b861cf0db0e99deb, type: 3}

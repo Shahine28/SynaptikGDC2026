@@ -19,46 +19,46 @@ MonoBehaviour:
         actionType: 1
       Value:
         Symbol: F
-        MisstrustModifier: -28
+        MisstrustModifier: 0
     - Key:
         emotionType: 1
         actionType: 2
       Value:
         Symbol: C
-        MisstrustModifier: -28
+        MisstrustModifier: 0
     - Key:
         emotionType: 2
         actionType: 1
       Value:
         Symbol: '-'
-        MisstrustModifier: -28
+        MisstrustModifier: 0
     - Key:
         emotionType: 2
         actionType: 2
       Value:
         Symbol: A
-        MisstrustModifier: -28
+        MisstrustModifier: 0
     - Key:
         emotionType: 4
         actionType: 1
       Value:
         Symbol: G
-        MisstrustModifier: -28
+        MisstrustModifier: 0
     - Key:
         emotionType: 4
         actionType: 2
       Value:
         Symbol: '?'
-        MisstrustModifier: -28
+        MisstrustModifier: 0
     - Key:
         emotionType: 3
         actionType: 1
       Value:
         Symbol: J
-        MisstrustModifier: -28
+        MisstrustModifier: 0
     - Key:
         emotionType: 3
         actionType: 2
       Value:
         Symbol: B
-        MisstrustModifier: -28
+        MisstrustModifier: 0

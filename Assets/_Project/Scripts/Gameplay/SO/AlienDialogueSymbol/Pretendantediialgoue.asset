@@ -60,5 +60,5 @@ MonoBehaviour:
         emotionType: 4
         actionType: 2
       Value:
-        Symbol: BEN
+        Symbol: "BE\u2192N"
         MisstrustModifier: 0

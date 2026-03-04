@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa4bb8852eb4000a806036a706e3a6e, type: 3}
   m_Name: marry
   m_EditorClassIdentifier: 
-  Title: marry your soulmate
-  DisplayDescription: A suitor seems to be waiting for her proposal.
+  Title: Marry your soulmate
+  DisplayDescription: Asuitor seems to be waiting for her proposal near the fashion
+    shop.
+  MisstrustModifier: 0
   Goals:
   - {fileID: 11400000, guid: d126579d10b6efb4896c65d963152ce8, type: 2}
