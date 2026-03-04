@@ -36,27 +36,32 @@ public class FearfulState : State
     public override void CheckMovement()
     {
         if (_isStatic) return;
+
+        if (_alien.InteractionZone.IsTargetInRange) return;
         
-        if (!_alien.InteractionZone.IsTargetInRange && _alien.CurrentMovementMode != Alien.MovementMode.Flee && !_isPlayerFarEnough)
-        {
-            _alien.StartFleeingTarget(_alien.InteractionZone.TargetToDetect.transform, _fleeDistance);  
-        }
-        else if (!_alien.InteractionZone.IsTargetInRange && _alien.CurrentMovementMode == Alien.MovementMode.Flee &&  _isPlayerFarEnough)
+        
+        if (_isPlayerFarEnough && !_isRoaming)
         {
             _alien.StopMoving();
             StartRoaming();
+        }
+        else if (!_isPlayerFarEnough && _alien.CurrentMovementMode != Alien.MovementMode.Flee)
+        {
+            _alien.StopMoving();
+            StopRoaming();
+            _alien.StartFleeingTarget(_alien.InteractionZone.TargetToDetect.transform, _fleeDistance);  
         }
     }
     
     protected override void OnRoamDestinationReached()
     {
-        if (_isStatic || _alien.InteractionZone.IsTargetInRange) return;
+        if (_isStatic) return;
         base.OnRoamDestinationReached();
     }
 
     protected override void OnFleeDestinationReached()
     {
-        if (_isStatic || _alien.InteractionZone.IsTargetInRange) return;
+        if (_isStatic) return;
         base.OnFleeDestinationReached();
         CheckMovement();
     }
@@ -64,15 +69,14 @@ public class FearfulState : State
     protected override void OnPlayerEnterTalkZone()
     {
         if (_isStatic) return;
+        StopRoaming();
         _alien.StopMoving();
     }
     
     protected override void OnPlayerExitTalkZone()
     {
+        if (_isStatic) return;
         CheckMovement();
     }
-    
-    
-    
 
 }

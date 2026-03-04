@@ -82,10 +82,9 @@ public class PlayerAnimation : CharacterAnimationBase
     {
         base.OnPunch();
         
-        int hitCount = _punchCollider.Count(x => x != null);
         float closestDistance = float.MaxValue;
         IInteraction nearbyInteraction = null;
-        for (int i = 0; i < hitCount; i++)
+        for (int i = 0; i < hitByPunchCount; i++)
         {
             if (!_punchCollider[i].TryGetComponent(out IInteraction interaction)) continue;
             float distance = Vector3.Distance(_punchSocket.position, _punchCollider[i].transform.position);

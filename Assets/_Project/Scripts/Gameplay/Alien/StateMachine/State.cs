@@ -16,6 +16,7 @@ public abstract class State : MonoBehaviour // Cela va être la classe de base p
     
     [SerializeField] protected float _timeBetweenRoam = 1.0f;
     protected bool _isRoaming;
+    private Coroutine _waitRoamCoroutine;
     
     [SerializeField] protected float _maxDistanceWithPlayer = 5f;
     [SerializeField] private bool _showGizmos;
@@ -31,6 +32,9 @@ public abstract class State : MonoBehaviour // Cela va être la classe de base p
             return distance > _maxDistanceWithPlayer;
         }
     }
+
+    
+    
 
     public virtual void CheckMovement()
     {
@@ -75,14 +79,19 @@ public abstract class State : MonoBehaviour // Cela va être la classe de base p
 
     protected void StartRoaming()
     {
-        StopAllCoroutines();
+        if (_waitRoamCoroutine != null) StopCoroutine(_waitRoamCoroutine);
         _isRoaming = true;
-        StartCoroutine(WaitBeforeRoam());
+        _waitRoamCoroutine = StartCoroutine(WaitBeforeRoam());
     }
 
     protected void StopRoaming()
     {
         _isRoaming = false;
+        if (_waitRoamCoroutine != null) 
+        {
+            StopCoroutine(_waitRoamCoroutine);
+            _waitRoamCoroutine = null;
+        }
         _alien.StopMoving();
     }
     
@@ -104,10 +113,9 @@ public abstract class State : MonoBehaviour // Cela va être la classe de base p
     
     protected virtual void OnRoamDestinationReached()
     {
-        if (_isRoaming)
-        {
-            StartCoroutine(WaitBeforeRoam());
-        }
+        if (!_isRoaming) return;
+        if (_waitRoamCoroutine != null) StopCoroutine(_waitRoamCoroutine);
+        _waitRoamCoroutine = StartCoroutine(WaitBeforeRoam());
     }
 
     protected virtual void OnFollowDestinationReached()

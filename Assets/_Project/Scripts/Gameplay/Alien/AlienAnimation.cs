@@ -14,6 +14,7 @@ public class AlienAnimation : CharacterAnimationBase
     private Vector3 _lastPosition;
 
     [SerializeField, Required] private WorldEntity _punchTaget;
+    [SerializeField, Range(-100, 100)] private int _missTrustModifierOnHit = 5;
     
     
     protected override void Awake()
@@ -42,26 +43,25 @@ public class AlienAnimation : CharacterAnimationBase
     public override void OnPunch()
     {
         base.OnPunch();
-        int hitCount = _punchCollider.Count(x => x != null);
-        for (int i = 0; i < hitCount; i++)
+        for (int i = 0; i < hitByPunchCount; i++)
         {
-            if (_punchCollider[i].TryGetComponent(out WorldEntity worldEntity))
+            if (!_punchCollider[i].TryGetComponent(out WorldEntity worldEntity) 
+                || worldEntity.EntityID != _punchTaget.EntityID) 
+                continue;
+            
+            if (_punchCollider[i].TryGetComponent(out PlayerInputSystem playerInputSystem))
             {
-                if (worldEntity.EntityID == _punchTaget.EntityID)
+                if (/*playerInputSystem.CurrentSynaptikInput is not { emotionType: EmotionType.Fearful, actionType: ActionType.Action }*/ 
+                    playerInputSystem.CurrentSynaptikInput.emotionType != EmotionType.Fearful)
                 {
-                    if (_punchCollider[i].TryGetComponent(out PlayerInputSystem playerInputSystem))
-                    {
-                        if (playerInputSystem.CurrentSynaptikInput is { emotionType: EmotionType.Fearful, actionType: ActionType.Action })
-                        {
-                            Debug.Log("Player punched but crouched");
-                            break;
-                        }
-                    }
-                    OnHitByPunch?.Invoke();
-                    Debug.Log("Target punched");
-                    break;
+                    Debug.Log("Player punched but not crouched");
+                    MistrustManager.Instance?.AddMistrust(_missTrustModifierOnHit);
                 }
             }
+            OnHitByPunch?.Invoke();
+            Debug.Log("Target punched");
+            break;
+            
         }
     }
 

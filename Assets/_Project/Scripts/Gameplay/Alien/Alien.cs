@@ -21,7 +21,7 @@ public class Alien : MonoBehaviour, IInteraction
     
     [Header("Movement")]
     [SerializeField, Required] private NavMeshAgent _navMeshAgent;
-    private Coroutine _moveCoroutine;
+    private Coroutine _checkArrivalCoroutine;
     private Coroutine _followCoroutine;
     private Coroutine _fleeCoroutine;
         
@@ -74,7 +74,7 @@ public class Alien : MonoBehaviour, IInteraction
     [SerializeField] private bool _deleteItemOnReceive = true;
 
     public UnityEvent OnItemReceived;
-    
+    private SynaptikInput lastSynaptikInput;
     
     // [Header("Sound")]
     // [SerializeField] private VoicesModels _attributedVoice;
@@ -128,20 +128,35 @@ public class Alien : MonoBehaviour, IInteraction
 
         if (!_interactionZone || !_interactionZone.IsTargetInRange || !_stateMachine.GetCurrentState().LookAtTarget ||
             !_interactionZone.TargetToDetect) return;
-        
-        
-        Vector3 direction = _interactionZone.TargetToDetect.transform.position - transform.position;
 
-        direction.y = 0;
 
-        if (direction == Vector3.zero) return;
+        if (_currentMovementMode == MovementMode.None || _currentMovementMode == MovementMode.Follow)
+        {
+            Vector3 direction = _interactionZone.TargetToDetect.transform.position - transform.position;
+
+            direction.y = 0;
+
+            if (direction == Vector3.zero) return;
         
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+        }
+    }
+
+    public void UpdateAlien()
+    {
+        if (lastSynaptikInput is { actionType: ActionType.None, emotionType: EmotionType.None })
+        {
+            lastSynaptikInput.actionType = ActionType.Action;
+        }
+        if (_stateMachine != null) lastSynaptikInput.emotionType = _stateMachine.GetCurrentEmotionType();
+        _alienEmotionColorVisuals?.OnEmotionColorChanged(lastSynaptikInput);
+        _alienEmotionAudioResponse?.OnEmotionChanged(lastSynaptikInput);
     }
     
     public void Interact(SynaptikInput action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
     {
+        lastSynaptikInput = action;
         SynaptikInput playerInput = action;
         _stateMachine?.UpdateState(action);
 
@@ -232,16 +247,16 @@ public class Alien : MonoBehaviour, IInteraction
         
         destination = new Vector3(destination.x, 0, destination.z);
         _navMeshAgent.SetDestination(destination); 
-        if (_moveCoroutine != null) StopCoroutine(_moveCoroutine);
-        _moveCoroutine = StartCoroutine(CheckArrival(destination)); 
+        if (_checkArrivalCoroutine != null) StopCoroutine(_checkArrivalCoroutine);
+        _checkArrivalCoroutine = StartCoroutine(CheckArrival(destination)); 
     }
 
     public void StopMoving()
     {
-        if (_moveCoroutine != null) 
+        if (_checkArrivalCoroutine != null) 
         {
-            StopCoroutine(_moveCoroutine);
-            _moveCoroutine = null;
+            StopCoroutine(_checkArrivalCoroutine);
+            _checkArrivalCoroutine = null;
         }
         
         if (_followCoroutine != null)
@@ -298,7 +313,8 @@ public class Alien : MonoBehaviour, IInteraction
         }
         
     }
-
+    
+    
     public void Roam()
     {
         if (!_roamZone)
@@ -338,7 +354,7 @@ public class Alien : MonoBehaviour, IInteraction
             }
             
             _navMeshAgent.SetDestination(targetPos);
-            _moveCoroutine = StartCoroutine(CheckArrival(targetPos)); 
+            _checkArrivalCoroutine = StartCoroutine(CheckArrival(targetPos)); 
             yield return wait;
         }
     }
@@ -367,7 +383,7 @@ public class Alien : MonoBehaviour, IInteraction
                 fleeDestination = _roamZone.ClampPositionToZone(fleeDestination);
             }
             
-            _moveCoroutine = StartCoroutine(CheckArrival(fleeDestination)); 
+            _checkArrivalCoroutine = StartCoroutine(CheckArrival(fleeDestination)); 
             _navMeshAgent.SetDestination(fleeDestination);
         
             yield return wait;
