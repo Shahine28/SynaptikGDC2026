@@ -12,11 +12,12 @@ public class QuestData : ScriptableObject
     public string Title;
     [TextArea] public string DisplayDescription;
 
+    [Range(-100, 100)] public float MisstrustModifier;
     [Header("Logic")]
     [Expandable]
     public List<QuestGoal> Goals;
 
-
+    
     public event Action<QuestData> OnQuestCompleted;
     public event Action<QuestData> OnQuestUpdated;
     
@@ -49,6 +50,7 @@ public class QuestData : ScriptableObject
         {
             _isCompleted = true;
             OnQuestCompleted?.Invoke(this);
+            MistrustManager.Instance?.AddMistrust(MisstrustModifier);
             Cleanup(); 
         }
     }

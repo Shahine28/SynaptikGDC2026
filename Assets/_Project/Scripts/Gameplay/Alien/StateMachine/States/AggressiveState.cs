@@ -114,10 +114,10 @@ public class AggressiveState : State
     {   
         _hasTryToHitPlayer = false;
         
-        if (_hasHitPlayer) return;
-        
-        CheckMovement();
-        
+        if (_alienHitZone.IsTargetInRange || _hasHitPlayer)
+        {
+            CheckMovement();
+        }
 
     }
     

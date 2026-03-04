@@ -11,7 +11,7 @@ public class StateMachine : MonoBehaviour
     [SerializeField, ReadOnly] private StateID _currentStateID;
      
     [SerializeField, SerializedDictionary("Player Emotion", "Alien Reaction"), Tooltip("Quel state adopte l'alien lorsque le joueur intéragit avec l'alien avec telle émotion")]
-    private SerializedDictionary<EmotionType, StateID> _alienStateFromPlayerEmotion = new();
+    private SerializedDictionary<SynaptikInput, StateID> _alienStateFromPlayerEmotion = new();
     
     private State _currentState;
     private Alien _alien;
@@ -63,6 +63,31 @@ public class StateMachine : MonoBehaviour
             state.StateInit(this);
         }
     }
+
+    public void SwitchToFriendly() => SwitchToState(StateID.Friendly);
+    public void SwitchToAggressive() => SwitchToState(StateID.Aggressive);
+    public void SwitchToFearful() => SwitchToState(StateID.Fearful);
+    public void SwitchToCurious() => SwitchToState(StateID.Curious);
+    
+    
+    public void SwitchToState(StateID NextStateID)
+    {
+        if (NextStateID != _currentStateID)
+        {
+            currentEmotionChangesBeforePuke++;
+            if (currentEmotionChangesBeforePuke > _maxEmotionChangesBeforePuke)
+            {
+                currentEmotionChangesBeforePuke = 0;
+                _alien.AlienAnimation.PlayPuke();
+            }
+            if (TryGetComponent(out WorldEntity worldEntity))
+            {
+                GameEvents.TriggerEmotionChange(worldEntity.EntityID, GetEmotionTypeFromStateId(NextStateID));
+            }
+            ChangeState(NextStateID);   
+        }
+    }
+    
     
     public void ChangeState(StateID NextStateID) // Change l'état actuel du StateMachine et appelle le StateExit de l'état précédent et le StateStart du nouvel état
     {
@@ -97,9 +122,9 @@ public class StateMachine : MonoBehaviour
         _alien.AlienAnimation.SetEmotion(GetEmotionTypeFromStateId(_currentStateID));
     }
 
-    public void UpdateState(EmotionType playerEmotionType)
+    public void UpdateState(SynaptikInput playerSynaptikInput)
     {
-        if (_alienStateFromPlayerEmotion.ContainsKey(playerEmotionType) && _alienStateFromPlayerEmotion[playerEmotionType] != _currentStateID)
+        if (_alienStateFromPlayerEmotion.ContainsKey(playerSynaptikInput) && _alienStateFromPlayerEmotion[playerSynaptikInput] != _currentStateID)
         {
             currentEmotionChangesBeforePuke++;
             if (currentEmotionChangesBeforePuke > _maxEmotionChangesBeforePuke)
@@ -109,9 +134,9 @@ public class StateMachine : MonoBehaviour
             }
             if (TryGetComponent(out WorldEntity worldEntity))
             {
-                GameEvents.TriggerEmotionChange(worldEntity.EntityID, playerEmotionType);
+                GameEvents.TriggerEmotionChange(worldEntity.EntityID, playerSynaptikInput.emotionType);
             }
-            ChangeState(_alienStateFromPlayerEmotion[playerEmotionType]);   
+            ChangeState(_alienStateFromPlayerEmotion[playerSynaptikInput]);   
         }
     }
 

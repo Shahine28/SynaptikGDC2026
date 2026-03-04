@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Title: make an alien Puke
   DisplayDescription: seems linked emotions changes
+  MisstrustModifier: -23.6
   Goals:
   - {fileID: 11400000, guid: d147dfe2dec112844900c6d93b33caf7, type: 2}
