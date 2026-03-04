@@ -2,10 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-/// <summary>
-/// Un composant utilitaire permettant aux Game Designers de lier facilement
-/// le déclenchement de sons à n'importe quel UnityEvent dans l'inspecteur.
-/// </summary>
+
 public class SimpleAudioEventBinder : MonoBehaviour
 {
     [System.Serializable]
@@ -20,6 +17,9 @@ public class SimpleAudioEventBinder : MonoBehaviour
         [Tooltip("Variation du volume (0 = silence, 1 = volume max).")]
         [Range(0f, 1f)] public float VolumeScale;
         
+        [Tooltip("Si vrai, le son sera joué en boucle.")]
+        public bool Loop;
+
         [Tooltip("Si vrai, le son sera joué à la position de cet objet (utile si l'objet est détruit juste après).")]
         public bool PlayAtPoint;
     }
@@ -41,10 +41,6 @@ public class SimpleAudioEventBinder : MonoBehaviour
             _audioSource = GetComponent<AudioSource>();
     }
 
-    /// <summary>
-    /// Fonction à appeler depuis un UnityEvent, en passant l'index correspondant au son dans _audioBindings.
-    /// </summary>
-    /// <param name="index">L'index du son dans la liste.</param>
     public void PlaySoundByIndex(int index)
     {
         Debug.Log($"[SimpleAudioEventBinder] PlaySoundByIndex appelé avec l'index {index}");
@@ -58,11 +54,7 @@ public class SimpleAudioEventBinder : MonoBehaviour
         Play(binding);
     }
     
-    /// <summary>
-    /// Fonction à appeler depuis un UnityEvent (via string).
-    /// Moins optimisée que l'index, mais plus lisible pour des events déclenchés par code.
-    /// </summary>
-    /// <param name="eventName">Le nom donné dans l'inspecteur.</param>
+
     public void PlaySoundByName(string eventName)
     {
         Debug.Log($"[SimpleAudioEventBinder] PlaySoundByName appelé avec le nom '{eventName}'");
@@ -93,20 +85,29 @@ public class SimpleAudioEventBinder : MonoBehaviour
 
         if (binding.PlayAtPoint || _audioSource == null)
         {
-            PlayClipAtPointCustom(binding.Clip, transform.position, volume, _audioMixerGroup);
-            Debug.Log($"[SimpleAudioEventBinder] Joué via PlayClipAtPoint ! (Mixer: {(_audioMixerGroup ? _audioMixerGroup.name : "None")})");
+            PlayClipAtPointCustom(binding.Clip, transform.position, volume, binding.Loop, _audioMixerGroup);
+            Debug.Log($"[SimpleAudioEventBinder] Joué via PlayClipAtPoint ! (Mixer: {(_audioMixerGroup ? _audioMixerGroup.name : "None")}) - Loop: {binding.Loop}");
         }
         else
         {
-            _audioSource.PlayOneShot(binding.Clip, volume);
-            Debug.Log($"[SimpleAudioEventBinder] Joué via l'AudioSource du composant !");
+            if (binding.Loop)
+            {
+                _audioSource.clip = binding.Clip;
+                _audioSource.volume = volume;
+                _audioSource.loop = true;
+                _audioSource.Play();
+                Debug.Log($"[SimpleAudioEventBinder] Joué en boucle via l'AudioSource du composant !");
+            }
+            else
+            {
+                _audioSource.PlayOneShot(binding.Clip, volume);
+                Debug.Log($"[SimpleAudioEventBinder] Joué via l'AudioSource du composant !");
+            }
         }
     }
     
-    /// <summary>
-    /// Version personnalisée de AudioSource.PlayClipAtPoint qui permet d'assigner un AudioMixerGroup.
-    /// </summary>
-    private static void PlayClipAtPointCustom(AudioClip clip, Vector3 position, float volume, UnityEngine.Audio.AudioMixerGroup mixerGroup = null)
+
+    private static void PlayClipAtPointCustom(AudioClip clip, Vector3 position, float volume, bool loop = false, UnityEngine.Audio.AudioMixerGroup mixerGroup = null)
     {
         if (clip == null) return;
         
@@ -115,8 +116,9 @@ public class SimpleAudioEventBinder : MonoBehaviour
         
         AudioSource aSource = tempGO.AddComponent<AudioSource>();
         aSource.clip = clip;
-        aSource.spatialBlend = 0f; // Force l'audio 2D pour le test (ignorer la distance)
+        aSource.spatialBlend = 0f;
         aSource.volume = volume;
+        aSource.loop = loop;
         
         if (mixerGroup != null)
         {
@@ -124,6 +126,10 @@ public class SimpleAudioEventBinder : MonoBehaviour
         }
         
         aSource.Play();
-        Destroy(tempGO, clip.length);
+
+        if (!loop)
+        {
+            Destroy(tempGO, clip.length);
+        }
     }
 }
