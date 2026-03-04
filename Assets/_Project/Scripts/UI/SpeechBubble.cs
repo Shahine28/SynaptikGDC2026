@@ -34,7 +34,11 @@ public class SpeechBubble : MonoBehaviour
     [MinMaxSlider(0.1f, 5f)]
     [SerializeField] private Vector2 _positionYRange = new(0.5f, 2);
     private Camera _mainCamera;
-    
+
+    public void Init(Vector2 PositionYRange)
+    {
+        _positionYRange = PositionYRange;
+    }
     private void Awake()
     {
         _mainCamera = Camera.main;

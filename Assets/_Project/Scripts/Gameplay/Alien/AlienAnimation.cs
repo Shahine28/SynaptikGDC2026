@@ -15,6 +15,7 @@ public class AlienAnimation : CharacterAnimationBase
 
     [SerializeField, Required] private WorldEntity _punchTaget;
     [SerializeField, Range(-100, 100)] private int _missTrustModifierOnHit = 5;
+    public UnityEvent OnBlock;
     
     
     protected override void Awake()
@@ -56,6 +57,10 @@ public class AlienAnimation : CharacterAnimationBase
                 {
                     Debug.Log("Player punched but not crouched");
                     MistrustManager.Instance?.AddMistrust(_missTrustModifierOnHit);
+                }
+                else
+                {
+                    OnBlock?.Invoke();
                 }
             }
             OnHitByPunch?.Invoke();
