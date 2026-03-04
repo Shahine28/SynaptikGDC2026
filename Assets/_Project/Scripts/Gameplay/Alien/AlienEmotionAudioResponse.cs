@@ -8,9 +8,16 @@ public class AlienEmotionAudioResponse : MonoBehaviour
     [SerializeField] private AlienAudioFromEmotionType _alienAudioSO;
     [SerializeField] private AudioSource _audioSource;
 
+    [Header("Overlap Settings")]
+    [Tooltip("Si activé, coupe le son en cours pour jouer le nouveau. Si désactivé, ignore le nouveau son si un autre est déjà en train de jouer.")]
+    [SerializeField] private bool _cutPreviousSound = true;
+    [Tooltip("Délai minimum (en secondes) à attendre entre deux sons quand Cut Previous Sound est désactivé.")]
+    [SerializeField] private float _spamCooldown = 0.5f;
+
     private SynaptikInput _currentInput;
     private Coroutine _playCoroutine;
     private bool _canPlayAudio = false;
+    private float _nextAllowedPlayTime = 0f;
 
     private void Awake()
     {
@@ -40,6 +47,16 @@ public class AlienEmotionAudioResponse : MonoBehaviour
         
         if (_currentInput.emotionType == synaptikInput.emotionType && _currentInput.actionType == synaptikInput.actionType)
             return;
+            
+        if (!_cutPreviousSound)
+        {
+            bool isPlayingAudio = _audioSource != null && _audioSource.isPlaying;
+            bool isWaitingForDelay = _playCoroutine != null;
+            if (isPlayingAudio || isWaitingForDelay || Time.time < _nextAllowedPlayTime)
+            {
+                return;
+            }
+        }
         
         Debug.Log($"[AudioResponse] Changer d'input de ({_currentInput.emotionType}, {_currentInput.actionType}) vers ({synaptikInput.emotionType}, {synaptikInput.actionType})");
         _currentInput = synaptikInput;
@@ -74,6 +91,11 @@ public class AlienEmotionAudioResponse : MonoBehaviour
                 {
                     float volume = audioData.Volume <= 0f ? 1f : audioData.Volume;
 
+                    if (!_cutPreviousSound)
+                    {
+                        _nextAllowedPlayTime = Time.time + randomClip.length + audioData.Delay + _spamCooldown;
+                    }
+
                     Debug.Log($"[AudioResponse] Son choisi : {randomClip.name}. Délai : {audioData.Delay}s, Volume : {volume}");
                     if (audioData.Delay > 0f)
                     {
@@ -104,7 +126,13 @@ public class AlienEmotionAudioResponse : MonoBehaviour
         Debug.Log($"[AudioResponse] Lecture de {clip.name} au volume {volume}...");
         if (_audioSource != null)
         {
-            _audioSource.PlayOneShot(clip, volume);
+            if (_cutPreviousSound)
+            {
+                _audioSource.Stop();
+            }
+            _audioSource.clip = clip;
+            _audioSource.volume = volume;
+            _audioSource.Play();
             Debug.Log($"[AudioResponse] Joué via AudioSource !");
         }
         else
