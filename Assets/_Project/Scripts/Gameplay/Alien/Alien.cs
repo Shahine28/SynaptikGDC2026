@@ -143,7 +143,7 @@ public class Alien : MonoBehaviour, IInteraction
     public void Interact(SynaptikInput action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
     {
         SynaptikInput playerInput = action;
-        _stateMachine?.UpdateState(action.emotionType);
+        _stateMachine?.UpdateState(action);
 
         if (_stateMachine != null) action.emotionType = _stateMachine.GetCurrentEmotionType();
         _alienEmotionColorVisuals?.OnEmotionColorChanged(action);
@@ -160,28 +160,47 @@ public class Alien : MonoBehaviour, IInteraction
             {
                 StartCoroutine(StartDialogueDelayed(transform, playerInput, dialogueData, dialogueMistrustModifier));
             }
-
-            return;
         }
-        
-        
-        playerInteraction?.ItemDrop();
-        if (_DialogueSymbolFromItemIdsToReceive.TryGetValue(item.itemID, out AlienDialogueTrustAndEvent itemDialogue))
+        else
         {
-            if (TryGetComponent(out WorldEntity worldEntity))
+            if (item)
             {
-                GameEvents.TriggerInventoryChange(worldEntity.EntityID, item.itemID, true);
-            }
+                if (item.itemID && _DialogueSymbolFromItemIdsToReceive.TryGetValue(item.itemID, 
+                        out AlienDialogueTrustAndEvent itemDialogue))
+                {
+                    if (TryGetComponent(out WorldEntity worldEntity))
+                    {
+                        GameEvents.TriggerInventoryChange(worldEntity.EntityID, item.itemID, true);
+                    }
 
-            if (_deleteItemOnReceive)
-            {
-                _DialogueSymbolFromItemIdsToReceive.Remove(item.itemID);
+                    if (_deleteItemOnReceive)
+                    {
+                        _DialogueSymbolFromItemIdsToReceive.Remove(item.itemID);
+                    }
+                    // playerInteraction?.ItemDrop();
+                    playerInteraction?.OnGive?.Invoke();
+                    Destroy(item.gameObject);
+                    OnItemReceived?.Invoke();
+                    StartCoroutine(StartDialogueDelayed(transform, playerInput, itemDialogue.AlienDialogueAndTrust.Symbol, itemDialogue.AlienDialogueAndTrust.MisstrustModifier));
+                    itemDialogue.DialogueEvent?.Invoke();
+                }
+                else
+                {
+                    if (!playerInteraction)
+                    {
+                        Debug.LogWarning("[ALIEN] Player interraction is null");
+                    }
+                    else
+                    {
+                        playerInteraction.OnGive?.Invoke();
+                    }
+                }
+                
             }
-            playerInteraction?.ItemDrop();
-            Destroy(item.gameObject);
-            OnItemReceived?.Invoke();
-            StartCoroutine(StartDialogueDelayed(transform, playerInput, itemDialogue.AlienDialogueAndTrust.Symbol, itemDialogue.AlienDialogueAndTrust.MisstrustModifier));
-            itemDialogue.DialogueEvent?.Invoke();
+            else
+            {
+                Debug.LogWarning("[ALIEN] HoldableItem is null");
+            }
         }
     }
 

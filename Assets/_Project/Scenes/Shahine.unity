@@ -4466,7 +4466,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   respawnAtDrop: 0
   despawnVfxPrefab: {fileID: 104829970813648393, guid: d3015b7eea383f64d8b81f965cc466e7, type: 3}
-  _isLock: 1
+  _isLock: 0
   canTake: 1
 --- !u!54 &533628105
 Rigidbody:
@@ -8360,13 +8360,21 @@ MonoBehaviour:
   _currentStateID: 0
   _alienStateFromPlayerEmotion:
     _serializedList:
-    - Key: 1
+    - Key:
+        emotionType: 0
+        actionType: 0
       Value: 1
-    - Key: 2
+    - Key:
+        emotionType: 0
+        actionType: 0
       Value: 2
-    - Key: 3
+    - Key:
+        emotionType: 0
+        actionType: 0
       Value: 3
-    - Key: 4
+    - Key:
+        emotionType: 0
+        actionType: 0
       Value: 4
   _maxEmotionChangesBeforePuke: 0
   _emotionChangeWindow: 0
@@ -24287,7 +24295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _defaultStateID
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value
@@ -24311,15 +24319,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value.DialogueEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value.DialogueEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value.DialogueEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7506163913794878542}
+    - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value.DialogueEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value.DialogueEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SwitchToFriendly
+      objectReference: {fileID: 0}
+    - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value.DialogueEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StateMachine, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value.DialogueEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 399943161194476976, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24386,15 +24410,103 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[0].Value
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[1].Value
-      value: 2
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[2].Value
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[3].Value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[4].Value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[5].Value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[6].Value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[7].Value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[0].Key.actionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[1].Key.actionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[2].Key.actionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[3].Key.actionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[4].Key.actionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[5].Key.actionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[6].Key.actionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[7].Key.actionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[0].Key.emotionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[1].Key.emotionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[2].Key.emotionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[3].Key.emotionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[4].Key.emotionType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[5].Key.emotionType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[6].Key.emotionType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[7].Key.emotionType
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6054782324146955706, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
@@ -24448,6 +24560,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19dc2b6ccdef46c7a3db78b687f5d30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7506163913794878542 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+  m_PrefabInstance: {fileID: 7506163913794878530}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201481492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1f610f82f454f95804637014427fd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
