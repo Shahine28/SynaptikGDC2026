@@ -86933,6 +86933,18 @@ MonoBehaviour:
               m_StringArgument: Wedding
               m_BoolArgument: 0
             m_CallState: 2
+          - m_Target: {fileID: 610629091}
+            m_TargetAssemblyTypeName: SimpleAudioEventBinder, Assembly-CSharp
+            m_MethodName: PlaySoundByName
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: emu
+              m_BoolArgument: 0
+            m_CallState: 2
 --- !u!114 &610629091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86955,6 +86967,10 @@ MonoBehaviour:
   - EventName: Wedding
     Clip: {fileID: 8300000, guid: 534b7b534e28a5b429a7c887ed7861bb, type: 3}
     VolumeScale: 0.05
+    PlayAtPoint: 0
+  - EventName: emu
+    Clip: {fileID: 8300000, guid: e0a2f5bc897d4c14db084509d097fee1, type: 3}
+    VolumeScale: 0.1
     PlayAtPoint: 0
 --- !u!4 &612079657 stripped
 Transform:
@@ -230222,12 +230238,12 @@ PrefabInstance:
     - {fileID: 77603173817819019, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
     - {fileID: 4857421692683518611, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 399943161194476976, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 386912818}
     - targetCorrespondingSourceObject: {fileID: 7729655330460185349, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       insertIndex: 0
       addedObject: {fileID: 1478946470}
+    - targetCorrespondingSourceObject: {fileID: 7729655330460185349, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 386912818}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6746439393017018253, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       insertIndex: -1
@@ -235287,7 +235303,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1995551453}
+    m_TransformParent: {fileID: 1052317121}
     m_Modifications:
     - target: {fileID: 2524459669965159201, guid: 2e79f16be10fbd14f8d5ef191f8db4aa, type: 3}
       propertyPath: m_LocalScale.x
@@ -235315,31 +235331,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4938095755617958528, guid: 2e79f16be10fbd14f8d5ef191f8db4aa, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.21802357
+      value: 0.2180236
       objectReference: {fileID: 0}
     - target: {fileID: 4938095755617958528, guid: 2e79f16be10fbd14f8d5ef191f8db4aa, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.21802357
+      value: 0.2180236
       objectReference: {fileID: 0}
     - target: {fileID: 4938095755617958528, guid: 2e79f16be10fbd14f8d5ef191f8db4aa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.735489
+      value: 0.014511108
       objectReference: {fileID: 0}
     - target: {fileID: 4938095755617958528, guid: 2e79f16be10fbd14f8d5ef191f8db4aa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8810005
+      value: 1.023
       objectReference: {fileID: 0}
     - target: {fileID: 4938095755617958528, guid: 2e79f16be10fbd14f8d5ef191f8db4aa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.741
+      value: -0.08
       objectReference: {fileID: 0}
     - target: {fileID: 4938095755617958528, guid: 2e79f16be10fbd14f8d5ef191f8db4aa, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9999622
       objectReference: {fileID: 0}
     - target: {fileID: 4938095755617958528, guid: 2e79f16be10fbd14f8d5ef191f8db4aa, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: -0.008703665
       objectReference: {fileID: 0}
     - target: {fileID: 4938095755617958528, guid: 2e79f16be10fbd14f8d5ef191f8db4aa, type: 3}
       propertyPath: m_LocalRotation.y
