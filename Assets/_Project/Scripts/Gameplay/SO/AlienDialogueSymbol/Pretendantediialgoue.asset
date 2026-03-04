@@ -15,8 +15,50 @@ MonoBehaviour:
   SymbolFromSynaptikInput:
     _serializedList:
     - Key:
+        emotionType: 1
+        actionType: 1
+      Value:
+        Symbol: F?
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 1
+        actionType: 2
+      Value:
+        Symbol: C
+        MisstrustModifier: 0
+    - Key:
         emotionType: 2
         actionType: 1
       Value:
-        Symbol: dz
-        MisstrustModifier: 21
+        Symbol: A
+        MisstrustModifier: -3
+    - Key:
+        emotionType: 2
+        actionType: 2
+      Value:
+        Symbol: A
+        MisstrustModifier: -3
+    - Key:
+        emotionType: 3
+        actionType: 1
+      Value:
+        Symbol: BJ
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 3
+        actionType: 2
+      Value:
+        Symbol: BJ
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 4
+        actionType: 1
+      Value:
+        Symbol: GE
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 4
+        actionType: 2
+      Value:
+        Symbol: BEN
+        MisstrustModifier: 0

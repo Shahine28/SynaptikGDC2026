@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: marry
   m_EditorClassIdentifier: 
   Title: marry your soulmate
-  DisplayDescription: a suitor seems to be waiting for her proposal
+  DisplayDescription: A suitor seems to be waiting for her proposal.
   Goals:
   - {fileID: 11400000, guid: d126579d10b6efb4896c65d963152ce8, type: 2}

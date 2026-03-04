@@ -16,7 +16,49 @@ MonoBehaviour:
     _serializedList:
     - Key:
         emotionType: 1
+        actionType: 2
+      Value:
+        Symbol: C
+        MisstrustModifier: -28
+    - Key:
+        emotionType: 2
+        actionType: 2
+      Value:
+        Symbol: A
+        MisstrustModifier: -28
+    - Key:
+        emotionType: 4
+        actionType: 2
+      Value:
+        Symbol: '?'
+        MisstrustModifier: -28
+    - Key:
+        emotionType: 3
+        actionType: 2
+      Value:
+        Symbol: B
+        MisstrustModifier: -28
+    - Key:
+        emotionType: 1
         actionType: 1
       Value:
-        Symbol: LAD
+        Symbol: F
+        MisstrustModifier: -28
+    - Key:
+        emotionType: 2
+        actionType: 1
+      Value:
+        Symbol: '-'
+        MisstrustModifier: -28
+    - Key:
+        emotionType: 3
+        actionType: 1
+      Value:
+        Symbol: J
+        MisstrustModifier: -28
+    - Key:
+        emotionType: 4
+        actionType: 1
+      Value:
+        Symbol: G
         MisstrustModifier: -28

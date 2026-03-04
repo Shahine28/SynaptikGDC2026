@@ -109,6 +109,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 88d93637e9e491f4b861cf0db0e99deb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6167817820952602173}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 88d93637e9e491f4b861cf0db0e99deb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8863876246457402194}
   m_SourcePrefab: {fileID: 100100000, guid: 88d93637e9e491f4b861cf0db0e99deb, type: 3}
 --- !u!1 &4629792250898895924 stripped
 GameObject:
@@ -199,6 +202,18 @@ MonoBehaviour:
           m_StringArgument: machine
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8863876246457402194}
+        m_TargetAssemblyTypeName: ScreenShakeTrigger, Assembly-CSharp
+        m_MethodName: PlayDefaultShake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onItemInteracted:
     m_PersistentCalls:
       m_Calls: []
@@ -214,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c582e00675d9404085acc81a1cb1277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnChance: 1
+  _spawnChance: 0.3
   _spawnObjects:
   - _objectToSpawn: {fileID: 0}
     _weight: 1
@@ -238,6 +253,20 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: edf5145b03754484c835582655dd9613, type: 3}
     VolumeScale: 0.052
     PlayAtPoint: 0
+--- !u!114 &8863876246457402194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4629792250898895924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f29c925b7a396b43924a3cfaf636843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraManager: {fileID: 0}
+  defaultProfile: {fileID: 11400000, guid: 4cb37b5f6f0bbc149b6d72b822eade60, type: 2}
 --- !u!4 &5407559991183740558 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 88d93637e9e491f4b861cf0db0e99deb, type: 3}
