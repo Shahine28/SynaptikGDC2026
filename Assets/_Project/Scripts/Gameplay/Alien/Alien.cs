@@ -178,7 +178,7 @@ public class Alien : MonoBehaviour, IInteraction
         }
         else
         {
-            if (item)
+            if (item && playerInput is {emotionType : EmotionType.Friendly, actionType: ActionType.Action})
             {
                 if (item.itemID && _DialogueSymbolFromItemIdsToReceive.TryGetValue(item.itemID, 
                         out AlienDialogueTrustAndEvent itemDialogue))
