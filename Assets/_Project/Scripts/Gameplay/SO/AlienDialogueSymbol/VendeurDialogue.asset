@@ -18,19 +18,19 @@ MonoBehaviour:
         emotionType: 1
         actionType: 1
       Value:
-        Symbol: F?
+        Symbol: KFM
         MisstrustModifier: 0
     - Key:
         emotionType: 1
         actionType: 2
       Value:
-        Symbol: C
+        Symbol: KFM
         MisstrustModifier: 0
     - Key:
         emotionType: 2
         actionType: 1
       Value:
-        Symbol: A
+        Symbol: KFM
         MisstrustModifier: -3
     - Key:
         emotionType: 2
@@ -48,17 +48,17 @@ MonoBehaviour:
         emotionType: 3
         actionType: 2
       Value:
-        Symbol: BJ
+        Symbol: KFM
         MisstrustModifier: 0
     - Key:
         emotionType: 4
         actionType: 1
       Value:
-        Symbol: GE
+        Symbol: KFM
         MisstrustModifier: 0
     - Key:
         emotionType: 4
         actionType: 2
       Value:
-        Symbol: BEM
+        Symbol: KFM
         MisstrustModifier: 0

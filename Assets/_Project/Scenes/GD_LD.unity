@@ -42844,8 +42844,8 @@ MonoBehaviour:
   followOffset: {x: 0, y: 10, z: -10}
   lookAheadAmount: 0
   lockYAxis: 0
-  viewOffset: {x: 0.047224045, y: -1.4908615, z: -3.2688541}
-  viewRotationOffset: {x: 0, y: 0, z: 0}
+  viewOffset: {x: 0.052279472, y: -0.56205916, z: -4.114786}
+  viewRotationOffset: {x: 4.9409103, y: -0.0000000012990548, z: -8.7929664e-10}
   staticPosition: {x: -7.885803, y: 1.210968, z: -16.521782}
   staticRotationEuler: {x: 45.356045, y: 179.854, z: 0.035794407}
 --- !u!1001 &263434677
@@ -42945,6 +42945,10 @@ PrefabInstance:
       propertyPath: _secondBeforeReactingToPlayer
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _dialogueSymbolBySynaptikInput
+      value: 
+      objectReference: {fileID: 11400000, guid: 49a4eb32f41040b4d8da3a9911d5bae7, type: 2}
     - target: {fileID: 399943161194476976, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: m_LocalPosition.x
       value: -53.162495
@@ -43084,6 +43088,14 @@ PrefabInstance:
     - target: {fileID: 4030290080076899297, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: m_Radius
       value: 1.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _emotionChangeWindow
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _maxEmotionChangesBeforePuke
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4821834838382460898, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: m_Radius
@@ -90034,7 +90046,19 @@ MonoBehaviour:
     - Key: {fileID: 11400000, guid: 5e0b86bc83d6e454781e2131e1d46df5, type: 2}
       Value:
         m_PersistentCalls:
-          m_Calls: []
+          m_Calls:
+          - m_Target: {fileID: 266808177}
+            m_TargetAssemblyTypeName: AlienAnimation, Assembly-CSharp
+            m_MethodName: PlayPuke
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
     - Key: {fileID: 11400000, guid: 5aeaa42c1a1b6e54989551d2484260f2, type: 2}
       Value:
         m_PersistentCalls:
@@ -108563,6 +108587,10 @@ PrefabInstance:
       propertyPath: _secondBeforeReactingToPlayer
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
+      propertyPath: _dialogueSymbolBySynaptikInput
+      value: 
+      objectReference: {fileID: 11400000, guid: 46ba1797578307548bc94e46bf22c650, type: 2}
     - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: OnItemReceived.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -317655,31 +317683,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3f0544e7ab1b7c440a320a9f1085e819, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.017175412
+      value: -0.014497815
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3f0544e7ab1b7c440a320a9f1085e819, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.1805543
+      value: -0.36254132
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3f0544e7ab1b7c440a320a9f1085e819, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.012583302
+      value: -0.015593191
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3f0544e7ab1b7c440a320a9f1085e819, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.98333454
+      value: 0.9317244
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3f0544e7ab1b7c440a320a9f1085e819, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 1.774
+      value: 2.268
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3f0544e7ab1b7c440a320a9f1085e819, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -740.783
+      value: -762.505
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3f0544e7ab1b7c440a320a9f1085e819, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -178.324
+      value: -179.099
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 3f0544e7ab1b7c440a320a9f1085e819, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
