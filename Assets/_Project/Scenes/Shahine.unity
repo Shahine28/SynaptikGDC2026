@@ -4666,7 +4666,7 @@ MonoBehaviour:
       Value:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 1235644911}
+          - m_Target: {fileID: 0}
             m_TargetAssemblyTypeName: SFXPlayer, Assembly-CSharp
             m_MethodName: PlayOneshotByName
             m_Mode: 5
@@ -8605,15 +8605,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 63098646370276954, guid: b18bbd782356fdf4c9a2dab36dbcf87f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 2.2248113
+      value: 2.224811
       objectReference: {fileID: 0}
     - target: {fileID: 63098646370276954, guid: b18bbd782356fdf4c9a2dab36dbcf87f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 2.747692e-16
+      value: 2.6216445e-16
       objectReference: {fileID: 0}
     - target: {fileID: 63098646370276954, guid: b18bbd782356fdf4c9a2dab36dbcf87f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 6.7806834e-15
+      value: 7.2253266e-15
       objectReference: {fileID: 0}
     - target: {fileID: 132199702905621081, guid: b18bbd782356fdf4c9a2dab36dbcf87f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -14583,8 +14583,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1235644909}
   - component: {fileID: 1235644908}
-  - component: {fileID: 1235644910}
-  - component: {fileID: 1235644911}
+  - component: {fileID: 1235644912}
   m_Layer: 0
   m_Name: Audio Source
   m_TagString: Untagged
@@ -14704,34 +14703,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1235644910
-MonoBehaviour:
+--- !u!81 &1235644912
+AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235644907}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1235644911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235644907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc20659397f660340be7a3ad2d9bd2a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audioSource: {fileID: 0}
-  _clipFromName:
-    _serializedList: []
-  eventNameToUseForDebug: Angry
 --- !u!4 &1238145007 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3f0544e7ab1b7c440a320a9f1085e819, type: 3}
@@ -24295,7 +24274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _defaultStateID
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 268380849244615963, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _DialogueSymbolFromItemIdsToReceive._serializedList.Array.data[0].Value
@@ -24415,35 +24394,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[0].Value
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[1].Value
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[2].Value
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[3].Value
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[4].Value
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[5].Value
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[6].Value
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[7].Value
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4629513820290240929, guid: 9106b67753976f54ebfe2a55516c2e09, type: 3}
       propertyPath: _alienStateFromPlayerEmotion._serializedList.Array.data[0].Key.actionType
