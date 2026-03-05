@@ -78,14 +78,12 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
             }
         }
         
-        Debug.Log($"[PlayerAudioResponse] Input reçu : ({synaptikInput.emotionType}, {synaptikInput.actionType})");
         _currentInput = synaptikInput;
 
         if (_playerAudioSO.AudioDataFromInput != null && _playerAudioSO.AudioDataFromInput.TryGetValue(synaptikInput, out PlayerInteractionAudioData audioData))
         {
             if (audioData.Clips != null && audioData.Clips.Length > 0)
             {
-                Debug.Log($"[PlayerAudioResponse] On a trouvé {audioData.Clips.Length} sons pour l'input ({synaptikInput.emotionType}, {synaptikInput.actionType})");
                 if (_playCoroutine != null)
                 {
                     StopCoroutine(_playCoroutine);
@@ -103,7 +101,6 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
                         _nextAllowedPlayTime = Time.time + randomClip.length + audioData.Delay + _spamCooldown;
                     }
 
-                    Debug.Log($"[PlayerAudioResponse] Son choisi : {randomClip.name}. Délai : {audioData.Delay}s, Volume : {volume}");
                     if (audioData.Delay > 0f)
                     {
                         _playCoroutine = StartCoroutine(PlayWithDelayRoutine(randomClip, volume, audioData.Delay));
@@ -115,9 +112,7 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
                 }
             }
         }
-        else
         {
-            Debug.Log($"[PlayerAudioResponse] Aucune donnée audio trouvée pour l'input ({synaptikInput.emotionType}, {synaptikInput.actionType})", this);
         }
     }
 
@@ -130,7 +125,6 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
 
     private void PlayAudio(AudioClip clip, float volume)
     {
-        Debug.Log($"[PlayerAudioResponse] Lecture de {clip.name} au volume {volume}...");
         if (_audioSource != null)
         {
             if (_cutPreviousSound)
@@ -138,14 +132,12 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
                 _audioSource.Stop();
             }
             _audioSource.clip = clip;
-            _audioSource.volume = _defaultVolume * volume;
+            _audioSource.volume = Mathf.Clamp01(_defaultVolume * volume);
             _audioSource.Play();
-            Debug.Log($"[PlayerAudioResponse] Joué via AudioSource !");
         }
         else
         {
-            AudioSource.PlayClipAtPoint(clip, transform.position, volume);
-            Debug.Log($"[PlayerAudioResponse] Joué via PlayClipAtPoint !");
+            AudioSource.PlayClipAtPoint(clip, transform.position, Mathf.Clamp01(volume));
         }
     }
 }
