@@ -43,6 +43,7 @@ public sealed class UIObjectShaker : MonoBehaviour
     private Vector3 originalPosition;
     private float shakeTimer;
     private bool isShaking;
+    
 
     
     private void OnEnable()
@@ -95,10 +96,10 @@ public sealed class UIObjectShaker : MonoBehaviour
         targetRect.anchoredPosition = originalPosition + new Vector3(offsetX, offsetY, 0f);
     }
 
-    private void HandleMistrust(float value)
+    private void HandleMistrust(float previousValue, float newValue)
     {
         Shake(shakeDuration);
-        SpawnFloatingNumber(value);
+        SpawnFloatingNumber(newValue - previousValue);
     }
 
     public void Shake(float duration)

@@ -24,7 +24,7 @@ public class RoamZone : MonoBehaviour
         {
             Vector2 randomCircle = Random.insideUnitCircle * _bounds.radius;
             Vector3 randomPoint = _bounds.bounds.center + new Vector3(randomCircle.x, 0, randomCircle.y);
-            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 10.0f, NavMesh.AllAreas))
             {
                 return hit.position;
             }

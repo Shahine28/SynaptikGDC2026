@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75b0094cf9fc1b245afe6ef4fbd6f5ef, type: 3}
+  m_Name: PlayerVoice
+  m_EditorClassIdentifier: 
+  AudioDataFromInput:
+    _serializedList:
+    - Key:
+        emotionType: 3
+        actionType: 2
+      Value:
+        Clips:
+        - {fileID: 8300000, guid: 0e32f7964576ed34caba9dbc8f582a6b, type: 3}
+        - {fileID: 8300000, guid: aad3c2ff3d8f5b849851be0b2b42fe42, type: 3}
+        - {fileID: 8300000, guid: c0177b373964b6142b099cf9ea61ed08, type: 3}
+        - {fileID: 8300000, guid: 9c9526e752e050644b6e7fb04bcb5644, type: 3}
+        - {fileID: 8300000, guid: c3572ef4f067bdd41bfe545b48adb230, type: 3}
+        - {fileID: 8300000, guid: c314070a88eee694493e9dfed33972d5, type: 3}
+        - {fileID: 8300000, guid: d09cb3e2cc883f94991b6fbce02186c2, type: 3}
+        - {fileID: 8300000, guid: d13eeda4c06503a4a9354066211f52a5, type: 3}
+        - {fileID: 8300000, guid: b5561eb680bbaa74c8ffc180f0d3fd30, type: 3}
+        - {fileID: 8300000, guid: 3c9e1dc0c1120424fb5e4034a1f69ef9, type: 3}
+        - {fileID: 8300000, guid: 1b524a6e5bd1a11459ed39b9a9a5e0e9, type: 3}
+        - {fileID: 8300000, guid: d6ba5ba850b7f4e46b7173086a9b13df, type: 3}
+        - {fileID: 8300000, guid: 1b1bfabcd02e7de4a934bc09f9983118, type: 3}
+        - {fileID: 8300000, guid: ce81e82cbb4af224eba5ae28e737941d, type: 3}
+        - {fileID: 8300000, guid: 63dddee8c8dc02b49b9d9386ee2092e5, type: 3}
+        - {fileID: 8300000, guid: 21572165ed1363c4480940e949fc9f1f, type: 3}
+        - {fileID: 8300000, guid: c3cc97a4496ce124ca01a5072705beb8, type: 3}
+        Volume: 0.1
+        Delay: 0
+    - Key:
+        emotionType: 3
+        actionType: 1
+      Value:
+        Clips:
+        - {fileID: 8300000, guid: 0e32f7964576ed34caba9dbc8f582a6b, type: 3}
+        - {fileID: 8300000, guid: aad3c2ff3d8f5b849851be0b2b42fe42, type: 3}
+        - {fileID: 8300000, guid: c0177b373964b6142b099cf9ea61ed08, type: 3}
+        - {fileID: 8300000, guid: 9c9526e752e050644b6e7fb04bcb5644, type: 3}
+        - {fileID: 8300000, guid: c3572ef4f067bdd41bfe545b48adb230, type: 3}
+        - {fileID: 8300000, guid: c314070a88eee694493e9dfed33972d5, type: 3}
+        - {fileID: 8300000, guid: d09cb3e2cc883f94991b6fbce02186c2, type: 3}
+        - {fileID: 8300000, guid: d13eeda4c06503a4a9354066211f52a5, type: 3}
+        - {fileID: 8300000, guid: b5561eb680bbaa74c8ffc180f0d3fd30, type: 3}
+        - {fileID: 8300000, guid: 3c9e1dc0c1120424fb5e4034a1f69ef9, type: 3}
+        - {fileID: 8300000, guid: 1b524a6e5bd1a11459ed39b9a9a5e0e9, type: 3}
+        - {fileID: 8300000, guid: d6ba5ba850b7f4e46b7173086a9b13df, type: 3}
+        - {fileID: 8300000, guid: 1b1bfabcd02e7de4a934bc09f9983118, type: 3}
+        - {fileID: 8300000, guid: ce81e82cbb4af224eba5ae28e737941d, type: 3}
+        - {fileID: 8300000, guid: 63dddee8c8dc02b49b9d9386ee2092e5, type: 3}
+        - {fileID: 8300000, guid: 21572165ed1363c4480940e949fc9f1f, type: 3}
+        - {fileID: 8300000, guid: c3cc97a4496ce124ca01a5072705beb8, type: 3}
+        Volume: 0.1
+        Delay: 0
+    - Key:
+        emotionType: 1
+        actionType: 1
+      Value:
+        Clips:
+        - {fileID: 8300000, guid: 0fc98a79001d08b4ba44b2b9b731acc0, type: 3}
+        - {fileID: 8300000, guid: b282cf3cfa8523d4fab4e6614c2a531c, type: 3}
+        - {fileID: 8300000, guid: e438fe95ccc0ef447af908bbfa4b3b1a, type: 3}
+        - {fileID: 8300000, guid: 80eea8256ff37fb46ad4041e58240755, type: 3}
+        - {fileID: 8300000, guid: 118bba42a428fe74389e3f5315d38ff3, type: 3}
+        - {fileID: 8300000, guid: e88c16dd758cac343ab461741d589181, type: 3}
+        - {fileID: 8300000, guid: 9ba6c19bd066f31438e9d14761347394, type: 3}
+        - {fileID: 8300000, guid: 8310fd458b8f1af48b32e07f734969c5, type: 3}
+        - {fileID: 8300000, guid: f36d109db061b474790105bf7680bc43, type: 3}
+        - {fileID: 8300000, guid: f9ba216431b798c49b1b62f12d77db99, type: 3}
+        Volume: 0.1
+        Delay: 0
+    - Key:
+        emotionType: 1
+        actionType: 2
+      Value:
+        Clips:
+        - {fileID: 8300000, guid: 0fc98a79001d08b4ba44b2b9b731acc0, type: 3}
+        - {fileID: 8300000, guid: b282cf3cfa8523d4fab4e6614c2a531c, type: 3}
+        - {fileID: 8300000, guid: e438fe95ccc0ef447af908bbfa4b3b1a, type: 3}
+        - {fileID: 8300000, guid: 80eea8256ff37fb46ad4041e58240755, type: 3}
+        - {fileID: 8300000, guid: 118bba42a428fe74389e3f5315d38ff3, type: 3}
+        - {fileID: 8300000, guid: e88c16dd758cac343ab461741d589181, type: 3}
+        - {fileID: 8300000, guid: 9ba6c19bd066f31438e9d14761347394, type: 3}
+        - {fileID: 8300000, guid: 8310fd458b8f1af48b32e07f734969c5, type: 3}
+        - {fileID: 8300000, guid: f36d109db061b474790105bf7680bc43, type: 3}
+        - {fileID: 8300000, guid: f9ba216431b798c49b1b62f12d77db99, type: 3}
+        Volume: 0.1
+        Delay: 0
+    - Key:
+        emotionType: 4
+        actionType: 2
+      Value:
+        Clips:
+        - {fileID: 8300000, guid: a6c859132a2490d4ea928d65f2a92da3, type: 3}
+        - {fileID: 8300000, guid: 85c5d94798d4c4c47b274d49d1d50285, type: 3}
+        - {fileID: 8300000, guid: 5abad2d7dcc467c4890c093cc8053737, type: 3}
+        - {fileID: 8300000, guid: 51faede3476cac443ba06d11f1066028, type: 3}
+        - {fileID: 8300000, guid: 5cc8326f73940a5469d52fa134028c16, type: 3}
+        - {fileID: 8300000, guid: b976236a8d74012498afbc85c76c136e, type: 3}
+        - {fileID: 8300000, guid: 76dd85a7c94e09b42a36bd6307a21623, type: 3}
+        Volume: 0.1
+        Delay: 0
+    - Key:
+        emotionType: 4
+        actionType: 1
+      Value:
+        Clips:
+        - {fileID: 8300000, guid: a6c859132a2490d4ea928d65f2a92da3, type: 3}
+        - {fileID: 8300000, guid: 85c5d94798d4c4c47b274d49d1d50285, type: 3}
+        - {fileID: 8300000, guid: 5abad2d7dcc467c4890c093cc8053737, type: 3}
+        - {fileID: 8300000, guid: 51faede3476cac443ba06d11f1066028, type: 3}
+        - {fileID: 8300000, guid: 5cc8326f73940a5469d52fa134028c16, type: 3}
+        - {fileID: 8300000, guid: b976236a8d74012498afbc85c76c136e, type: 3}
+        - {fileID: 8300000, guid: 76dd85a7c94e09b42a36bd6307a21623, type: 3}
+        Volume: 0.1
+        Delay: 0
+    - Key:
+        emotionType: 2
+        actionType: 2
+      Value:
+        Clips:
+        - {fileID: 8300000, guid: 1d1fc8039b832d2419084000c0d25ea6, type: 3}
+        - {fileID: 8300000, guid: 3de60fb138f09754f8b1de3da460f3e7, type: 3}
+        - {fileID: 8300000, guid: e6288b9488d5f1e43aff935af7f4246b, type: 3}
+        - {fileID: 8300000, guid: facd9e58bcf158d45913974f46c28d99, type: 3}
+        - {fileID: 8300000, guid: 1e68b7217377fb54eaf5451fde667bae, type: 3}
+        - {fileID: 8300000, guid: 0805e005a7638d743a19ae3618c694b8, type: 3}
+        - {fileID: 8300000, guid: 4646f167d188c404f91112511da19669, type: 3}
+        - {fileID: 8300000, guid: 2d33d52947ce99d49a8d88635c437c79, type: 3}
+        - {fileID: 8300000, guid: 3614824424f6f774e8639e8582cfbbe3, type: 3}
+        - {fileID: 8300000, guid: ed2cc5c64777fb645b218a46084344e9, type: 3}
+        Volume: 0.1
+        Delay: 0
+    - Key:
+        emotionType: 2
+        actionType: 1
+      Value:
+        Clips:
+        - {fileID: 8300000, guid: 1d1fc8039b832d2419084000c0d25ea6, type: 3}
+        - {fileID: 8300000, guid: 3de60fb138f09754f8b1de3da460f3e7, type: 3}
+        - {fileID: 8300000, guid: e6288b9488d5f1e43aff935af7f4246b, type: 3}
+        - {fileID: 8300000, guid: facd9e58bcf158d45913974f46c28d99, type: 3}
+        - {fileID: 8300000, guid: 1e68b7217377fb54eaf5451fde667bae, type: 3}
+        - {fileID: 8300000, guid: 0805e005a7638d743a19ae3618c694b8, type: 3}
+        - {fileID: 8300000, guid: 4646f167d188c404f91112511da19669, type: 3}
+        - {fileID: 8300000, guid: 2d33d52947ce99d49a8d88635c437c79, type: 3}
+        - {fileID: 8300000, guid: 3614824424f6f774e8639e8582cfbbe3, type: 3}
+        - {fileID: 8300000, guid: ed2cc5c64777fb645b218a46084344e9, type: 3}
+        Volume: 0.1
+        Delay: 0

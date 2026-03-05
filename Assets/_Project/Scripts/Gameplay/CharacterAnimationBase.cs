@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public abstract class CharacterAnimationBase : MonoBehaviour
 {
@@ -38,9 +39,11 @@ public abstract class CharacterAnimationBase : MonoBehaviour
     [Header("Punch Event & Area")]
     [SerializeField] protected UnityEvent OnPunchEvent;
     [SerializeField] protected UnityEvent OnPunchCompletedEvent;
+    public UnityEvent OnHitByPunch;
     [SerializeField] protected Transform _punchSocket;
     [SerializeField] protected float _punchArea = 2.0f;
     protected readonly Collider[] _punchCollider = new Collider[10];
+    protected int hitByPunchCount = 0;
     
 
     protected virtual void Reset()
@@ -138,7 +141,7 @@ public abstract class CharacterAnimationBase : MonoBehaviour
     public virtual void OnPunch()
     {
         OnPunchEvent?.Invoke();
-        Physics.OverlapSphereNonAlloc(_punchSocket.position, _punchArea,  _punchCollider);
+        hitByPunchCount = Physics.OverlapSphereNonAlloc(_punchSocket.position, _punchArea,  _punchCollider);
     }
 
     public virtual void OnPunchCompleted()

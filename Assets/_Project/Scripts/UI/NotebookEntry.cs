@@ -6,6 +6,11 @@ using UnityEngine.UI;
 [DisallowMultipleComponent]
 public sealed class NotebookEntry : MonoBehaviour
 {
+    [Header("Color")] 
+    [SerializeField] private Color _baseColor = Color.white;
+    [SerializeField] private Color _validateColor = Color.green; 
+    
+    
     [SerializeField]
     private TextMeshProUGUI titleText;
 
@@ -37,5 +42,7 @@ public sealed class NotebookEntry : MonoBehaviour
             return;
 
         notebookToggle.isOn = isOn;
+        titleText.color = isOn ? _validateColor : _baseColor;
+        descriptionText.color = isOn ? _validateColor : _baseColor;
     }
 }

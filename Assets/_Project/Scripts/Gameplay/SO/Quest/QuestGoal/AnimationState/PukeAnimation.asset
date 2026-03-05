@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2827c8554aab4227a72b9f4ef24e074e, type: 3}
   m_Name: PukeAnimation
   m_EditorClassIdentifier: 
-  Description: Faire glisser alien
+  Description: '-'
   _isMet: 0
-  _targetEntity: {fileID: 11400000, guid: 6e03e29c11ec1ff4083883e222969b92, type: 2}
+  _targetEntity: {fileID: 11400000, guid: fb581bdc2ee27bb49827d0caa7fabef7, type: 2}
   _requiredActionName: Puke

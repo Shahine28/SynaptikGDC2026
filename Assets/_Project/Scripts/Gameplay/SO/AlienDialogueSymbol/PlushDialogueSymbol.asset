@@ -12,19 +12,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f2aef5ddff14bd4818f35dad7b7059e, type: 3}
   m_Name: PlushDialogueSymbol
   m_EditorClassIdentifier: 
-  SymbolFromEmotion:
+  SymbolFromSynaptikInput:
     _serializedList:
-    - Key: 2
-      Value: "\U0001F9F8(plush)"
-    - Key: 1
-      Value: "\U0001F9F8\U0001F97A"
-    - Key: 4
-      Value: "\U0001F9F8\U0001F9D0"
-    - Key: 3
-      Value: "\U0001F9F8\U0001F630"
-  SymbolFromAction:
-    _serializedList:
-    - Key: 2
-      Value: "\U0001F4AC"
-    - Key: 1
-      Value: "\u270B"
+    - Key:
+        emotionType: 1
+        actionType: 1
+      Value:
+        Symbol: M
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 1
+        actionType: 2
+      Value:
+        Symbol: C
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 2
+        actionType: 1
+      Value:
+        Symbol: A
+        MisstrustModifier: -3
+    - Key:
+        emotionType: 2
+        actionType: 2
+      Value:
+        Symbol: A
+        MisstrustModifier: -3
+    - Key:
+        emotionType: 3
+        actionType: 1
+      Value:
+        Symbol: BJ
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 3
+        actionType: 2
+      Value:
+        Symbol: BJ
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 4
+        actionType: 1
+      Value:
+        Symbol: MC
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 4
+        actionType: 2
+      Value:
+        Symbol: AL
+        MisstrustModifier: 0

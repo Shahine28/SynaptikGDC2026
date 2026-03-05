@@ -22,4 +22,10 @@ public struct SynaptikInput
 {
     public EmotionType emotionType;
     public ActionType actionType;
+
+    public SynaptikInput(ActionType InActionType, EmotionType InEmotionType)
+    {
+        emotionType = InEmotionType;
+        actionType = InActionType;
+    }
 }

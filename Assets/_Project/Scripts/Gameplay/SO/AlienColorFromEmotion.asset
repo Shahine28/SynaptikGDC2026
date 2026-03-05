@@ -15,15 +15,15 @@ MonoBehaviour:
   AlienColorFromEmotion:
     _serializedList:
     - Key: 0
-      Value: {r: 0.9056604, g: 0.74332494, b: 0.74332494, a: 1}
+      Value: {r: 0.93725497, g: 0.8862746, b: 0.6509804, a: 1}
     - Key: 1
-      Value: {r: 1, g: 1, b: 0, a: 1}
+      Value: {r: 0.9490197, g: 0.6784314, b: 0.08235294, a: 1}
     - Key: 2
-      Value: {r: 1, g: 0, b: 0, a: 1}
+      Value: {r: 0.81568635, g: 0.10980393, b: 0.06666667, a: 1}
     - Key: 3
-      Value: {r: 0, g: 0.6156863, b: 1, a: 1}
+      Value: {r: 0.1137255, g: 0.5176471, b: 0.49411768, a: 1}
     - Key: 4
-      Value: {r: 0, g: 1, b: 0, a: 1}
+      Value: {r: 0.6019686, g: 0.61635214, b: 0.16087176, a: 1}
   AlienColorFromAction:
     _serializedList:
     - Key: 0

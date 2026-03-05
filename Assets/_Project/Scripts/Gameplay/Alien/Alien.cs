@@ -21,7 +21,7 @@ public class Alien : MonoBehaviour, IInteraction
     
     [Header("Movement")]
     [SerializeField, Required] private NavMeshAgent _navMeshAgent;
-    private Coroutine _moveCoroutine;
+    private Coroutine _checkArrivalCoroutine;
     private Coroutine _followCoroutine;
     private Coroutine _fleeCoroutine;
         
@@ -68,13 +68,13 @@ public class Alien : MonoBehaviour, IInteraction
     
     
     [SerializeField, SerializedDictionary("ItemIdToReceive", "DialogueSymbol")] 
-    private SerializedDictionary<ItemID, string> _DialogueSymbolFromItemIdsToReceive = new();
+    private SerializedDictionary<ItemID, AlienDialogueTrustAndEvent> _DialogueSymbolFromItemIdsToReceive = new();
 
     [Tooltip("L'objet sera supprimé de la liste, l'alien recevant à nouveau ce même objet ne donnera plus de dialogue personnalisé")]
     [SerializeField] private bool _deleteItemOnReceive = true;
 
     public UnityEvent OnItemReceived;
-    
+    private SynaptikInput lastSynaptikInput;
     
     // [Header("Sound")]
     // [SerializeField] private VoicesModels _attributedVoice;
@@ -128,22 +128,37 @@ public class Alien : MonoBehaviour, IInteraction
 
         if (!_interactionZone || !_interactionZone.IsTargetInRange || !_stateMachine.GetCurrentState().LookAtTarget ||
             !_interactionZone.TargetToDetect) return;
-        
-        
-        Vector3 direction = _interactionZone.TargetToDetect.transform.position - transform.position;
 
-        direction.y = 0;
 
-        if (direction == Vector3.zero) return;
+        if (_currentMovementMode == MovementMode.None || _currentMovementMode == MovementMode.Follow)
+        {
+            Vector3 direction = _interactionZone.TargetToDetect.transform.position - transform.position;
+
+            direction.y = 0;
+
+            if (direction == Vector3.zero) return;
         
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+        }
+    }
+
+    public void UpdateAlien()
+    {
+        if (lastSynaptikInput is { actionType: ActionType.None, emotionType: EmotionType.None })
+        {
+            lastSynaptikInput.actionType = ActionType.Action;
+        }
+        if (_stateMachine != null) lastSynaptikInput.emotionType = _stateMachine.GetCurrentEmotionType();
+        _alienEmotionColorVisuals?.OnEmotionColorChanged(lastSynaptikInput);
+        _alienEmotionAudioResponse?.OnEmotionChanged(lastSynaptikInput);
     }
     
     public void Interact(SynaptikInput action, HoldableItem item = null, PlayerInteraction playerInteraction = null)
     {
-        
-        _stateMachine?.UpdateState(action.emotionType);
+        lastSynaptikInput = action;
+        SynaptikInput playerInput = action;
+        _stateMachine?.UpdateState(action);
 
         if (_stateMachine != null) action.emotionType = _stateMachine.GetCurrentEmotionType();
         _alienEmotionColorVisuals?.OnEmotionColorChanged(action);
@@ -153,40 +168,62 @@ public class Alien : MonoBehaviour, IInteraction
         if (!item)
         {
             AlienDialogueSymbolBySynaptikInput targetDialogueSymbol = _dialogueSymbolBySynaptikInput;
-            var dialogueData = targetDialogueSymbol?.GetDialogue(action);
+            if (targetDialogueSymbol == null) return;
+            var dialogueData = targetDialogueSymbol.GetDialogue(playerInput);
+            var dialogueMistrustModifier = targetDialogueSymbol.GetMissTrustModifier(playerInput);
             if (dialogueData != null)
             {
-                StartCoroutine(StartDialogueDelayed(transform, action, dialogueData));
+                StartCoroutine(StartDialogueDelayed(transform, playerInput, dialogueData, dialogueMistrustModifier));
             }
         }
-
-        if (!item) return;
-        
-        playerInteraction?.ItemDrop();
-        if (_DialogueSymbolFromItemIdsToReceive.TryGetValue(item.itemID, out string itemDialogue))
+        else
         {
-            if (TryGetComponent(out WorldEntity worldEntity))
+            if (item && playerInput is {emotionType : EmotionType.Friendly, actionType: ActionType.Action})
             {
-                GameEvents.TriggerInventoryChange(worldEntity.EntityID, item.itemID, true);
-            }
+                if (item.itemID && _DialogueSymbolFromItemIdsToReceive.TryGetValue(item.itemID, 
+                        out AlienDialogueTrustAndEvent itemDialogue))
+                {
+                    if (TryGetComponent(out WorldEntity worldEntity))
+                    {
+                        GameEvents.TriggerInventoryChange(worldEntity.EntityID, item.itemID, true);
+                    }
 
-            if (_deleteItemOnReceive)
-            {
-                _DialogueSymbolFromItemIdsToReceive.Remove(item.itemID);
+                    if (_deleteItemOnReceive)
+                    {
+                        _DialogueSymbolFromItemIdsToReceive.Remove(item.itemID);
+                    }
+                    // playerInteraction?.ItemDrop();
+                    playerInteraction?.OnGive?.Invoke();
+                    Destroy(item.gameObject);
+                    OnItemReceived?.Invoke();
+                    StartCoroutine(StartDialogueDelayed(transform, playerInput, itemDialogue.AlienDialogueAndTrust.Symbol, itemDialogue.AlienDialogueAndTrust.MisstrustModifier));
+                    itemDialogue.DialogueEvent?.Invoke();
+                }
+                else
+                {
+                    if (!playerInteraction)
+                    {
+                        Debug.LogWarning("[ALIEN] Player interraction is null");
+                    }
+                    else
+                    {
+                        playerInteraction.OnGive?.Invoke();
+                    }
+                }
+                
             }
-            playerInteraction?.ItemDrop();
-            Destroy(item.gameObject);
-            OnItemReceived?.Invoke();
-            StartCoroutine(StartDialogueDelayed(transform, action, itemDialogue));
+            else
+            {
+                Debug.LogWarning("[ALIEN] HoldableItem is null");
+            }
         }
-
-
     }
 
-    private IEnumerator StartDialogueDelayed(Transform tr, SynaptikInput action, string text)
+    private IEnumerator StartDialogueDelayed(Transform tr, SynaptikInput action, string text, int MisstrutsModifier)
     {
         yield return new WaitForSeconds(_secondBeforeReactingToPlayer);
         SpeechBubbleManager.Instance?.SpawnBubble(tr, action, text);
+        MistrustManager.Instance?.AddMistrust(MisstrutsModifier);
     }
     
     
@@ -210,16 +247,16 @@ public class Alien : MonoBehaviour, IInteraction
         
         destination = new Vector3(destination.x, 0, destination.z);
         _navMeshAgent.SetDestination(destination); 
-        if (_moveCoroutine != null) StopCoroutine(_moveCoroutine);
-        _moveCoroutine = StartCoroutine(CheckArrival(destination)); 
+        if (_checkArrivalCoroutine != null) StopCoroutine(_checkArrivalCoroutine);
+        _checkArrivalCoroutine = StartCoroutine(CheckArrival(destination)); 
     }
 
     public void StopMoving()
     {
-        if (_moveCoroutine != null) 
+        if (_checkArrivalCoroutine != null) 
         {
-            StopCoroutine(_moveCoroutine);
-            _moveCoroutine = null;
+            StopCoroutine(_checkArrivalCoroutine);
+            _checkArrivalCoroutine = null;
         }
         
         if (_followCoroutine != null)
@@ -276,7 +313,8 @@ public class Alien : MonoBehaviour, IInteraction
         }
         
     }
-
+    
+    
     public void Roam()
     {
         if (!_roamZone)
@@ -316,7 +354,7 @@ public class Alien : MonoBehaviour, IInteraction
             }
             
             _navMeshAgent.SetDestination(targetPos);
-            _moveCoroutine = StartCoroutine(CheckArrival(targetPos)); 
+            _checkArrivalCoroutine = StartCoroutine(CheckArrival(targetPos)); 
             yield return wait;
         }
     }
@@ -345,7 +383,7 @@ public class Alien : MonoBehaviour, IInteraction
                 fleeDestination = _roamZone.ClampPositionToZone(fleeDestination);
             }
             
-            _moveCoroutine = StartCoroutine(CheckArrival(fleeDestination)); 
+            _checkArrivalCoroutine = StartCoroutine(CheckArrival(fleeDestination)); 
             _navMeshAgent.SetDestination(fleeDestination);
         
             yield return wait;
@@ -364,5 +402,12 @@ public class Alien : MonoBehaviour, IInteraction
             _roamZone.transform.position = transform.position;
         }
     }
+}
+
+[Serializable]
+public class AlienDialogueTrustAndEvent
+{
+    public AlienDialogueSymbolBySynaptikInput.AlienDialogueAndTrust AlienDialogueAndTrust;
+    public UnityEvent DialogueEvent;
 }
 

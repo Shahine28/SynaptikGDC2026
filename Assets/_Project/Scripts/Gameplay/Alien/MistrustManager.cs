@@ -1,6 +1,7 @@
 using System;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public sealed class MistrustManager : MonoBehaviour
@@ -12,12 +13,14 @@ public sealed class MistrustManager : MonoBehaviour
     [SerializeField] private float initialMistrust = 50;
 
     private float _currentMistrustValue;
-
-    public event Action<float> OnMistrustChanged;
-    public event Action OnMistrustMinReached; 
-    public event Action OnMistrustMaxReached; 
-
     public float CurrentMistrustValue => _currentMistrustValue;
+    
+    
+    public event Action<float, float> OnMistrustChanged;
+    public UnityEvent OnMistrustMinReached; 
+    public UnityEvent OnMistrustMaxReached; 
+
+    
 
     private void Awake()
     {
@@ -53,11 +56,14 @@ public sealed class MistrustManager : MonoBehaviour
     {
         UpdateMistrust(initialMistrust);
     }
+    
 
     private void UpdateMistrust(float newValue)
     {
+        OnMistrustChanged?.Invoke(_currentMistrustValue, newValue);
         _currentMistrustValue = newValue;
-        OnMistrustChanged?.Invoke(_currentMistrustValue);
+        mistrustSlider.value = _currentMistrustValue;
+        
 
         if (_currentMistrustValue >= mistrustRange.y)
         {

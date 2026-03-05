@@ -8,10 +8,11 @@ public class InteractionZone : MonoBehaviour
 {
     [Header("Configuration")]
     [SerializeField] private SphereCollider _bounds;
+    public  SphereCollider Bounds => _bounds;
     [SerializeField, Required] private WorldEntity _targetToDetect;
     public WorldEntity TargetToDetect => _targetToDetect;
     [SerializeField, ReadOnly] private bool _isTargetInRange;
-    public bool IsTargetInRange => _isTargetInRange;    
+    public bool IsTargetInRange => _isTargetInRange || IsTargetInZone();    
     
     [Header("Settings")]
     public UnityEvent OnPlayerEnter;
@@ -53,6 +54,21 @@ public class InteractionZone : MonoBehaviour
     public void SetRadius(float radius)
     {
         _bounds.radius = radius;
+    }
+    
+    public bool IsTargetInZone()
+    {
+        if (_targetToDetect == null) return false;
+        
+        Vector3 targetPos = _targetToDetect.transform.position;
+        
+        float distance = Vector3.Distance(_bounds.bounds.center, targetPos);
+        
+        float maxScale = Mathf.Max(Mathf.Abs(transform.lossyScale.x), Mathf.Abs(transform.lossyScale.y), Mathf.Abs(transform.lossyScale.z));
+
+        float worldRadius = _bounds.radius * maxScale;
+        
+        return distance <= worldRadius;
     }
     
     private void OnDrawGizmos()

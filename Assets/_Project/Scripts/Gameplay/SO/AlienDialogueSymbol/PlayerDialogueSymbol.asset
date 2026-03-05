@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f2aef5ddff14bd4818f35dad7b7059e, type: 3}
+  m_Name: PlayerDialogueSymbol
+  m_EditorClassIdentifier: 
+  SymbolFromSynaptikInput:
+    _serializedList:
+    - Key:
+        emotionType: 1
+        actionType: 1
+      Value:
+        Symbol: F
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 1
+        actionType: 2
+      Value:
+        Symbol: C
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 2
+        actionType: 1
+      Value:
+        Symbol: ','
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 2
+        actionType: 2
+      Value:
+        Symbol: A
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 4
+        actionType: 1
+      Value:
+        Symbol: G
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 4
+        actionType: 2
+      Value:
+        Symbol: '?'
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 3
+        actionType: 1
+      Value:
+        Symbol: J
+        MisstrustModifier: 0
+    - Key:
+        emotionType: 3
+        actionType: 2
+      Value:
+        Symbol: B
+        MisstrustModifier: 0

@@ -38,15 +38,21 @@ public class CuriousState : State
     public override void CheckMovement()
     {
         if (_isStatic) return;
-        if (!_alien.InteractionZone.IsTargetInRange && _alien.CurrentMovementMode != Alien.MovementMode.Follow && !_isPlayerFarEnough)
-        {
-            _alien.StartFollowingTarget(_alien.InteractionZone.TargetToDetect.transform);
-        }
-        else if (!_alien.InteractionZone.IsTargetInRange && _alien.CurrentMovementMode == Alien.MovementMode.Follow &&  _isPlayerFarEnough)
+        
+        if (_alien.InteractionZone.IsTargetInRange) return;
+        
+        if (_isPlayerFarEnough && !_isRoaming)
         {
             _alien.StopMoving();
             StartRoaming();
         }
+        else if (!_isPlayerFarEnough && _alien.CurrentMovementMode != Alien.MovementMode.Follow )
+        {
+            _alien.StopMoving();
+            StopRoaming();
+            _alien.StartFollowingTarget(_alien.InteractionZone.TargetToDetect.transform);
+        }
+        
     }
     
     

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa4bb8852eb4000a806036a706e3a6e, type: 3}
   m_Name: Puke
   m_EditorClassIdentifier: 
-  Title: make an alien Puke
-  DisplayDescription: seems linked to strong emotions
+  Title: Make an alien puke
+  DisplayDescription: seems linked emotions changes
+  MisstrustModifier: -23.6
   Goals:
-  - {fileID: 11400000, guid: 4405513e5cb430649933dca01ff089b3, type: 2}
+  - {fileID: 11400000, guid: d147dfe2dec112844900c6d93b33caf7, type: 2}

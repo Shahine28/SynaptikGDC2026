@@ -1,17 +1,8 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/_Project/Prefabs/UI/EndUI.prefab.meta
-<<<<<<< HEAD
-guid: f74f57653c808ea489ebe84515e9bb8c
-=======
-guid: a4ee319d6c99ab8499e9ff36ac02a6c1
->>>>>>> Dev
-PrefabImporter:
-========
-guid: 10ccd773044ec5d40ad505931dcfefa5
+guid: 0b8de20c532011544a9592efd7f40b08
 NativeFormatImporter:
->>>>>>>> Chris-GA:Assets/font/supercomputer SDF.asset.meta
   externalObjects: {}
-  mainObjectFileID: 11400000
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
