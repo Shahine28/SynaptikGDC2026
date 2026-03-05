@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 // using FMODUnity;
 using Unity.VisualScripting;
+using UnityEngine.Serialization;
 
 public sealed class MenuStart : MonoBehaviour
 {
@@ -31,12 +32,7 @@ public sealed class MenuStart : MonoBehaviour
 
     [Tooltip("Vitesse de retour de l’aiguille à 0 quand la charge descend.")]
     [SerializeField] private float needleReturnSpeed = 3f;
-
-    // [Header("SFX")]
-    // [SerializeField] private StudioEventEmitter _startEmitter;
-    //
-    // [SerializeField] private EventReference _music;
-    // [SerializeField] private EventReference _ambiant;
+    
 
     private float chargeProgress;
     private bool isCharging;
@@ -50,6 +46,9 @@ public sealed class MenuStart : MonoBehaviour
 
     private bool windowOpened;
 
+    [SerializeField] private string sceneNameToLoad = "Proto_Scene_Final";
+
+
     private void Awake()
     {
         if (imageToShake != null)
@@ -61,13 +60,17 @@ public sealed class MenuStart : MonoBehaviour
     private void OnEnable()
     {
         if (!_playerInputSystem) return;
-        _playerInputSystem.OnSynaptikInput += HandleSynaptikInput;
+        _playerInputSystem.OnActionTriggered += HandleTwoAction;
+        _playerInputSystem.OnActionTypeInput +=  HandleAction;
+        _playerInputSystem.OnEmotionTypeInput +=  HandleEmotion;
     }
 
     private void OnDisable()
     {
         if (!_playerInputSystem) return;
-        _playerInputSystem.OnSynaptikInput -= HandleSynaptikInput;
+        _playerInputSystem.OnActionTriggered -= HandleTwoAction;
+        _playerInputSystem.OnActionTypeInput -=  HandleAction;
+        _playerInputSystem.OnEmotionTypeInput -=  HandleEmotion;
     }
     
     private void InitializePanels()
@@ -78,31 +81,31 @@ public sealed class MenuStart : MonoBehaviour
         panelHelpEnabled = false;
         panelQuitEnabled = false;
     }
+    
 
-    void HandleSynaptikInput(SynaptikInput synaptikInput)
+    private void HandleEmotion(EmotionType emotion)
     {
-        HandleAction(synaptikInput.actionType, synaptikInput.actionType != ActionType.None);
-        HandleEmotion(synaptikInput.emotionType, synaptikInput.emotionType != EmotionType.None);
-        HandleTwoAction(synaptikInput.actionType != ActionType.None && synaptikInput.emotionType != EmotionType.None);
-    }
-
-    private void HandleEmotion(EmotionType emotion, bool keyUp)
-    {
-        switch (emotion)
+        if (emotion == EmotionType.Aggressive)
         {
-            case EmotionType.Aggressive:
-                ToggleQuitPanel(!keyUp);
-                break;
-            
-            case EmotionType.Curious:
-                ToggleHelpPanel();
-                break;
+            ToggleQuitPanel(true);
+            ToggleHelpPanel(false);
         }
+        else if (emotion == EmotionType.Curious)
+        {
+            ToggleQuitPanel(false);
+            ToggleHelpPanel(true);
+        }
+        else
+        {
+            ToggleQuitPanel(false);
+            ToggleHelpPanel(false);
+        }
+        
     }
 
-    private void HandleAction(ActionType action, bool isKeyUp)
+    private void HandleAction(ActionType action)
     {
-        if (isKeyUp || !panelQuitEnabled) 
+        if (!panelQuitEnabled || action == ActionType.None) 
             return;
 
         switch (action)
@@ -117,9 +120,9 @@ public sealed class MenuStart : MonoBehaviour
         }
     }
 
-    private void HandleTwoAction(bool towPressed)
+    private void HandleTwoAction(bool twoPressed)
     {
-        if (towPressed) 
+        if (twoPressed) 
             StartCharging();
         else 
             StopCharging();
@@ -143,14 +146,6 @@ public sealed class MenuStart : MonoBehaviour
 
     private void Update()
     {
-        // if (!subscribedToInputs)
-        //     return;
-
-        // var comboActive = inputsDetection.MoveVector == Vector2.zero;
-        // if (!comboActive && isCharging)
-        //     StopCharging();
-        
-        
         if (isCharging && !fullyCharged)
         {
             chargeProgress += Time.deltaTime / chargeTime;
@@ -176,7 +171,7 @@ public sealed class MenuStart : MonoBehaviour
         // if (_startEmitter != null)
         //     _startEmitter.SetParameter("fuck", chargeProgress);
         
-        // ---- SHAKE ----
+
         if (imageToShake)
         {
             var intensity = intensityCurve.Evaluate(chargeProgress) * maxShakeIntensity;
@@ -186,8 +181,7 @@ public sealed class MenuStart : MonoBehaviour
 
         if (chargeProgress <= 0.001f && imageToShake)
             imageToShake.anchoredPosition = originalPos;
-
-        // ---- BAROMETER NEEDLE ----
+        
         if (needleTransform)
         {
             float targetRotation = Mathf.Lerp(needleMinRotation, needleMaxRotation, chargeProgress);
@@ -225,16 +219,16 @@ public sealed class MenuStart : MonoBehaviour
         // else
         //     SoundManager.Instance.UIInvalid();
         
-        quitPanel.SetActive(enable);
+        quitPanel.SetActive(panelQuitEnabled);
         
     }
 
-    private void ToggleHelpPanel()
+    private void ToggleHelpPanel(bool enable)
     {
         if (!helpPanel || panelQuitEnabled) 
             return;
         
-        panelHelpEnabled = !panelHelpEnabled;
+        panelHelpEnabled = enable;
         
         // if (panelHelpEnabled)
         //     SoundManager.Instance.UIValid();
@@ -259,10 +253,10 @@ public sealed class MenuStart : MonoBehaviour
             ToggleQuitPanel(false);
         }
     }
-
+    
     public void TestStart()
     {
         Debug.Log("TestStart");
-        LoadingScreenManager.Instance?.LoadScene("Proto_Scene_Final");
+        LoadingScreenManager.Instance?.LoadScene(sceneNameToLoad);
     }
 }

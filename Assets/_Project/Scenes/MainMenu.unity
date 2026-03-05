@@ -501,17 +501,17 @@ MonoBehaviour:
   holdDurationBeforeLoad: 5
   holdDurationAfterSceneLoaded: 5
   textFiller:
-  - lancement du Logiciel Synaptik V0.01001
-  - "connexion des \xE9motions"
-  - chargement de la transmition visuelle
-  - "d\xE9compilation des scripts de traductions"
-  - "check de la r\xE9activit\xE9 musculaire"
-  - aled osekour il est 4h du matin svp sauvez moi pls
-  - "Activit\xE9 cerebral : OK"
-  - 'mignonitude de zip zoup : 100%'
-  - "qualit\xE9 du pr\xE9nom de zip zoup : 0%"
-  - minecraft le film le jeu
-  - Phase finale de connexion au cerveau
+  - Booting Synaptik OS V0.01001...
+  - Establishing emotional uplink...
+  - Synchronizing optic nerves with rendering engine...
+  - Decompiling translation scripts...
+  - Pinging motor reflexes...
+  - 'Brainwave activity: Nominal'
+  - Flushing intrusive thoughts...
+  - 'Zip Zoup cuteness level: 100%'
+  - 'Zip Zoup name quality: 0%'
+  - Bypassing logic centers...
+  - Commencing final brain-sync protocol...
 --- !u!4 &336193470
 Transform:
   m_ObjectHideFlags: 0
@@ -1007,9 +1007,8 @@ GameObject:
   - component: {fileID: 680209368}
   - component: {fileID: 680209371}
   - component: {fileID: 680209370}
-  - component: {fileID: 680209369}
   m_Layer: 5
-  m_Name: Brain (1)
+  m_Name: Brain Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1034,67 +1033,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -114.7}
   m_SizeDelta: {x: 595, y: 241}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &680209369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 680209367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e9d9f0d277d4f14b848145059dc6a24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imageToShake: {fileID: 680209368}
-  helpPanel: {fileID: 57037977}
-  quitPanel: {fileID: 1344896972}
-  maxShakeIntensity: 30
-  chargeTime: 3
-  intensityCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  onFullyCharged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 680209369}
-        m_TargetAssemblyTypeName: MenuStart, Assembly-CSharp
-        m_MethodName: TestStart
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  needleTransform: {fileID: 1349331501}
-  needleMinRotation: 85
-  needleMaxRotation: -85
-  needleReturnSpeed: 3
-  _playerInputSystem: {fileID: 877240898}
 --- !u!114 &680209370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1873,6 +1811,7 @@ MonoBehaviour:
   needleMaxRotation: -85
   needleReturnSpeed: 3
   _playerInputSystem: {fileID: 877240898}
+  sceneNameToLoad: GD_LD
 --- !u!1 &1317715881
 GameObject:
   m_ObjectHideFlags: 0
