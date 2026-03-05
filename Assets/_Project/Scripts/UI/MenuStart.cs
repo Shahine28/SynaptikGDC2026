@@ -128,9 +128,7 @@ public sealed class MenuStart : MonoBehaviour
                 break;
             
             case EmotionType.Curious:
-                if (!keyUp)
-                    ToggleHelpPanel();
-                    
+                SetHelpPanel(!keyUp);
                 break;
         }
     }
@@ -266,20 +264,13 @@ public sealed class MenuStart : MonoBehaviour
         
     }
 
-    private void ToggleHelpPanel()
+    private void SetHelpPanel(bool enable)
     {
         if (!helpPanel || panelQuitEnabled) 
             return;
         
-        panelHelpEnabled = !panelHelpEnabled;
-        
-        // if (panelHelpEnabled)
-        //     SoundManager.Instance.UIValid();
-        // else
-        //     SoundManager.Instance.UIInvalid();
-        
-        helpPanel.SetActive(panelHelpEnabled);
-        
+        panelHelpEnabled = enable;
+        helpPanel.SetActive(enable);
     }
 
     private void HandleQuitChoice(bool accept)
