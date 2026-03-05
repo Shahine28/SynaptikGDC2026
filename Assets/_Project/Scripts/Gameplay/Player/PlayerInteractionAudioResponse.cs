@@ -9,10 +9,18 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
     [SerializeField] private PlayerAudioFromInputSO _playerAudioSO;
     [SerializeField] private AudioSource _audioSource;
 
+    [Header("Overlap Settings")]
+    [Tooltip("Si activé, coupe le son en cours pour jouer le nouveau. Si désactivé, ignore le nouveau son si un autre est déjà en train de jouer.")]
+    [SerializeField] private bool _cutPreviousSound = true;
+    [Tooltip("Délai minimum (en secondes) à attendre entre deux sons quand Cut Previous Sound est désactivé.")]
+    [SerializeField] private float _spamCooldown = 0.5f;
+
     private PlayerInputSystem _playerInputSystem;
     private SynaptikInput _currentInput;
     private Coroutine _playCoroutine;
     private bool _canPlayAudio = false;
+    private float _nextAllowedPlayTime = 0f;
+    private float _defaultVolume = 1f;
 
     private void Awake()
     {
@@ -24,6 +32,7 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
         if (_audioSource != null)
         {
             _audioSource.playOnAwake = false;
+            _defaultVolume = _audioSource.volume;
         }
         else
         {
@@ -57,15 +66,24 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
     {
         if (!_canPlayAudio || _playerAudioSO == null || synaptikInput.actionType == ActionType.None || synaptikInput.emotionType == EmotionType.None)
             return;
+
+        if (!_cutPreviousSound)
+        {
+            bool isPlayingAudio = _audioSource != null && _audioSource.isPlaying;
+            bool isWaitingForDelay = _playCoroutine != null;
+            if (isPlayingAudio || isWaitingForDelay || Time.time < _nextAllowedPlayTime)
+            {
+                // Anti-spam en cours
+                return;
+            }
+        }
         
-        Debug.Log($"[PlayerAudioResponse] Input reçu : ({synaptikInput.emotionType}, {synaptikInput.actionType})");
         _currentInput = synaptikInput;
 
         if (_playerAudioSO.AudioDataFromInput != null && _playerAudioSO.AudioDataFromInput.TryGetValue(synaptikInput, out PlayerInteractionAudioData audioData))
         {
             if (audioData.Clips != null && audioData.Clips.Length > 0)
             {
-                Debug.Log($"[PlayerAudioResponse] On a trouvé {audioData.Clips.Length} sons pour l'input ({synaptikInput.emotionType}, {synaptikInput.actionType})");
                 if (_playCoroutine != null)
                 {
                     StopCoroutine(_playCoroutine);
@@ -77,7 +95,12 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
                 {
                     float volume = audioData.Volume <= 0f ? 1f : audioData.Volume;
 
-                    Debug.Log($"[PlayerAudioResponse] Son choisi : {randomClip.name}. Délai : {audioData.Delay}s, Volume : {volume}");
+                    if (!_cutPreviousSound)
+                    {
+                        // On calcule le temps auquel le prochain son sera autorisé
+                        _nextAllowedPlayTime = Time.time + randomClip.length + audioData.Delay + _spamCooldown;
+                    }
+
                     if (audioData.Delay > 0f)
                     {
                         _playCoroutine = StartCoroutine(PlayWithDelayRoutine(randomClip, volume, audioData.Delay));
@@ -89,9 +112,7 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
                 }
             }
         }
-        else
         {
-            Debug.Log($"[PlayerAudioResponse] Aucune donnée audio trouvée pour l'input ({synaptikInput.emotionType}, {synaptikInput.actionType})", this);
         }
     }
 
@@ -104,16 +125,19 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
 
     private void PlayAudio(AudioClip clip, float volume)
     {
-        Debug.Log($"[PlayerAudioResponse] Lecture de {clip.name} au volume {volume}...");
         if (_audioSource != null)
         {
-            _audioSource.PlayOneShot(clip, volume);
-            Debug.Log($"[PlayerAudioResponse] Joué via AudioSource !");
+            if (_cutPreviousSound)
+            {
+                _audioSource.Stop();
+            }
+            _audioSource.clip = clip;
+            _audioSource.volume = Mathf.Clamp01(_defaultVolume * volume);
+            _audioSource.Play();
         }
         else
         {
-            AudioSource.PlayClipAtPoint(clip, transform.position, volume);
-            Debug.Log($"[PlayerAudioResponse] Joué via PlayClipAtPoint !");
+            AudioSource.PlayClipAtPoint(clip, transform.position, Mathf.Clamp01(volume));
         }
     }
 }

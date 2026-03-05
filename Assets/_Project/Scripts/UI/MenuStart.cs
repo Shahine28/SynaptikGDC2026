@@ -47,15 +47,27 @@ public sealed class MenuStart : MonoBehaviour
     private bool panelQuitEnabled;
     [SerializeField, Required] private PlayerInputSystem _playerInputSystem;
     private bool subscribedToInputs;
+    private SynaptikInput _lastInput;
 
     private bool windowOpened;
+    private float _currentNeedleRotation;
 
     private void Awake()
     {
         if (imageToShake != null)
             originalPos = imageToShake.anchoredPosition;
 
+        if (needleTransform)
+            _currentNeedleRotation = needleMinRotation;
+
         InitializePanels();
+
+        if (_playerInputSystem == null)
+        {
+            _playerInputSystem = FindObjectOfType<PlayerInputSystem>();
+        }
+            
+        subscribedToInputs = _playerInputSystem != null;
     }
 
     private void OnEnable()
@@ -72,8 +84,11 @@ public sealed class MenuStart : MonoBehaviour
     
     private void InitializePanels()
     {
-        if (helpPanel) helpPanel.SetActive(false);
-        if (quitPanel) quitPanel.SetActive(false);
+        if (helpPanel) 
+            helpPanel.SetActive(false);
+
+        if (quitPanel) 
+            quitPanel.SetActive(false);
         
         panelHelpEnabled = false;
         panelQuitEnabled = false;
@@ -81,9 +96,27 @@ public sealed class MenuStart : MonoBehaviour
 
     void HandleSynaptikInput(SynaptikInput synaptikInput)
     {
-        HandleAction(synaptikInput.actionType, synaptikInput.actionType != ActionType.None);
-        HandleEmotion(synaptikInput.emotionType, synaptikInput.emotionType != EmotionType.None);
-        HandleTwoAction(synaptikInput.actionType != ActionType.None && synaptikInput.emotionType != EmotionType.None);
+        // ACTION
+        if (_lastInput.actionType != ActionType.None && synaptikInput.actionType == ActionType.None)
+        {
+            HandleAction(_lastInput.actionType, true); // Relâché
+        }
+        else if (synaptikInput.actionType != ActionType.None)
+        {
+            HandleAction(synaptikInput.actionType, false); // Appuyé
+        }
+
+        // EMOTION
+        if (_lastInput.emotionType != EmotionType.None && synaptikInput.emotionType == EmotionType.None)
+        {
+            HandleEmotion(_lastInput.emotionType, true); // Relâché
+        }
+        else if (synaptikInput.emotionType != EmotionType.None)
+        {
+            HandleEmotion(synaptikInput.emotionType, false); // Appuyé
+        }
+
+        _lastInput = synaptikInput;
     }
 
     private void HandleEmotion(EmotionType emotion, bool keyUp)
@@ -95,7 +128,7 @@ public sealed class MenuStart : MonoBehaviour
                 break;
             
             case EmotionType.Curious:
-                ToggleHelpPanel();
+                SetHelpPanel(!keyUp);
                 break;
         }
     }
@@ -128,10 +161,9 @@ public sealed class MenuStart : MonoBehaviour
     private void StartCharging()
     {
         isCharging = true;
+        fullyCharged = false;
         // if (_startEmitter)
         //     _startEmitter.Play();
-        
-        fullyCharged = false;
     }
 
     private void StopCharging()
@@ -143,13 +175,15 @@ public sealed class MenuStart : MonoBehaviour
 
     private void Update()
     {
-        // if (!subscribedToInputs)
-        //     return;
-
-        // var comboActive = inputsDetection.MoveVector == Vector2.zero;
-        // if (!comboActive && isCharging)
-        //     StopCharging();
-        
+        bool isActivating = _playerInputSystem.TalkIsPressed && _playerInputSystem.ActionIsPressed;
+        if (isActivating && !isCharging)
+        {
+            HandleTwoAction(true);
+        }
+        else if (!isActivating && isCharging)
+        {
+            HandleTwoAction(false);
+        }
         
         if (isCharging && !fullyCharged)
         {
@@ -192,8 +226,8 @@ public sealed class MenuStart : MonoBehaviour
         {
             float targetRotation = Mathf.Lerp(needleMinRotation, needleMaxRotation, chargeProgress);
 
-            float currentRotation = Mathf.LerpAngle(
-                needleTransform.localEulerAngles.z,
+            _currentNeedleRotation = Mathf.LerpAngle(
+                _currentNeedleRotation,
                 targetRotation,
                 Time.deltaTime * needleReturnSpeed
             );
@@ -209,7 +243,8 @@ public sealed class MenuStart : MonoBehaviour
 
             float jitterAmplitude = 1.5f;
             float jitter = modulated * jitterAmplitude * Mathf.Pow(vibrationIntensity, 1.5f);
-            needleTransform.localEulerAngles = new Vector3(0f, 0f, currentRotation + jitter);
+            
+            needleTransform.localRotation = Quaternion.Euler(0f, 0f, _currentNeedleRotation + jitter);
         }
     }
 
@@ -229,20 +264,13 @@ public sealed class MenuStart : MonoBehaviour
         
     }
 
-    private void ToggleHelpPanel()
+    private void SetHelpPanel(bool enable)
     {
         if (!helpPanel || panelQuitEnabled) 
             return;
         
-        panelHelpEnabled = !panelHelpEnabled;
-        
-        // if (panelHelpEnabled)
-        //     SoundManager.Instance.UIValid();
-        // else
-        //     SoundManager.Instance.UIInvalid();
-        
-        helpPanel.SetActive(panelHelpEnabled);
-        
+        panelHelpEnabled = enable;
+        helpPanel.SetActive(enable);
     }
 
     private void HandleQuitChoice(bool accept)
@@ -252,7 +280,12 @@ public sealed class MenuStart : MonoBehaviour
 
         if (accept)
         {
+            Debug.Log("MenuStart: Quit Game!");
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
+#endif
         }
         else
         {
@@ -262,7 +295,6 @@ public sealed class MenuStart : MonoBehaviour
 
     public void TestStart()
     {
-        Debug.Log("TestStart");
         LoadingScreenManager.Instance?.LoadScene("Proto_Scene_Final");
     }
 }

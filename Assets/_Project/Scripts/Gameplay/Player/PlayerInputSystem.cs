@@ -28,6 +28,12 @@ public class PlayerInputSystem : MonoBehaviour
     [SerializeField, ReadOnly] private bool _isFearfulInput;
     [SerializeField, ReadOnly] private bool _isCuriousInput;
     private List<EmotionType> _activeEmotions = new List<EmotionType>();
+
+    public bool ActionIsPressed = false;
+    public bool TalkIsPressed = false;
+    
+    public bool HasActionPressed => _activeActions.Count > 0;
+    public bool HasEmotionPressed => _activeEmotions.Count > 0;
     
     public event Action<SynaptikInput> OnSynaptikInput;
     
@@ -89,12 +95,14 @@ public class PlayerInputSystem : MonoBehaviour
     public void OnTalkInput(InputAction.CallbackContext context)
     {
         _isTalkInput = context.ReadValueAsButton();
+        TalkIsPressed = _isTalkInput;
         UpdateActionState(ActionType.Word, _isTalkInput);
     }
 
     public void OnActionInput(InputAction.CallbackContext context)
     {
         _isActionInput = context.ReadValueAsButton();
+        ActionIsPressed = _isActionInput;
         UpdateActionState(ActionType.Action, _isActionInput);
     }
 

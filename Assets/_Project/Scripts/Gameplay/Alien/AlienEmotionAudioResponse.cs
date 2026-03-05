@@ -18,6 +18,7 @@ public class AlienEmotionAudioResponse : MonoBehaviour
     private Coroutine _playCoroutine;
     private bool _canPlayAudio = false;
     private float _nextAllowedPlayTime = 0f;
+    private float _defaultVolume = 1f;
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class AlienEmotionAudioResponse : MonoBehaviour
         if (_audioSource != null)
         {
             _audioSource.playOnAwake = false;
+            _defaultVolume = _audioSource.volume;
         }
         else
         {
@@ -58,7 +60,6 @@ public class AlienEmotionAudioResponse : MonoBehaviour
             }
         }
         
-        Debug.Log($"[AudioResponse] Changer d'input de ({_currentInput.emotionType}, {_currentInput.actionType}) vers ({synaptikInput.emotionType}, {synaptikInput.actionType})");
         _currentInput = synaptikInput;
 
         AlienEmotionAudioData audioData = default;
@@ -79,7 +80,6 @@ public class AlienEmotionAudioResponse : MonoBehaviour
         {
             if (audioData.Clips != null && audioData.Clips.Length > 0)
             {
-                Debug.Log($"[AudioResponse] On a trouvé {audioData.Clips.Length} sons pour l'input ({synaptikInput.emotionType}, {synaptikInput.actionType})");
                 if (_playCoroutine != null)
                 {
                     StopCoroutine(_playCoroutine);
@@ -96,7 +96,6 @@ public class AlienEmotionAudioResponse : MonoBehaviour
                         _nextAllowedPlayTime = Time.time + randomClip.length + audioData.Delay + _spamCooldown;
                     }
 
-                    Debug.Log($"[AudioResponse] Son choisi : {randomClip.name}. Délai : {audioData.Delay}s, Volume : {volume}");
                     if (audioData.Delay > 0f)
                     {
                         _playCoroutine = StartCoroutine(PlayWithDelayRoutine(randomClip, volume, audioData.Delay));
@@ -108,9 +107,7 @@ public class AlienEmotionAudioResponse : MonoBehaviour
                 }
             }
         }
-        else
         {
-            Debug.LogWarning($"[AudioResponse] Aucune donnée audio trouvée pour l'input ({synaptikInput.emotionType}, {synaptikInput.actionType})", this);
         }
     }
 
@@ -123,7 +120,6 @@ public class AlienEmotionAudioResponse : MonoBehaviour
 
     private void PlayAudio(AudioClip clip, float volume)
     {
-        Debug.Log($"[AudioResponse] Lecture de {clip.name} au volume {volume}...");
         if (_audioSource != null)
         {
             if (_cutPreviousSound)
@@ -131,14 +127,12 @@ public class AlienEmotionAudioResponse : MonoBehaviour
                 _audioSource.Stop();
             }
             _audioSource.clip = clip;
-            _audioSource.volume = volume;
+            _audioSource.volume = Mathf.Clamp01(_defaultVolume * volume);
             _audioSource.Play();
-            Debug.Log($"[AudioResponse] Joué via AudioSource !");
         }
         else
         {
-            AudioSource.PlayClipAtPoint(clip, transform.position, volume);
-            Debug.Log($"[AudioResponse] Joué via PlayClipAtPoint ! (Pas d'AudioSource trouvée)");
+            AudioSource.PlayClipAtPoint(clip, transform.position, Mathf.Clamp01(volume));
         }
     }
 }
