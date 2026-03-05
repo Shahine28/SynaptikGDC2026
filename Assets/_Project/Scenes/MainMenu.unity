@@ -1007,7 +1007,6 @@ GameObject:
   - component: {fileID: 680209368}
   - component: {fileID: 680209371}
   - component: {fileID: 680209370}
-  - component: {fileID: 680209369}
   m_Layer: 5
   m_Name: Brain (1)
   m_TagString: Untagged
@@ -1034,67 +1033,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -114.7}
   m_SizeDelta: {x: 595, y: 241}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &680209369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 680209367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e9d9f0d277d4f14b848145059dc6a24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imageToShake: {fileID: 680209368}
-  helpPanel: {fileID: 57037977}
-  quitPanel: {fileID: 1344896972}
-  maxShakeIntensity: 30
-  chargeTime: 3
-  intensityCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  onFullyCharged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 680209369}
-        m_TargetAssemblyTypeName: MenuStart, Assembly-CSharp
-        m_MethodName: TestStart
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  needleTransform: {fileID: 1349331501}
-  needleMinRotation: 85
-  needleMaxRotation: -85
-  needleReturnSpeed: 3
-  _playerInputSystem: {fileID: 877240898}
 --- !u!114 &680209370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1160,7 +1098,7 @@ RectTransform:
   m_GameObject: {fileID: 703803322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.45, z: 0.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1349331501}
@@ -1168,8 +1106,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -1.1799927}
-  m_SizeDelta: {x: 564.3248, y: 486.8605}
+  m_AnchoredPosition: {x: 0.0000076294, y: 1.2849731}
+  m_SizeDelta: {x: 510.3419, y: 227.93}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &703803324
 MonoBehaviour:
@@ -1249,6 +1187,8 @@ MonoBehaviour:
   _isAgressiveInput: 0
   _isFearfulInput: 0
   _isCuriousInput: 0
+  ActionIsPressed: 0
+  TalkIsPressed: 0
 --- !u!4 &877240899
 Transform:
   m_ObjectHideFlags: 0
@@ -1619,6 +1559,7 @@ GameObject:
   - component: {fileID: 1193238884}
   - component: {fileID: 1193238883}
   - component: {fileID: 1193238886}
+  - component: {fileID: 1193238885}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1692,6 +1633,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1193238885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193238881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1193238886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2114,15 +2067,15 @@ RectTransform:
   m_GameObject: {fileID: 1349331500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 2.08, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.9, y: 1.9, z: 1.9}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 703803323}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: -14.3272505, y: 0.7302551}
-  m_SizeDelta: {x: 25.3212, y: 228.366}
+  m_SizeDelta: {x: 25.3212, y: 119.58}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1349331502
 MonoBehaviour:
