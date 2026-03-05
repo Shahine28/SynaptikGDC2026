@@ -35,10 +35,15 @@ public class SimpleAudioEventBinder : MonoBehaviour
     [Tooltip("Liste des sons disponibles qui pourront être appelés depuis des UnityEvents.")]
     [SerializeField] private AudioEventBinding[] _audioBindings;
 
+    private float _defaultVolume = 1f;
+
     private void Awake()
     {
         if (_audioSource == null)
             _audioSource = GetComponent<AudioSource>();
+            
+        if (_audioSource != null)
+            _defaultVolume = _audioSource.volume;
     }
 
     public void PlaySoundByIndex(int index)
@@ -93,13 +98,14 @@ public class SimpleAudioEventBinder : MonoBehaviour
             if (binding.Loop)
             {
                 _audioSource.clip = binding.Clip;
-                _audioSource.volume = volume;
+                _audioSource.volume = _defaultVolume * volume;
                 _audioSource.loop = true;
                 _audioSource.Play();
                 Debug.Log($"[SimpleAudioEventBinder] Joué en boucle via l'AudioSource du composant !");
             }
             else
             {
+                _audioSource.volume = _defaultVolume;
                 _audioSource.PlayOneShot(binding.Clip, volume);
                 Debug.Log($"[SimpleAudioEventBinder] Joué via l'AudioSource du composant !");
             }
@@ -116,7 +122,7 @@ public class SimpleAudioEventBinder : MonoBehaviour
         
         AudioSource aSource = tempGO.AddComponent<AudioSource>();
         aSource.clip = clip;
-        aSource.spatialBlend = 0f;
+        aSource.spatialBlend = 1f; // 1 = 3D (Spatialisé dans l'espace), 0 = 2D (Dans la tête du joueur)
         aSource.volume = volume;
         aSource.loop = loop;
         

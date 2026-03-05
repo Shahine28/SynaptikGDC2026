@@ -18,6 +18,7 @@ public class AlienEmotionAudioResponse : MonoBehaviour
     private Coroutine _playCoroutine;
     private bool _canPlayAudio = false;
     private float _nextAllowedPlayTime = 0f;
+    private float _defaultVolume = 1f;
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class AlienEmotionAudioResponse : MonoBehaviour
         if (_audioSource != null)
         {
             _audioSource.playOnAwake = false;
+            _defaultVolume = _audioSource.volume;
         }
         else
         {
@@ -131,7 +133,7 @@ public class AlienEmotionAudioResponse : MonoBehaviour
                 _audioSource.Stop();
             }
             _audioSource.clip = clip;
-            _audioSource.volume = volume;
+            _audioSource.volume = _defaultVolume * volume;
             _audioSource.Play();
             Debug.Log($"[AudioResponse] Joué via AudioSource !");
         }

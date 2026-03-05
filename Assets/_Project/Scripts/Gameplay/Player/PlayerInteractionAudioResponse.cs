@@ -9,10 +9,18 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
     [SerializeField] private PlayerAudioFromInputSO _playerAudioSO;
     [SerializeField] private AudioSource _audioSource;
 
+    [Header("Overlap Settings")]
+    [Tooltip("Si activé, coupe le son en cours pour jouer le nouveau. Si désactivé, ignore le nouveau son si un autre est déjà en train de jouer.")]
+    [SerializeField] private bool _cutPreviousSound = true;
+    [Tooltip("Délai minimum (en secondes) à attendre entre deux sons quand Cut Previous Sound est désactivé.")]
+    [SerializeField] private float _spamCooldown = 0.5f;
+
     private PlayerInputSystem _playerInputSystem;
     private SynaptikInput _currentInput;
     private Coroutine _playCoroutine;
     private bool _canPlayAudio = false;
+    private float _nextAllowedPlayTime = 0f;
+    private float _defaultVolume = 1f;
 
     private void Awake()
     {
@@ -24,6 +32,7 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
         if (_audioSource != null)
         {
             _audioSource.playOnAwake = false;
+            _defaultVolume = _audioSource.volume;
         }
         else
         {
@@ -57,6 +66,17 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
     {
         if (!_canPlayAudio || _playerAudioSO == null || synaptikInput.actionType == ActionType.None || synaptikInput.emotionType == EmotionType.None)
             return;
+
+        if (!_cutPreviousSound)
+        {
+            bool isPlayingAudio = _audioSource != null && _audioSource.isPlaying;
+            bool isWaitingForDelay = _playCoroutine != null;
+            if (isPlayingAudio || isWaitingForDelay || Time.time < _nextAllowedPlayTime)
+            {
+                // Anti-spam en cours
+                return;
+            }
+        }
         
         Debug.Log($"[PlayerAudioResponse] Input reçu : ({synaptikInput.emotionType}, {synaptikInput.actionType})");
         _currentInput = synaptikInput;
@@ -76,6 +96,12 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
                 if (randomClip != null)
                 {
                     float volume = audioData.Volume <= 0f ? 1f : audioData.Volume;
+
+                    if (!_cutPreviousSound)
+                    {
+                        // On calcule le temps auquel le prochain son sera autorisé
+                        _nextAllowedPlayTime = Time.time + randomClip.length + audioData.Delay + _spamCooldown;
+                    }
 
                     Debug.Log($"[PlayerAudioResponse] Son choisi : {randomClip.name}. Délai : {audioData.Delay}s, Volume : {volume}");
                     if (audioData.Delay > 0f)
@@ -107,7 +133,13 @@ public class PlayerInteractionAudioResponse : MonoBehaviour
         Debug.Log($"[PlayerAudioResponse] Lecture de {clip.name} au volume {volume}...");
         if (_audioSource != null)
         {
-            _audioSource.PlayOneShot(clip, volume);
+            if (_cutPreviousSound)
+            {
+                _audioSource.Stop();
+            }
+            _audioSource.clip = clip;
+            _audioSource.volume = _defaultVolume * volume;
+            _audioSource.Play();
             Debug.Log($"[PlayerAudioResponse] Joué via AudioSource !");
         }
         else
