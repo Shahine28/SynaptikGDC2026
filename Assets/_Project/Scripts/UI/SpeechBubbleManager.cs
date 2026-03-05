@@ -7,6 +7,7 @@ public class SpeechBubbleManager : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField, Required] private SpeechBubble _speechBubblePrefab;
+    [SerializeField, Required] private SpeechBubble _alienSpeechBubblePrefab;
     
     [SerializeField] private Vector3 _defaultOffset = new(0, 1f, 0); 
     
@@ -22,7 +23,7 @@ public class SpeechBubbleManager : MonoBehaviour
         Instance = this;
     }
     
-    public void SpawnBubble(Transform target, SynaptikInput input, string text, Vector3? customOffset = null)
+    public void SpawnBubble(Transform target, SynaptikInput input, string text, Vector3? customOffset = null, Vector2 positionYRange = default, bool IsAlien = false)
     {
         if (_speechBubblePrefab == null)
         {
@@ -37,9 +38,23 @@ public class SpeechBubbleManager : MonoBehaviour
         }
         
         Vector3 offset = customOffset ?? _defaultOffset; // Si custom est null, prend default
+
+        SpeechBubble newBubble;
+        if (IsAlien)
+        {
+            newBubble = Instantiate(_alienSpeechBubblePrefab, target.position + offset, Quaternion.identity, target);
+        }
+        else
+        {
+            newBubble = Instantiate(_speechBubblePrefab, target.position + offset, Quaternion.identity, target);
+        }
         
 
-        SpeechBubble newBubble = Instantiate(_speechBubblePrefab, target.position + offset, Quaternion.identity, target);
+        if (positionYRange != Vector2.zero)
+        {
+            newBubble.Init(positionYRange);
+        }
+        
         
         newBubble.transform.localPosition = offset; 
         newBubble.transform.localScale = Vector3.one;
