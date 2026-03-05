@@ -48,7 +48,6 @@ public class SimpleAudioEventBinder : MonoBehaviour
 
     public void PlaySoundByIndex(int index)
     {
-        Debug.Log($"[SimpleAudioEventBinder] PlaySoundByIndex appelé avec l'index {index}");
         if (_audioBindings == null || index < 0 || index >= _audioBindings.Length)
         {
             Debug.LogWarning($"[SimpleAudioEventBinder] Indice invalide ({index}) sur {gameObject.name}");
@@ -62,7 +61,6 @@ public class SimpleAudioEventBinder : MonoBehaviour
 
     public void PlaySoundByName(string eventName)
     {
-        Debug.Log($"[SimpleAudioEventBinder] PlaySoundByName appelé avec le nom '{eventName}'");
         if (_audioBindings == null) return;
 
         foreach (var binding in _audioBindings)
@@ -85,29 +83,24 @@ public class SimpleAudioEventBinder : MonoBehaviour
             return;
         }
 
-        float volume = binding.VolumeScale > 0 ? binding.VolumeScale : 1f;
-        Debug.Log($"[SimpleAudioEventBinder] Lecture de {binding.Clip.name} à un volume de {volume}");
+        float volume = Mathf.Clamp01(binding.VolumeScale > 0 ? binding.VolumeScale : 1f);
 
         if (binding.PlayAtPoint || _audioSource == null)
         {
             PlayClipAtPointCustom(binding.Clip, transform.position, volume, binding.Loop, _audioMixerGroup);
-            Debug.Log($"[SimpleAudioEventBinder] Joué via PlayClipAtPoint ! (Mixer: {(_audioMixerGroup ? _audioMixerGroup.name : "None")}) - Loop: {binding.Loop}");
         }
         else
         {
             if (binding.Loop)
             {
                 _audioSource.clip = binding.Clip;
-                _audioSource.volume = _defaultVolume * volume;
+                _audioSource.volume = Mathf.Clamp01(_defaultVolume * volume);
                 _audioSource.loop = true;
                 _audioSource.Play();
-                Debug.Log($"[SimpleAudioEventBinder] Joué en boucle via l'AudioSource du composant !");
             }
             else
             {
-                _audioSource.volume = _defaultVolume;
                 _audioSource.PlayOneShot(binding.Clip, volume);
-                Debug.Log($"[SimpleAudioEventBinder] Joué via l'AudioSource du composant !");
             }
         }
     }
