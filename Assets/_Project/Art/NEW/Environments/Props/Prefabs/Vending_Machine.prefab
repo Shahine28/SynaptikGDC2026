@@ -216,7 +216,19 @@ MonoBehaviour:
         m_CallState: 2
   _onItemInteracted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6167817820952602173}
+        m_TargetAssemblyTypeName: SimpleAudioEventBinder, Assembly-CSharp
+        m_MethodName: PlaySoundByName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: hitmachine
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5305887459653718389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,6 +264,12 @@ MonoBehaviour:
   - EventName: machine
     Clip: {fileID: 8300000, guid: edf5145b03754484c835582655dd9613, type: 3}
     VolumeScale: 0.052
+    Loop: 0
+    PlayAtPoint: 0
+  - EventName: hitmachine
+    Clip: {fileID: 8300000, guid: 73b1cd78a91fe1c40ab88e88b75a8cfc, type: 3}
+    VolumeScale: 0.089
+    Loop: 0
     PlayAtPoint: 0
 --- !u!114 &8863876246457402194
 MonoBehaviour:

@@ -18,43 +18,43 @@ MonoBehaviour:
         emotionType: 1
         actionType: 1
       Value:
-        Symbol: F?
+        Symbol: B
         MisstrustModifier: 0
     - Key:
         emotionType: 1
         actionType: 2
       Value:
-        Symbol: C
+        Symbol: B
         MisstrustModifier: 0
     - Key:
         emotionType: 2
         actionType: 1
       Value:
-        Symbol: A
+        Symbol: B
         MisstrustModifier: -3
     - Key:
         emotionType: 2
         actionType: 2
       Value:
-        Symbol: A
+        Symbol: B
         MisstrustModifier: -3
     - Key:
         emotionType: 3
         actionType: 1
       Value:
-        Symbol: BJ
+        Symbol: B
         MisstrustModifier: 0
     - Key:
         emotionType: 3
         actionType: 2
       Value:
-        Symbol: BJ
+        Symbol: B
         MisstrustModifier: 0
     - Key:
         emotionType: 4
         actionType: 1
       Value:
-        Symbol: GE
+        Symbol: B
         MisstrustModifier: 0
     - Key:
         emotionType: 4

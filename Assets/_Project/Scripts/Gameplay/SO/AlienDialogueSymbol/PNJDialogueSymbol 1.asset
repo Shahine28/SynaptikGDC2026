@@ -30,19 +30,19 @@ MonoBehaviour:
         emotionType: 2
         actionType: 1
       Value:
-        Symbol: A
-        MisstrustModifier: -3
+        Symbol: A,
+        MisstrustModifier: -5
     - Key:
         emotionType: 2
         actionType: 2
       Value:
-        Symbol: A
-        MisstrustModifier: -3
+        Symbol: A,
+        MisstrustModifier: -5
     - Key:
         emotionType: 3
         actionType: 1
       Value:
-        Symbol: BJ
+        Symbol: D
         MisstrustModifier: 0
     - Key:
         emotionType: 3

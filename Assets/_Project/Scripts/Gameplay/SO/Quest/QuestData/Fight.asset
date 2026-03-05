@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fight
   m_EditorClassIdentifier: 
   Title: Make two aliens fight each other
-  DisplayDescription: The masons seem to be fired up.
+  DisplayDescription: The masons seem to be angry with each other.
   MisstrustModifier: 0
   Goals:
   - {fileID: 11400000, guid: 34ed55fe8713a3c4e862608b299a73ef, type: 2}
