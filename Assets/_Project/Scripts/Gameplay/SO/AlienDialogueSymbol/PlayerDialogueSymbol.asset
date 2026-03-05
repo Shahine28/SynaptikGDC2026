@@ -30,7 +30,7 @@ MonoBehaviour:
         emotionType: 2
         actionType: 1
       Value:
-        Symbol: '-'
+        Symbol: ','
         MisstrustModifier: 0
     - Key:
         emotionType: 2
