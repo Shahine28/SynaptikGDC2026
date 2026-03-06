@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c582e00675d9404085acc81a1cb1277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnChance: 0.3
+  _spawnChance: 1
   _spawnObjects:
   - _objectToSpawn: {fileID: 0}
     _weight: 1
@@ -260,6 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 0}
   _audioMixerGroup: {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+  _overlapMode: 0
   _audioBindings:
   - EventName: machine
     Clip: {fileID: 8300000, guid: edf5145b03754484c835582655dd9613, type: 3}

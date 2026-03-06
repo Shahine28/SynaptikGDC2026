@@ -269,10 +269,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c582e00675d9404085acc81a1cb1277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnChance: 0.5
+  _spawnChance: 1
   _spawnObjects:
-  - _objectToSpawn: {fileID: 7283143316714120947, guid: 2aa3eed663cbe0e48b677adf3ccc6d7c, type: 3}
-    _weight: 1
+  - _objectToSpawn: {fileID: 296789778939996129, guid: 52ae978cfdbe39e4e802595ce2b6f243, type: 3}
+    _weight: 0.751
   _spawnTransform: {fileID: 5426931830368329057}
 --- !u!114 &3316316230143005793
 MonoBehaviour:
@@ -308,6 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 0}
   _audioMixerGroup: {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+  _overlapMode: 0
   _audioBindings:
   - EventName: casser
     Clip: {fileID: 8300000, guid: 2812cd1b3dc9ef646ad983b20b73ef4b, type: 3}
