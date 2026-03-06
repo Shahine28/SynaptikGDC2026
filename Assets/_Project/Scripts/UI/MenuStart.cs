@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 // using FMODUnity;
 using Unity.VisualScripting;
+using UnityEngine.Serialization;
 
 public sealed class MenuStart : MonoBehaviour
 {
@@ -31,12 +32,7 @@ public sealed class MenuStart : MonoBehaviour
 
     [Tooltip("Vitesse de retour de l’aiguille à 0 quand la charge descend.")]
     [SerializeField] private float needleReturnSpeed = 3f;
-
-    // [Header("SFX")]
-    // [SerializeField] private StudioEventEmitter _startEmitter;
-    //
-    // [SerializeField] private EventReference _music;
-    // [SerializeField] private EventReference _ambiant;
+    
 
     private float chargeProgress;
     private bool isCharging;
@@ -47,95 +43,69 @@ public sealed class MenuStart : MonoBehaviour
     private bool panelQuitEnabled;
     [SerializeField, Required] private PlayerInputSystem _playerInputSystem;
     private bool subscribedToInputs;
-    private SynaptikInput _lastInput;
 
     private bool windowOpened;
-    private float _currentNeedleRotation;
+
+    [SerializeField] private string sceneNameToLoad = "Proto_Scene_Final";
+
 
     private void Awake()
     {
         if (imageToShake != null)
             originalPos = imageToShake.anchoredPosition;
 
-        if (needleTransform)
-            _currentNeedleRotation = needleMinRotation;
-
         InitializePanels();
-
-        if (_playerInputSystem == null)
-        {
-            _playerInputSystem = FindObjectOfType<PlayerInputSystem>();
-        }
-            
-        subscribedToInputs = _playerInputSystem != null;
     }
 
     private void OnEnable()
     {
         if (!_playerInputSystem) return;
-        _playerInputSystem.OnSynaptikInput += HandleSynaptikInput;
+        _playerInputSystem.OnActionTriggered += HandleTwoAction;
+        _playerInputSystem.OnActionTypeInput +=  HandleAction;
+        _playerInputSystem.OnEmotionTypeInput +=  HandleEmotion;
     }
 
     private void OnDisable()
     {
         if (!_playerInputSystem) return;
-        _playerInputSystem.OnSynaptikInput -= HandleSynaptikInput;
+        _playerInputSystem.OnActionTriggered -= HandleTwoAction;
+        _playerInputSystem.OnActionTypeInput -=  HandleAction;
+        _playerInputSystem.OnEmotionTypeInput -=  HandleEmotion;
     }
     
     private void InitializePanels()
     {
-        if (helpPanel) 
-            helpPanel.SetActive(false);
-
-        if (quitPanel) 
-            quitPanel.SetActive(false);
+        if (helpPanel) helpPanel.SetActive(false);
+        if (quitPanel) quitPanel.SetActive(false);
         
         panelHelpEnabled = false;
         panelQuitEnabled = false;
     }
+    
 
-    void HandleSynaptikInput(SynaptikInput synaptikInput)
+    private void HandleEmotion(EmotionType emotion)
     {
-        // ACTION
-        if (_lastInput.actionType != ActionType.None && synaptikInput.actionType == ActionType.None)
+        if (emotion == EmotionType.Aggressive)
         {
-            HandleAction(_lastInput.actionType, true); // Relâché
+            ToggleQuitPanel(true);
+            ToggleHelpPanel(false);
         }
-        else if (synaptikInput.actionType != ActionType.None)
+        else if (emotion == EmotionType.Curious)
         {
-            HandleAction(synaptikInput.actionType, false); // Appuyé
+            ToggleQuitPanel(false);
+            ToggleHelpPanel(true);
         }
-
-        // EMOTION
-        if (_lastInput.emotionType != EmotionType.None && synaptikInput.emotionType == EmotionType.None)
+        else
         {
-            HandleEmotion(_lastInput.emotionType, true); // Relâché
+            ToggleQuitPanel(false);
+            ToggleHelpPanel(false);
         }
-        else if (synaptikInput.emotionType != EmotionType.None)
-        {
-            HandleEmotion(synaptikInput.emotionType, false); // Appuyé
-        }
-
-        _lastInput = synaptikInput;
+        
     }
 
-    private void HandleEmotion(EmotionType emotion, bool keyUp)
+    private void HandleAction(ActionType action)
     {
-        switch (emotion)
-        {
-            case EmotionType.Aggressive:
-                ToggleQuitPanel(!keyUp);
-                break;
-            
-            case EmotionType.Curious:
-                SetHelpPanel(!keyUp);
-                break;
-        }
-    }
-
-    private void HandleAction(ActionType action, bool isKeyUp)
-    {
-        if (isKeyUp || !panelQuitEnabled) 
+        if (!panelQuitEnabled || action == ActionType.None) 
             return;
 
         switch (action)
@@ -150,9 +120,9 @@ public sealed class MenuStart : MonoBehaviour
         }
     }
 
-    private void HandleTwoAction(bool towPressed)
+    private void HandleTwoAction(bool twoPressed)
     {
-        if (towPressed) 
+        if (twoPressed) 
             StartCharging();
         else 
             StopCharging();
@@ -161,9 +131,10 @@ public sealed class MenuStart : MonoBehaviour
     private void StartCharging()
     {
         isCharging = true;
-        fullyCharged = false;
         // if (_startEmitter)
         //     _startEmitter.Play();
+        
+        fullyCharged = false;
     }
 
     private void StopCharging()
@@ -175,16 +146,6 @@ public sealed class MenuStart : MonoBehaviour
 
     private void Update()
     {
-        bool isActivating = _playerInputSystem.TalkIsPressed && _playerInputSystem.ActionIsPressed;
-        if (isActivating && !isCharging)
-        {
-            HandleTwoAction(true);
-        }
-        else if (!isActivating && isCharging)
-        {
-            HandleTwoAction(false);
-        }
-        
         if (isCharging && !fullyCharged)
         {
             chargeProgress += Time.deltaTime / chargeTime;
@@ -210,7 +171,7 @@ public sealed class MenuStart : MonoBehaviour
         // if (_startEmitter != null)
         //     _startEmitter.SetParameter("fuck", chargeProgress);
         
-        // ---- SHAKE ----
+
         if (imageToShake)
         {
             var intensity = intensityCurve.Evaluate(chargeProgress) * maxShakeIntensity;
@@ -220,14 +181,13 @@ public sealed class MenuStart : MonoBehaviour
 
         if (chargeProgress <= 0.001f && imageToShake)
             imageToShake.anchoredPosition = originalPos;
-
-        // ---- BAROMETER NEEDLE ----
+        
         if (needleTransform)
         {
             float targetRotation = Mathf.Lerp(needleMinRotation, needleMaxRotation, chargeProgress);
 
-            _currentNeedleRotation = Mathf.LerpAngle(
-                _currentNeedleRotation,
+            float currentRotation = Mathf.LerpAngle(
+                needleTransform.localEulerAngles.z,
                 targetRotation,
                 Time.deltaTime * needleReturnSpeed
             );
@@ -243,8 +203,7 @@ public sealed class MenuStart : MonoBehaviour
 
             float jitterAmplitude = 1.5f;
             float jitter = modulated * jitterAmplitude * Mathf.Pow(vibrationIntensity, 1.5f);
-            
-            needleTransform.localRotation = Quaternion.Euler(0f, 0f, _currentNeedleRotation + jitter);
+            needleTransform.localEulerAngles = new Vector3(0f, 0f, currentRotation + jitter);
         }
     }
 
@@ -260,17 +219,24 @@ public sealed class MenuStart : MonoBehaviour
         // else
         //     SoundManager.Instance.UIInvalid();
         
-        quitPanel.SetActive(enable);
+        quitPanel.SetActive(panelQuitEnabled);
         
     }
 
-    private void SetHelpPanel(bool enable)
+    private void ToggleHelpPanel(bool enable)
     {
         if (!helpPanel || panelQuitEnabled) 
             return;
         
         panelHelpEnabled = enable;
-        helpPanel.SetActive(enable);
+        
+        // if (panelHelpEnabled)
+        //     SoundManager.Instance.UIValid();
+        // else
+        //     SoundManager.Instance.UIInvalid();
+        
+        helpPanel.SetActive(panelHelpEnabled);
+        
     }
 
     private void HandleQuitChoice(bool accept)
@@ -280,21 +246,17 @@ public sealed class MenuStart : MonoBehaviour
 
         if (accept)
         {
-            Debug.Log("MenuStart: Quit Game!");
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
             Application.Quit();
-#endif
         }
         else
         {
             ToggleQuitPanel(false);
         }
     }
-
+    
     public void TestStart()
     {
-        LoadingScreenManager.Instance?.LoadScene("Proto_Scene_Final");
+        Debug.Log("TestStart");
+        LoadingScreenManager.Instance?.LoadScene(sceneNameToLoad);
     }
 }

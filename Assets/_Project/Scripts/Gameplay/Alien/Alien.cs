@@ -65,6 +65,7 @@ public class Alien : MonoBehaviour, IInteraction
     
     [SerializeField] private AlienDialogueSymbolBySynaptikInput _dialogueSymbolBySynaptikInput;
     [SerializeField] private float _secondBeforeReactingToPlayer = 2.0f;
+    [SerializeField] private Transform _bubbleTransform;
     
     
     [SerializeField, SerializedDictionary("ItemIdToReceive", "DialogueSymbol")] 
@@ -173,7 +174,7 @@ public class Alien : MonoBehaviour, IInteraction
             var dialogueMistrustModifier = targetDialogueSymbol.GetMissTrustModifier(playerInput);
             if (dialogueData != null)
             {
-                StartCoroutine(StartDialogueDelayed(transform, playerInput, dialogueData, dialogueMistrustModifier));
+                StartCoroutine(StartDialogueDelayed(_bubbleTransform, action, dialogueData, dialogueMistrustModifier));
             }
         }
         else
@@ -196,7 +197,7 @@ public class Alien : MonoBehaviour, IInteraction
                     playerInteraction?.OnGive?.Invoke();
                     Destroy(item.gameObject);
                     OnItemReceived?.Invoke();
-                    StartCoroutine(StartDialogueDelayed(transform, playerInput, itemDialogue.AlienDialogueAndTrust.Symbol, itemDialogue.AlienDialogueAndTrust.MisstrustModifier));
+                    StartCoroutine(StartDialogueDelayed(_bubbleTransform, action, itemDialogue.AlienDialogueAndTrust.Symbol, itemDialogue.AlienDialogueAndTrust.MisstrustModifier));
                     itemDialogue.DialogueEvent?.Invoke();
                 }
                 else
@@ -222,7 +223,7 @@ public class Alien : MonoBehaviour, IInteraction
     private IEnumerator StartDialogueDelayed(Transform tr, SynaptikInput action, string text, int MisstrutsModifier)
     {
         yield return new WaitForSeconds(_secondBeforeReactingToPlayer);
-        SpeechBubbleManager.Instance?.SpawnBubble(tr, action, text);
+        SpeechBubbleManager.Instance?.SpawnBubble(tr, action, text, null, Vector2.zero, true);
         MistrustManager.Instance?.AddMistrust(MisstrutsModifier);
     }
     

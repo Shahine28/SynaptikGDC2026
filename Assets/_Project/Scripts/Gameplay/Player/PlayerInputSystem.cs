@@ -37,6 +37,10 @@ public class PlayerInputSystem : MonoBehaviour
     
     public event Action<SynaptikInput> OnSynaptikInput;
     
+    public event Action<bool> OnActionTriggered;
+    public event Action<ActionType> OnActionTypeInput;
+    public event Action<EmotionType> OnEmotionTypeInput;
+    
 
     void UpdateCurrentSynaptikInput()
     {
@@ -44,9 +48,23 @@ public class PlayerInputSystem : MonoBehaviour
         
         newInput.emotionType = _activeEmotions.Count > 0 ? _activeEmotions[0] : EmotionType.None;
         newInput.actionType = _activeActions.Count > 0 ? _activeActions[0] : ActionType.None;
+        
+        OnActionTriggered?.Invoke(_activeActions.Count > 1);
+        
 
         if (_currentSynaptikInput.emotionType == newInput.emotionType &&
             _currentSynaptikInput.actionType == newInput.actionType) return;
+
+        if (_currentSynaptikInput.actionType != newInput.actionType)
+        {
+            OnActionTypeInput?.Invoke(newInput.actionType);
+        }
+
+        if (_currentSynaptikInput.emotionType != newInput.emotionType)
+        {
+            OnEmotionTypeInput?.Invoke(newInput.emotionType);
+        }
+        
         
         _currentSynaptikInput = newInput;
         OnSynaptikInput?.Invoke(_currentSynaptikInput);

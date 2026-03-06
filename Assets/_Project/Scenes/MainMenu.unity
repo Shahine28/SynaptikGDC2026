@@ -501,17 +501,16 @@ MonoBehaviour:
   holdDurationBeforeLoad: 5
   holdDurationAfterSceneLoaded: 5
   textFiller:
-  - lancement du Logiciel Synaptik V0.01001
-  - "connexion des \xE9motions"
-  - chargement de la transmition visuelle
-  - "d\xE9compilation des scripts de traductions"
-  - "check de la r\xE9activit\xE9 musculaire"
-  - aled osekour il est 4h du matin svp sauvez moi pls
-  - "Activit\xE9 cerebral : OK"
-  - 'mignonitude de zip zoup : 100%'
-  - "qualit\xE9 du pr\xE9nom de zip zoup : 0%"
-  - minecraft le film le jeu
-  - Phase finale de connexion au cerveau
+  - Booting Synaptik OS V0.01001...
+  - Establishing emotional uplink...
+  - Synchronizing optic nerves with rendering engine...
+  - Decompiling translation scripts...
+  - Pinging motor reflexes...
+  - 'Brainwave activity: Nominal'
+  - Flushing intrusive thoughts...
+  - 'Zip Zoup cuteness level: 100%'
+  - Bypassing logic centers...
+  - Commencing final brain-sync protocol...
 --- !u!4 &336193470
 Transform:
   m_ObjectHideFlags: 0
@@ -1008,7 +1007,7 @@ GameObject:
   - component: {fileID: 680209371}
   - component: {fileID: 680209370}
   m_Layer: 5
-  m_Name: Brain (1)
+  m_Name: Brain Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1098,7 +1097,7 @@ RectTransform:
   m_GameObject: {fileID: 703803322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.45, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1349331501}
@@ -1106,8 +1105,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0.0000076294, y: 1.2849731}
-  m_SizeDelta: {x: 510.3419, y: 227.93}
+  m_AnchoredPosition: {x: 0, y: -1.1799927}
+  m_SizeDelta: {x: 564.3248, y: 486.8605}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &703803324
 MonoBehaviour:
@@ -1559,7 +1558,6 @@ GameObject:
   - component: {fileID: 1193238884}
   - component: {fileID: 1193238883}
   - component: {fileID: 1193238886}
-  - component: {fileID: 1193238885}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1633,18 +1631,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1193238885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1193238881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1193238886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1826,6 +1812,7 @@ MonoBehaviour:
   needleMaxRotation: -85
   needleReturnSpeed: 3
   _playerInputSystem: {fileID: 877240898}
+  sceneNameToLoad: GD_LD
 --- !u!1 &1317715881
 GameObject:
   m_ObjectHideFlags: 0
@@ -2067,15 +2054,15 @@ RectTransform:
   m_GameObject: {fileID: 1349331500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.9, y: 1.9, z: 1.9}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1.5, y: 2.08, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 703803323}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: -14.3272505, y: 0.7302551}
-  m_SizeDelta: {x: 25.3212, y: 119.58}
+  m_SizeDelta: {x: 25.3212, y: 228.366}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1349331502
 MonoBehaviour:

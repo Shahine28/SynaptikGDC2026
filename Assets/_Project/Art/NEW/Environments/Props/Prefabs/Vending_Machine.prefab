@@ -41,15 +41,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 88d93637e9e491f4b861cf0db0e99deb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: 14.238441
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88d93637e9e491f4b861cf0db0e99deb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 85.617676
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88d93637e9e491f4b861cf0db0e99deb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.625
+      value: -111.1303
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88d93637e9e491f4b861cf0db0e99deb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -263,12 +263,12 @@ MonoBehaviour:
   _audioBindings:
   - EventName: machine
     Clip: {fileID: 8300000, guid: edf5145b03754484c835582655dd9613, type: 3}
-    VolumeScale: 0.052
+    VolumeScale: 0.694
     Loop: 0
     PlayAtPoint: 0
   - EventName: hitmachine
     Clip: {fileID: 8300000, guid: 73b1cd78a91fe1c40ab88e88b75a8cfc, type: 3}
-    VolumeScale: 0.089
+    VolumeScale: 1
     Loop: 0
     PlayAtPoint: 0
 --- !u!114 &8863876246457402194
