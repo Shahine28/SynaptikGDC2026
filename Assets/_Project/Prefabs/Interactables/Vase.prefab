@@ -129,7 +129,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 5a0e1f196cacb944da021b60efbce28b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: cb69718fb38cf7049875b74dff0ac2bc, type: 2}
+      objectReference: {fileID: 2100000, guid: 06a6de22335357244863e354a0eb7569, type: 2}
     - target: {fileID: 919132149155446097, guid: 5a0e1f196cacb944da021b60efbce28b, type: 3}
       propertyPath: m_Name
       value: Vase

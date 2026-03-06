@@ -509,7 +509,6 @@ MonoBehaviour:
   - 'Brainwave activity: Nominal'
   - Flushing intrusive thoughts...
   - 'Zip Zoup cuteness level: 100%'
-  - 'Zip Zoup name quality: 0%'
   - Bypassing logic centers...
   - Commencing final brain-sync protocol...
 --- !u!4 &336193470
@@ -1187,6 +1186,8 @@ MonoBehaviour:
   _isAgressiveInput: 0
   _isFearfulInput: 0
   _isCuriousInput: 0
+  ActionIsPressed: 0
+  TalkIsPressed: 0
 --- !u!4 &877240899
 Transform:
   m_ObjectHideFlags: 0
