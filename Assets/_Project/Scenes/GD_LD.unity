@@ -893,6 +893,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vending_Machine (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4629792250898895924, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5305887459653718389, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
       propertyPath: _spawnObjects.Array.data[0]._objectToSpawn
       value: 
@@ -5537,6 +5541,10 @@ PrefabInstance:
     - target: {fileID: 6717372861038130110, guid: 543f7c6265bd3df4a85de32a24959783, type: 3}
       propertyPath: m_Name
       value: Player(new)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717372861038130110, guid: 543f7c6265bd3df4a85de32a24959783, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6809931080633046644, guid: 543f7c6265bd3df4a85de32a24959783, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -38019,6 +38027,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vending_Machine
       objectReference: {fileID: 0}
+    - target: {fileID: 4629792250898895924, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5305887459653718389, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
       propertyPath: _spawnObjects.Array.data[0]._objectToSpawn
       value: 
@@ -64893,7 +64905,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1165465979
 Transform:
   m_ObjectHideFlags: 0
@@ -67124,6 +67136,10 @@ PrefabInstance:
     - target: {fileID: 7283143316714120947, guid: 2aa3eed663cbe0e48b677adf3ccc6d7c, type: 3}
       propertyPath: m_Name
       value: Coin
+      objectReference: {fileID: 0}
+    - target: {fileID: 7283143316714120947, guid: 2aa3eed663cbe0e48b677adf3ccc6d7c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -81938,7 +81954,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1521697852
 Transform:
   m_ObjectHideFlags: 0
@@ -84284,7 +84300,7 @@ RectTransform:
   m_Father: {fileID: 1009453557}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -110378,6 +110394,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vending_Machine (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4629792250898895924, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5305887459653718389, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
       propertyPath: _spawnObjects.Array.data[0]._objectToSpawn
       value: 
@@ -117879,6 +117899,10 @@ PrefabInstance:
     - target: {fileID: 4629792250898895924, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
       propertyPath: m_Name
       value: Vending_Machine (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629792250898895924, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5305887459653718389, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
       propertyPath: _spawnObjects.Array.data[0]._objectToSpawn
