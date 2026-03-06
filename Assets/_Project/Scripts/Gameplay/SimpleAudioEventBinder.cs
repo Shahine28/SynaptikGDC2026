@@ -1,6 +1,6 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 
 public class SimpleAudioEventBinder : MonoBehaviour
@@ -31,11 +31,17 @@ public class SimpleAudioEventBinder : MonoBehaviour
     [Tooltip("L'AudioMixerGroup à utiliser lors d'un 'PlayAtPoint' (optionnel).")]
     [SerializeField] private UnityEngine.Audio.AudioMixerGroup _audioMixerGroup;
 
+    [Header("Overlap Settings")]
+    [Tooltip("Si activé, coupe le son en cours pour jouer le nouveau immédiatement. Si désactivé, les sons sont mis en file d'attente et joués les uns après les autres.")]
+    [SerializeField] private bool _cutPreviousSound = true;
+
     [Header("Bindings (GD Only)")]
     [Tooltip("Liste des sons disponibles qui pourront être appelés depuis des UnityEvents.")]
     [SerializeField] private AudioEventBinding[] _audioBindings;
 
     private float _defaultVolume = 1f;
+    private readonly Queue<AudioEventBinding> _soundQueue = new Queue<AudioEventBinding>();
+    private Coroutine _queueCoroutine;
 
     private void Awake()
     {
@@ -54,10 +60,8 @@ public class SimpleAudioEventBinder : MonoBehaviour
             return;
         }
 
-        var binding = _audioBindings[index];
-        Play(binding);
+        Play(_audioBindings[index]);
     }
-    
 
     public void PlaySoundByName(string eventName)
     {
@@ -83,6 +87,20 @@ public class SimpleAudioEventBinder : MonoBehaviour
             return;
         }
 
+        if (_cutPreviousSound)
+        {
+            PlayImmediate(binding);
+        }
+        else
+        {
+            _soundQueue.Enqueue(binding);
+            if (_queueCoroutine == null)
+                _queueCoroutine = StartCoroutine(ProcessQueueRoutine());
+        }
+    }
+
+    private void PlayImmediate(AudioEventBinding binding)
+    {
         float volume = Mathf.Clamp01(binding.VolumeScale > 0 ? binding.VolumeScale : 1f);
 
         if (binding.PlayAtPoint || _audioSource == null)
@@ -91,6 +109,8 @@ public class SimpleAudioEventBinder : MonoBehaviour
         }
         else
         {
+            _audioSource.Stop();
+
             if (binding.Loop)
             {
                 _audioSource.clip = binding.Clip;
@@ -100,11 +120,43 @@ public class SimpleAudioEventBinder : MonoBehaviour
             }
             else
             {
-                _audioSource.PlayOneShot(binding.Clip, volume);
+                _audioSource.clip = binding.Clip;
+                _audioSource.volume = Mathf.Clamp01(_defaultVolume * volume);
+                _audioSource.loop = false;
+                _audioSource.Play();
             }
         }
     }
-    
+
+    private IEnumerator ProcessQueueRoutine()
+    {
+        while (_soundQueue.Count > 0)
+        {
+            var binding = _soundQueue.Dequeue();
+            if (binding.Clip == null) continue;
+
+            float volume = Mathf.Clamp01(binding.VolumeScale > 0 ? binding.VolumeScale : 1f);
+
+            if (binding.PlayAtPoint || _audioSource == null)
+            {
+                PlayClipAtPointCustom(binding.Clip, transform.position, volume, binding.Loop, _audioMixerGroup);
+                if (!binding.Loop)
+                    yield return new WaitForSeconds(binding.Clip.length);
+            }
+            else
+            {
+                _audioSource.clip = binding.Clip;
+                _audioSource.volume = Mathf.Clamp01(_defaultVolume * volume);
+                _audioSource.loop = binding.Loop;
+                _audioSource.Play();
+
+                if (!binding.Loop)
+                    yield return new WaitForSeconds(binding.Clip.length);
+            }
+        }
+
+        _queueCoroutine = null;
+    }
 
     private static void PlayClipAtPointCustom(AudioClip clip, Vector3 position, float volume, bool loop = false, UnityEngine.Audio.AudioMixerGroup mixerGroup = null)
     {
@@ -115,7 +167,7 @@ public class SimpleAudioEventBinder : MonoBehaviour
         
         AudioSource aSource = tempGO.AddComponent<AudioSource>();
         aSource.clip = clip;
-        aSource.spatialBlend = 1f; // 1 = 3D (Spatialisé dans l'espace), 0 = 2D (Dans la tête du joueur)
+        aSource.spatialBlend = 1f;
         aSource.volume = volume;
         aSource.loop = loop;
         
