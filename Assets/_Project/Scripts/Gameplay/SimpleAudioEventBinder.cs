@@ -32,8 +32,8 @@ public class SimpleAudioEventBinder : MonoBehaviour
     [SerializeField] private UnityEngine.Audio.AudioMixerGroup _audioMixerGroup;
 
     [Header("Overlap Settings")]
-    [Tooltip("Si activé, coupe le son en cours pour jouer le nouveau immédiatement. Si désactivé, les sons sont mis en file d'attente et joués les uns après les autres.")]
-    [SerializeField] private bool _cutPreviousSound = true;
+    [Tooltip("Cut = coupe le son en cours. Queue = file d'attente. Simultaneous = joue tous les sons en même temps.")]
+    [SerializeField] private SoundOverlapMode _overlapMode = SoundOverlapMode.Cut;
 
     [Header("Bindings (GD Only)")]
     [Tooltip("Liste des sons disponibles qui pourront être appelés depuis des UnityEvents.")]
@@ -87,15 +87,21 @@ public class SimpleAudioEventBinder : MonoBehaviour
             return;
         }
 
-        if (_cutPreviousSound)
+        switch (_overlapMode)
         {
-            PlayImmediate(binding);
-        }
-        else
-        {
-            _soundQueue.Enqueue(binding);
-            if (_queueCoroutine == null)
-                _queueCoroutine = StartCoroutine(ProcessQueueRoutine());
+            case SoundOverlapMode.Cut:
+                PlayImmediate(binding);
+                break;
+            
+            case SoundOverlapMode.Queue:
+                _soundQueue.Enqueue(binding);
+                if (_queueCoroutine == null)
+                    _queueCoroutine = StartCoroutine(ProcessQueueRoutine());
+                break;
+            
+            case SoundOverlapMode.Simultaneous:
+                PlaySimultaneous(binding);
+                break;
         }
     }
 
@@ -110,21 +116,24 @@ public class SimpleAudioEventBinder : MonoBehaviour
         else
         {
             _audioSource.Stop();
+            _audioSource.clip = binding.Clip;
+            _audioSource.volume = Mathf.Clamp01(_defaultVolume * volume);
+            _audioSource.loop = binding.Loop;
+            _audioSource.Play();
+        }
+    }
 
-            if (binding.Loop)
-            {
-                _audioSource.clip = binding.Clip;
-                _audioSource.volume = Mathf.Clamp01(_defaultVolume * volume);
-                _audioSource.loop = true;
-                _audioSource.Play();
-            }
-            else
-            {
-                _audioSource.clip = binding.Clip;
-                _audioSource.volume = Mathf.Clamp01(_defaultVolume * volume);
-                _audioSource.loop = false;
-                _audioSource.Play();
-            }
+    private void PlaySimultaneous(AudioEventBinding binding)
+    {
+        float volume = Mathf.Clamp01(binding.VolumeScale > 0 ? binding.VolumeScale : 1f);
+
+        if (binding.PlayAtPoint || _audioSource == null)
+        {
+            PlayClipAtPointCustom(binding.Clip, transform.position, volume, binding.Loop, _audioMixerGroup);
+        }
+        else
+        {
+            _audioSource.PlayOneShot(binding.Clip, volume);
         }
     }
 
