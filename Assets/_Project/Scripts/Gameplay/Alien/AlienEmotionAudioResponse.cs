@@ -9,8 +9,8 @@ public class AlienEmotionAudioResponse : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
 
     [Header("Overlap Settings")]
-    [Tooltip("Si activé, coupe le son en cours pour jouer le nouveau immédiatement. Si désactivé, les sons sont mis en file d'attente et joués les uns après les autres.")]
-    [SerializeField] private bool _cutPreviousSound = true;
+    [Tooltip("Cut = coupe le son en cours. Queue = file d'attente. Simultaneous = joue tous les sons en même temps.")]
+    [SerializeField] private SoundOverlapMode _overlapMode = SoundOverlapMode.Cut;
 
     private SynaptikInput _currentInput;
     private Coroutine _queueCoroutine;
@@ -72,27 +72,34 @@ public class AlienEmotionAudioResponse : MonoBehaviour
 
         float volume = audioData.Volume <= 0f ? 1f : audioData.Volume;
 
-        if (_cutPreviousSound)
+        switch (_overlapMode)
         {
-            // Coupe l'ancien son et joue immédiatement
-            if (_queueCoroutine != null)
-            {
-                StopCoroutine(_queueCoroutine);
-                _queueCoroutine = null;
-            }
-            _soundQueue.Clear();
+            case SoundOverlapMode.Cut:
+                if (_queueCoroutine != null)
+                {
+                    StopCoroutine(_queueCoroutine);
+                    _queueCoroutine = null;
+                }
+                _soundQueue.Clear();
 
-            if (audioData.Delay > 0f)
-                _queueCoroutine = StartCoroutine(PlayWithDelayRoutine(randomClip, volume, audioData.Delay));
-            else
-                PlayAudio(randomClip, volume);
-        }
-        else
-        {
-            // Ajoute à la file d'attente
-            _soundQueue.Enqueue((randomClip, volume, audioData.Delay));
-            if (_queueCoroutine == null)
-                _queueCoroutine = StartCoroutine(ProcessQueueRoutine());
+                if (audioData.Delay > 0f)
+                    _queueCoroutine = StartCoroutine(PlayWithDelayRoutine(randomClip, volume, audioData.Delay));
+                else
+                    PlayAudio(randomClip, volume);
+                break;
+
+            case SoundOverlapMode.Queue:
+                _soundQueue.Enqueue((randomClip, volume, audioData.Delay));
+                if (_queueCoroutine == null)
+                    _queueCoroutine = StartCoroutine(ProcessQueueRoutine());
+                break;
+
+            case SoundOverlapMode.Simultaneous:
+                if (audioData.Delay > 0f)
+                    StartCoroutine(PlaySimultaneousWithDelay(randomClip, volume, audioData.Delay));
+                else
+                    PlaySimultaneous(randomClip, volume);
+                break;
         }
     }
 
@@ -107,8 +114,6 @@ public class AlienEmotionAudioResponse : MonoBehaviour
                 yield return new WaitForSeconds(delay);
 
             PlayAudio(clip, volume);
-
-            // Attend la fin du clip avant de passer au suivant
             yield return new WaitForSeconds(clip.length);
         }
 
@@ -122,6 +127,12 @@ public class AlienEmotionAudioResponse : MonoBehaviour
         _queueCoroutine = null;
     }
 
+    private IEnumerator PlaySimultaneousWithDelay(AudioClip clip, float volume, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PlaySimultaneous(clip, volume);
+    }
+
     private void PlayAudio(AudioClip clip, float volume)
     {
         if (_audioSource != null)
@@ -130,6 +141,18 @@ public class AlienEmotionAudioResponse : MonoBehaviour
             _audioSource.clip = clip;
             _audioSource.volume = Mathf.Clamp01(_defaultVolume * volume);
             _audioSource.Play();
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(clip, transform.position, Mathf.Clamp01(volume));
+        }
+    }
+
+    private void PlaySimultaneous(AudioClip clip, float volume)
+    {
+        if (_audioSource != null)
+        {
+            _audioSource.PlayOneShot(clip, Mathf.Clamp01(volume));
         }
         else
         {
