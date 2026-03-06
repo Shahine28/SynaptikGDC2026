@@ -17,9 +17,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Project/Scenes/old/Proto_Scene_Final.unity
     guid: 2509239e66e62f94487bc3ea2e8d4e8b
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/GD_LD.unity
     guid: 4f8270344bf517d4686e8fb5c22d4673
+  - enabled: 1
+    path: Assets/_Project/Scenes/LD_DEF.unity
+    guid: 94c15f429977cae448e84564ed7bba27
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 13fe2c0abf1c7cf4e8307dfa945d3183, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
