@@ -1555,7 +1555,7 @@ PrefabInstance:
     - target: {fileID: 7177957131542179373, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
       propertyPath: _itemToSpawnOnDestroy
       value: 
-      objectReference: {fileID: 45433834}
+      objectReference: {fileID: 283081322475832715, guid: b4975a45d749a2846acd343e1eebbd8d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -30019,7 +30019,7 @@ PrefabInstance:
     - target: {fileID: 7177957131542179373, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
       propertyPath: _itemToSpawnOnDestroy
       value: 
-      objectReference: {fileID: 45433834}
+      objectReference: {fileID: 283081322475832715, guid: b4975a45d749a2846acd343e1eebbd8d, type: 3}
     - target: {fileID: 8863876246457402194, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
       propertyPath: cameraManager
       value: 
@@ -90777,7 +90777,7 @@ PrefabInstance:
     - target: {fileID: 7177957131542179373, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
       propertyPath: _itemToSpawnOnDestroy
       value: 
-      objectReference: {fileID: 45433834}
+      objectReference: {fileID: 283081322475832715, guid: b4975a45d749a2846acd343e1eebbd8d, type: 3}
     - target: {fileID: 8863876246457402194, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
       propertyPath: cameraManager
       value: 
@@ -90887,7 +90887,7 @@ PrefabInstance:
     - target: {fileID: 7177957131542179373, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
       propertyPath: _itemToSpawnOnDestroy
       value: 
-      objectReference: {fileID: 45433834}
+      objectReference: {fileID: 283081322475832715, guid: b4975a45d749a2846acd343e1eebbd8d, type: 3}
     - target: {fileID: 8863876246457402194, guid: 5ec16d8afaeaed140a6724493a7b6926, type: 3}
       propertyPath: cameraManager
       value: 
