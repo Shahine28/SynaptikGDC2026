@@ -1,5 +1,5 @@
-using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AlienEmotionAudioResponse : MonoBehaviour
@@ -9,16 +9,14 @@ public class AlienEmotionAudioResponse : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
 
     [Header("Overlap Settings")]
-    [Tooltip("Si activé, coupe le son en cours pour jouer le nouveau. Si désactivé, ignore le nouveau son si un autre est déjà en train de jouer.")]
+    [Tooltip("Si activé, coupe le son en cours pour jouer le nouveau immédiatement. Si désactivé, les sons sont mis en file d'attente et joués les uns après les autres.")]
     [SerializeField] private bool _cutPreviousSound = true;
-    [Tooltip("Délai minimum (en secondes) à attendre entre deux sons quand Cut Previous Sound est désactivé.")]
-    [SerializeField] private float _spamCooldown = 0.5f;
 
     private SynaptikInput _currentInput;
-    private Coroutine _playCoroutine;
+    private Coroutine _queueCoroutine;
     private bool _canPlayAudio = false;
-    private float _nextAllowedPlayTime = 0f;
     private float _defaultVolume = 1f;
+    private readonly Queue<(AudioClip clip, float volume, float delay)> _soundQueue = new Queue<(AudioClip, float, float)>();
 
     private void Awake()
     {
@@ -49,17 +47,7 @@ public class AlienEmotionAudioResponse : MonoBehaviour
         
         if (_currentInput.emotionType == synaptikInput.emotionType && _currentInput.actionType == synaptikInput.actionType)
             return;
-            
-        if (!_cutPreviousSound)
-        {
-            bool isPlayingAudio = _audioSource != null && _audioSource.isPlaying;
-            bool isWaitingForDelay = _playCoroutine != null;
-            if (isPlayingAudio || isWaitingForDelay || Time.time < _nextAllowedPlayTime)
-            {
-                return;
-            }
-        }
-        
+
         _currentInput = synaptikInput;
 
         AlienEmotionAudioData audioData = default;
@@ -76,56 +64,69 @@ public class AlienEmotionAudioResponse : MonoBehaviour
             hasFoundData = true;
         }
 
-        if (hasFoundData)
+        if (!hasFoundData || audioData.Clips == null || audioData.Clips.Length == 0)
+            return;
+
+        AudioClip randomClip = audioData.Clips[Random.Range(0, audioData.Clips.Length)];
+        if (randomClip == null) return;
+
+        float volume = audioData.Volume <= 0f ? 1f : audioData.Volume;
+
+        if (_cutPreviousSound)
         {
-            if (audioData.Clips != null && audioData.Clips.Length > 0)
+            // Coupe l'ancien son et joue immédiatement
+            if (_queueCoroutine != null)
             {
-                if (_playCoroutine != null)
-                {
-                    StopCoroutine(_playCoroutine);
-                }
-                
-                AudioClip randomClip = audioData.Clips[UnityEngine.Random.Range(0, audioData.Clips.Length)];
-                
-                if (randomClip != null)
-                {
-                    float volume = audioData.Volume <= 0f ? 1f : audioData.Volume;
-
-                    if (!_cutPreviousSound)
-                    {
-                        _nextAllowedPlayTime = Time.time + randomClip.length + audioData.Delay + _spamCooldown;
-                    }
-
-                    if (audioData.Delay > 0f)
-                    {
-                        _playCoroutine = StartCoroutine(PlayWithDelayRoutine(randomClip, volume, audioData.Delay));
-                    }
-                    else
-                    {
-                        PlayAudio(randomClip, volume);
-                    }
-                }
+                StopCoroutine(_queueCoroutine);
+                _queueCoroutine = null;
             }
+            _soundQueue.Clear();
+
+            if (audioData.Delay > 0f)
+                _queueCoroutine = StartCoroutine(PlayWithDelayRoutine(randomClip, volume, audioData.Delay));
+            else
+                PlayAudio(randomClip, volume);
         }
+        else
         {
+            // Ajoute à la file d'attente
+            _soundQueue.Enqueue((randomClip, volume, audioData.Delay));
+            if (_queueCoroutine == null)
+                _queueCoroutine = StartCoroutine(ProcessQueueRoutine());
         }
+    }
+
+    private IEnumerator ProcessQueueRoutine()
+    {
+        while (_soundQueue.Count > 0)
+        {
+            var (clip, volume, delay) = _soundQueue.Dequeue();
+            if (clip == null) continue;
+
+            if (delay > 0f)
+                yield return new WaitForSeconds(delay);
+
+            PlayAudio(clip, volume);
+
+            // Attend la fin du clip avant de passer au suivant
+            yield return new WaitForSeconds(clip.length);
+        }
+
+        _queueCoroutine = null;
     }
 
     private IEnumerator PlayWithDelayRoutine(AudioClip clip, float volume, float delay)
     {
         yield return new WaitForSeconds(delay);
         PlayAudio(clip, volume);
-        _playCoroutine = null;
+        _queueCoroutine = null;
     }
 
     private void PlayAudio(AudioClip clip, float volume)
     {
         if (_audioSource != null)
         {
-            if (_cutPreviousSound)
-            {
-                _audioSource.Stop();
-            }
+            _audioSource.Stop();
             _audioSource.clip = clip;
             _audioSource.volume = Mathf.Clamp01(_defaultVolume * volume);
             _audioSource.Play();
