@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destroyableItemID: {fileID: 11400000, guid: ddac982baa34bfa46ba977dd8b389d9b, type: 2}
-  _itemToSpawnOnDestroy: {fileID: 0}
+  _itemToSpawnOnDestroy: {fileID: 283081322475832715}
   _spawnTransform: {fileID: 0}
   _destroyOnInteract: 1
   _onItemDestroyed:
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 0}
   _audioMixerGroup: {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
-  _cutPreviousSound: 1
+  _overlapMode: 0
   _audioBindings:
   - EventName: machine
     Clip: {fileID: 8300000, guid: edf5145b03754484c835582655dd9613, type: 3}
