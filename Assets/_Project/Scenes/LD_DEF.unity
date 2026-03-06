@@ -358,6 +358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 469905054}
   _audioMixerGroup: {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+  _cutPreviousSound: 1
   _audioBindings:
   - EventName: baggareson
     Clip: {fileID: 8300000, guid: 2a674e7b7b03e784298fa4a83a2fd530, type: 3}
@@ -45764,6 +45765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 220500383}
   _audioMixerGroup: {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+  _cutPreviousSound: 1
   _audioBindings:
   - EventName: Pay
     Clip: {fileID: 8300000, guid: 703e6e1ec0436a3479f22c301344b93a, type: 3}
@@ -65211,6 +65213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 220500383}
   _audioMixerGroup: {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+  _cutPreviousSound: 1
   _audioBindings:
   - EventName: Pick
     Clip: {fileID: 8300000, guid: 069b817278cad074bb065e8fdb44efcb, type: 3}
@@ -101228,6 +101231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 220500383}
   _audioMixerGroup: {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+  _cutPreviousSound: 1
   _audioBindings:
   - EventName: marche
     Clip: {fileID: 8300000, guid: 4ebb247fbce031f4eadbdf4ff6e64e84, type: 3}
@@ -171429,6 +171433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 220500383}
   _audioMixerGroup: {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+  _cutPreviousSound: 1
   _audioBindings:
   - EventName: wallbreak
     Clip: {fileID: 8300000, guid: f62f6268a1c1d3247b2665effe8c5fb0, type: 3}
@@ -219038,6 +219043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 220500383}
   _audioMixerGroup: {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+  _cutPreviousSound: 1
   _audioBindings:
   - EventName: wallbreak
     Clip: {fileID: 8300000, guid: f62f6268a1c1d3247b2665effe8c5fb0, type: 3}
@@ -303984,6 +303990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 220500383}
   _audioMixerGroup: {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+  _cutPreviousSound: 0
   _audioBindings:
   - EventName: mort
     Clip: {fileID: 8300000, guid: 0e34a9045cfa35b4d905d47e1fc58943, type: 3}

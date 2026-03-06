@@ -1812,7 +1812,7 @@ MonoBehaviour:
   needleMaxRotation: -85
   needleReturnSpeed: 3
   _playerInputSystem: {fileID: 877240898}
-  sceneNameToLoad: GD_LD
+  sceneNameToLoad: LD_DEF
 --- !u!1 &1317715881
 GameObject:
   m_ObjectHideFlags: 0
