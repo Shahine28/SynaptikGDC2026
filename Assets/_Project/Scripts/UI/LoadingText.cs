@@ -42,8 +42,8 @@ public sealed class LoadingText : MonoBehaviour
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.playOnAwake = false;
+        if(TryGetComponent<AudioSource>(out audioSource))
+            audioSource.playOnAwake = false;
     }
 
     private void Start()
@@ -129,6 +129,8 @@ public sealed class LoadingText : MonoBehaviour
             mainText.text = currentText + cursorSymbol;
         else
             mainText.text = currentText;
+        
+        audioSource.Play();
     }
 
     public void SetLoadingProgress(float lerp)

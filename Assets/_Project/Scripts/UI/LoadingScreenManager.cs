@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +9,7 @@ public sealed class LoadingScreenManager : MonoBehaviour
     public static LoadingScreenManager Instance { get; private set; }
 
     [Header("Références")]
-    [SerializeField] private GameObject loadingScreenPrefab;
+    [SerializeField] private GameObject loadingScreenInstance;
 
     [Header("Durées")]
     [SerializeField] private float fadeDuration = 1f;
@@ -20,7 +21,8 @@ public sealed class LoadingScreenManager : MonoBehaviour
 
     private LoadingText loadingText;
     private CanvasGroup currentCanvasGroup;
-    private GameObject currentLoadingInstance;
+
+    private Coroutine currentLoadingInstance;
 
     private void Awake()
     {
@@ -34,31 +36,55 @@ public sealed class LoadingScreenManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        if (loadingScreenInstance)
+        {
+            currentCanvasGroup = loadingScreenInstance.GetComponentInChildren<CanvasGroup>();
+            loadingText = loadingScreenInstance.GetComponentInChildren<LoadingText>();
+            
+            loadingScreenInstance.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError($"LoadingScreenManager : No Loading Screen referenced");
+        }
+    }
+
+    #region Debug
+    [Button]
+    private void DebugLoadGameScene()
+    {
+        LoadScene("Proto_Scene_Final");
+    }
+    [Button]
+    private void DebugLoadMenuScene()
+    {
+        LoadScene("MainMenu");
+    }
+    
+    [Button]
+    public void DebugResetScene()
+    {
+        SceneManager.LoadScene(0);
+        CleanupLoadingInstance();
+    }
+    #endregion
+    
     public void LoadScene(string sceneName)
     {
-        if (currentLoadingInstance)
+        if (currentLoadingInstance != null)
         {
             Debug.LogWarning("Une scène est déjà en cours de chargement.");
             return;
         }
 
-        StartCoroutine(LoadSceneRoutine(sceneName));
+        currentLoadingInstance = StartCoroutine(LoadSceneRoutine(sceneName));
     }
 
     private IEnumerator LoadSceneRoutine(string sceneName)
     {
-        currentLoadingInstance = Instantiate(loadingScreenPrefab);
-        DontDestroyOnLoad(currentLoadingInstance);
-
-        currentCanvasGroup = currentLoadingInstance.GetComponentInChildren<CanvasGroup>();
-        loadingText = currentLoadingInstance.GetComponentInChildren<LoadingText>();
-
-        if (!currentCanvasGroup)
-        {
-            Debug.LogError("Le prefab de loading screen doit contenir un CanvasGroup !");
-            CleanupLoadingInstance();
-            yield break;
-        }
+        loadingScreenInstance.gameObject.SetActive(true);
 
         currentCanvasGroup.alpha = 0f;
         loadingText?.StartText(textFiller);
@@ -120,7 +146,10 @@ public sealed class LoadingScreenManager : MonoBehaviour
             UpdateProgress();
             yield return null;
         }
-
+        
+        // Assure 100 %
+        loadingText?.SetLoadingProgress(1f);
+        
         // --- Fade Out ---
         t = 0f;
         while (t < fadeDuration)
@@ -133,20 +162,13 @@ public sealed class LoadingScreenManager : MonoBehaviour
             yield return null;
         }
 
-        // Assure 100 %
-        loadingText?.SetLoadingProgress(1f);
-
         // --- Fin ---
         CleanupLoadingInstance();
     }
 
     private void CleanupLoadingInstance()
     {
-        if (currentLoadingInstance)
-            Destroy(currentLoadingInstance);
-
-        currentLoadingInstance = null;
-        currentCanvasGroup = null;
-        loadingText = null;
+        loadingText?.StopAll();
+        loadingScreenInstance.gameObject.SetActive(false);
     }
 }
