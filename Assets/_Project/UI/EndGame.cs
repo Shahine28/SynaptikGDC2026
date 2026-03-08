@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using NaughtyAttributes;
 
 [RequireComponent(typeof(CanvasGroup))]
 public sealed class EndGameUI : MonoBehaviour
@@ -49,6 +50,7 @@ public sealed class EndGameUI : MonoBehaviour
         }
     }
 
+    [Button("Debug Win")]
     public void ShowWinSequence()
     {
         if (currentRoutine != null)
@@ -57,6 +59,7 @@ public sealed class EndGameUI : MonoBehaviour
         currentRoutine = StartCoroutine(WinRoutine());
     }
 
+    [Button("Debug Lose")]
     public void ShowLoseSequence()
     {
         if (currentRoutine != null)
