@@ -37,6 +37,11 @@ public class AlienEmotionAudioResponse : MonoBehaviour
             _dedicatedSource.maxDistance = _audioSource.maxDistance;
             _dedicatedSource.rolloffMode = _audioSource.rolloffMode;
             _dedicatedSource.outputAudioMixerGroup = _audioSource.outputAudioMixerGroup;
+
+            if (_audioSource.spatialBlend == 0f)
+            {
+                Debug.LogWarning($"[Alerte 3D] Votre AudioSource sur {gameObject.name} a son 'Spatial Blend' à 0 (2D) ! Le son sera donc entendu partout. Mettez le curseur à 1 (3D) dans l'Inspecteur.", this);
+            }
         }
         else
         {

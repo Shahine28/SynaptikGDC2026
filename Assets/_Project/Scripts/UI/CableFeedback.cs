@@ -67,7 +67,7 @@ public sealed class CableFeedback : MonoBehaviour
         {
             if (synaptikInput.actionType != ActionType.None && outputLeft.color == defaultActionColor)
             {
-                _audioSource.Play();
+                if (_audioSource != null) _audioSource.Play();
                 StartCoroutine(SpawnVFX(outputLeft.transform, alienColorFromEmotion.AlienColorFromAction[synaptikInput.actionType]));
             }
             
@@ -79,7 +79,7 @@ public sealed class CableFeedback : MonoBehaviour
         {
             if (synaptikInput.emotionType != EmotionType.None && outputRight.color == defaultEmotionColor)
             {
-                _audioSource.Play();
+                if (_audioSource != null) _audioSource.Play();
                 StartCoroutine(SpawnVFX(outputRight.transform, alienColorFromEmotion.AlienColorFromEmotion[synaptikInput.emotionType]));
             }
             

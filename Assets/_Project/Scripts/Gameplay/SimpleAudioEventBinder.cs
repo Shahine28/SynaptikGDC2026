@@ -25,6 +25,9 @@ public class SimpleAudioEventBinder : MonoBehaviour
 
         [Tooltip("Optionnel : Transform spécifique où jouer le son (remplace la position de cet objet).")]
         public Transform PositionOverride;
+
+        [Tooltip("Si vrai, le son sera attaché/enfanté au PositionOverride (utile pour que le son suive un objet en mouvement).")]
+        public bool AttachToTransform;
     }
 
     [Header("Configuration")]
@@ -64,6 +67,11 @@ public class SimpleAudioEventBinder : MonoBehaviour
             _dedicatedSource.maxDistance = _audioSource.maxDistance;
             _dedicatedSource.rolloffMode = _audioSource.rolloffMode;
             _dedicatedSource.outputAudioMixerGroup = _audioMixerGroup != null ? _audioMixerGroup : _audioSource.outputAudioMixerGroup;
+
+            if (_audioSource.spatialBlend == 0f)
+            {
+                Debug.LogWarning($"[Alerte 3D] Votre AudioSource sur {gameObject.name} a son 'Spatial Blend' à 0 (2D) ! Le son sera donc entendu partout à volume max. Mettez le curseur à 1 (3D) dans l'Inspecteur.", this);
+            }
         }
         else
         {
@@ -142,7 +150,8 @@ public class SimpleAudioEventBinder : MonoBehaviour
         if (binding.PlayAtPoint)
         {
             Vector3 pos = binding.PositionOverride != null ? binding.PositionOverride.position : transform.position;
-            PlayClipAtPointCustom(binding.Clip, pos, volume, binding.Loop, _audioMixerGroup);
+            Transform parent = binding.AttachToTransform ? (binding.PositionOverride != null ? binding.PositionOverride : transform) : null;
+            PlayClipAtPointCustom(binding.Clip, pos, volume, binding.Loop, _audioMixerGroup, parent);
         }
         else
         {
@@ -161,7 +170,8 @@ public class SimpleAudioEventBinder : MonoBehaviour
         if (binding.PlayAtPoint)
         {
             Vector3 pos = binding.PositionOverride != null ? binding.PositionOverride.position : transform.position;
-            PlayClipAtPointCustom(binding.Clip, pos, volume, binding.Loop, _audioMixerGroup);
+            Transform parent = binding.AttachToTransform ? (binding.PositionOverride != null ? binding.PositionOverride : transform) : null;
+            PlayClipAtPointCustom(binding.Clip, pos, volume, binding.Loop, _audioMixerGroup, parent);
         }
         else
         {
@@ -183,7 +193,8 @@ public class SimpleAudioEventBinder : MonoBehaviour
             if (binding.PlayAtPoint)
             {
                 Vector3 pos = binding.PositionOverride != null ? binding.PositionOverride.position : transform.position;
-                PlayClipAtPointCustom(binding.Clip, pos, volume, binding.Loop, _audioMixerGroup);
+                Transform parent = binding.AttachToTransform ? (binding.PositionOverride != null ? binding.PositionOverride : transform) : null;
+                PlayClipAtPointCustom(binding.Clip, pos, volume, binding.Loop, _audioMixerGroup, parent);
                 if (!binding.Loop)
                     yield return new WaitForSeconds(binding.Clip.length);
             }
@@ -202,12 +213,15 @@ public class SimpleAudioEventBinder : MonoBehaviour
         _queueCoroutine = null;
     }
 
-    private void PlayClipAtPointCustom(AudioClip clip, Vector3 position, float volume, bool loop = false, UnityEngine.Audio.AudioMixerGroup mixerGroup = null)
+    private void PlayClipAtPointCustom(AudioClip clip, Vector3 position, float volume, bool loop = false, UnityEngine.Audio.AudioMixerGroup mixerGroup = null, Transform parentObj = null)
     {
         if (clip == null) return;
         
         GameObject tempGO = new GameObject("TempAudio_" + clip.name);
         tempGO.transform.position = position;
+        
+        if (parentObj != null)
+            tempGO.transform.SetParent(parentObj);
         
         AudioSource aSource = tempGO.AddComponent<AudioSource>();
         aSource.clip = clip;

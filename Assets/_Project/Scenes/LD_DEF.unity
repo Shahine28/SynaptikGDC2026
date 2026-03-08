@@ -365,21 +365,29 @@ MonoBehaviour:
     VolumeScale: 0.1
     Loop: 1
     PlayAtPoint: 1
+    PositionOverride: {fileID: 2054703171}
+    AttachToTransform: 1
   - EventName: Wedding
     Clip: {fileID: 8300000, guid: 534b7b534e28a5b429a7c887ed7861bb, type: 3}
     VolumeScale: 0.05
     Loop: 0
     PlayAtPoint: 0
+    PositionOverride: {fileID: 0}
+    AttachToTransform: 0
   - EventName: emu
     Clip: {fileID: 8300000, guid: e0a2f5bc897d4c14db084509d097fee1, type: 3}
     VolumeScale: 0.1
     Loop: 0
     PlayAtPoint: 0
+    PositionOverride: {fileID: 0}
+    AttachToTransform: 0
   - EventName: vomi
     Clip: {fileID: 8300000, guid: 34e80fc51865ba640a06d01258208049, type: 3}
     VolumeScale: 0.1
     Loop: 0
     PlayAtPoint: 0
+    PositionOverride: {fileID: 0}
+    AttachToTransform: 0
 --- !u!4 &14692683
 Transform:
   m_ObjectHideFlags: 0
@@ -29055,6 +29063,8 @@ MonoBehaviour:
     VolumeScale: 0.327
     Loop: 0
     PlayAtPoint: 0
+    PositionOverride: {fileID: 0}
+    AttachToTransform: 0
 --- !u!114 &376675595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45168,8 +45178,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 10
-  MaxDistance: 1000
+  MinDistance: 1
+  MaxDistance: 15
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -45204,7 +45214,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.5
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -45219,7 +45229,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.055555556
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -67688,16 +67698,22 @@ MonoBehaviour:
     VolumeScale: 0.596
     Loop: 0
     PlayAtPoint: 0
+    PositionOverride: {fileID: 0}
+    AttachToTransform: 0
   - EventName: drop
     Clip: {fileID: 8300000, guid: b9cbbe790d3ff3a419abcc6ab1022691, type: 3}
     VolumeScale: 0.227
     Loop: 0
     PlayAtPoint: 0
+    PositionOverride: {fileID: 0}
+    AttachToTransform: 0
   - EventName: hit
     Clip: {fileID: 8300000, guid: 73b1cd78a91fe1c40ab88e88b75a8cfc, type: 3}
     VolumeScale: 0.858
     Loop: 0
     PlayAtPoint: 0
+    PositionOverride: {fileID: 0}
+    AttachToTransform: 0
 --- !u!114 &564724911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103674,11 +103690,15 @@ MonoBehaviour:
     VolumeScale: 0.186
     Loop: 0
     PlayAtPoint: 0
+    PositionOverride: {fileID: 0}
+    AttachToTransform: 0
   - EventName: Punchdebut
     Clip: {fileID: 8300000, guid: 8210023b8f716a54d8338533fbacc69d, type: 3}
     VolumeScale: 1
     Loop: 0
     PlayAtPoint: 0
+    PositionOverride: {fileID: 0}
+    AttachToTransform: 0
 --- !u!114 &774997869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163927,6 +163947,8 @@ MonoBehaviour:
     VolumeScale: 0.115
     Loop: 0
     PlayAtPoint: 0
+    PositionOverride: {fileID: 0}
+    AttachToTransform: 0
 --- !u!65 &1233548299
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -204188,6 +204210,8 @@ MonoBehaviour:
     VolumeScale: 0.135
     Loop: 0
     PlayAtPoint: 0
+    PositionOverride: {fileID: 0}
+    AttachToTransform: 0
 --- !u!65 &1529444399
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -321672,11 +321696,15 @@ MonoBehaviour:
     VolumeScale: 0.237
     Loop: 0
     PlayAtPoint: 0
+    PositionOverride: {fileID: 0}
+    AttachToTransform: 0
   - EventName: pouf
     Clip: {fileID: 8300000, guid: c00b1bf886490ef4eb5dea4d597aeea6, type: 3}
     VolumeScale: 0.24
     Loop: 0
     PlayAtPoint: 0
+    PositionOverride: {fileID: 0}
+    AttachToTransform: 0
 --- !u!114 &2068798245
 MonoBehaviour:
   m_ObjectHideFlags: 0
