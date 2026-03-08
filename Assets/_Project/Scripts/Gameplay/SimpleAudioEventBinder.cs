@@ -22,6 +22,9 @@ public class SimpleAudioEventBinder : MonoBehaviour
 
         [Tooltip("Si vrai, le son sera joué à la position de cet objet (utile si l'objet est détruit juste après).")]
         public bool PlayAtPoint;
+
+        [Tooltip("Optionnel : Transform spécifique où jouer le son (remplace la position de cet objet).")]
+        public Transform PositionOverride;
     }
 
     [Header("Configuration")]
@@ -69,8 +72,13 @@ public class SimpleAudioEventBinder : MonoBehaviour
             _dedicatedSource.hideFlags = HideFlags.HideInInspector;
             _dedicatedSource.playOnAwake = false;
             _dedicatedSource.spatialBlend = 1f;
+            _dedicatedSource.minDistance = 1f;
+            _dedicatedSource.maxDistance = 20f;
+            _dedicatedSource.rolloffMode = AudioRolloffMode.Linear;
             if (_audioMixerGroup != null)
                 _dedicatedSource.outputAudioMixerGroup = _audioMixerGroup;
+            
+            _audioSource = _dedicatedSource;
         }
     }
 
@@ -133,7 +141,8 @@ public class SimpleAudioEventBinder : MonoBehaviour
 
         if (binding.PlayAtPoint)
         {
-            PlayClipAtPointCustom(binding.Clip, transform.position, volume, binding.Loop, _audioMixerGroup);
+            Vector3 pos = binding.PositionOverride != null ? binding.PositionOverride.position : transform.position;
+            PlayClipAtPointCustom(binding.Clip, pos, volume, binding.Loop, _audioMixerGroup);
         }
         else
         {
@@ -151,7 +160,8 @@ public class SimpleAudioEventBinder : MonoBehaviour
 
         if (binding.PlayAtPoint)
         {
-            PlayClipAtPointCustom(binding.Clip, transform.position, volume, binding.Loop, _audioMixerGroup);
+            Vector3 pos = binding.PositionOverride != null ? binding.PositionOverride.position : transform.position;
+            PlayClipAtPointCustom(binding.Clip, pos, volume, binding.Loop, _audioMixerGroup);
         }
         else
         {
@@ -172,7 +182,8 @@ public class SimpleAudioEventBinder : MonoBehaviour
 
             if (binding.PlayAtPoint)
             {
-                PlayClipAtPointCustom(binding.Clip, transform.position, volume, binding.Loop, _audioMixerGroup);
+                Vector3 pos = binding.PositionOverride != null ? binding.PositionOverride.position : transform.position;
+                PlayClipAtPointCustom(binding.Clip, pos, volume, binding.Loop, _audioMixerGroup);
                 if (!binding.Loop)
                     yield return new WaitForSeconds(binding.Clip.length);
             }
@@ -212,6 +223,9 @@ public class SimpleAudioEventBinder : MonoBehaviour
         else
         {
             aSource.spatialBlend = 1f;
+            aSource.minDistance = 1f;
+            aSource.maxDistance = 20f;
+            aSource.rolloffMode = AudioRolloffMode.Linear;
         }
 
         aSource.volume = volume;
