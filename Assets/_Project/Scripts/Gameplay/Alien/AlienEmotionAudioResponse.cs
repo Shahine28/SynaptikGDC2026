@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class AlienEmotionAudioResponse : MonoBehaviour
 {
     [Header("Configuration")]
@@ -38,6 +37,11 @@ public class AlienEmotionAudioResponse : MonoBehaviour
             _dedicatedSource.maxDistance = _audioSource.maxDistance;
             _dedicatedSource.rolloffMode = _audioSource.rolloffMode;
             _dedicatedSource.outputAudioMixerGroup = _audioSource.outputAudioMixerGroup;
+
+            if (_audioSource.spatialBlend == 0f)
+            {
+                Debug.LogWarning($"[Alerte 3D] Votre AudioSource sur {gameObject.name} a son 'Spatial Blend' à 0 (2D) ! Le son sera donc entendu partout. Mettez le curseur à 1 (3D) dans l'Inspecteur.", this);
+            }
         }
         else
         {
@@ -47,6 +51,11 @@ public class AlienEmotionAudioResponse : MonoBehaviour
             _dedicatedSource.hideFlags = HideFlags.HideInInspector;
             _dedicatedSource.playOnAwake = false;
             _dedicatedSource.spatialBlend = 1f;
+            _dedicatedSource.minDistance = 1f;
+            _dedicatedSource.maxDistance = 20f;
+            _dedicatedSource.rolloffMode = AudioRolloffMode.Linear;
+            
+            _audioSource = _dedicatedSource;
         }
     }
 
