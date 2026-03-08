@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class AlienEmotionAudioResponse : MonoBehaviour
 {
     [Header("Configuration")]
@@ -17,6 +18,7 @@ public class AlienEmotionAudioResponse : MonoBehaviour
     private bool _canPlayAudio = false;
     private float _defaultVolume = 1f;
     private readonly Queue<(AudioClip clip, float volume, float delay)> _soundQueue = new Queue<(AudioClip, float, float)>();
+    private AudioSource _dedicatedSource;
 
     private void Awake()
     {
@@ -27,10 +29,24 @@ public class AlienEmotionAudioResponse : MonoBehaviour
         {
             _audioSource.playOnAwake = false;
             _defaultVolume = _audioSource.volume;
+            
+            _dedicatedSource = gameObject.AddComponent<AudioSource>();
+            _dedicatedSource.hideFlags = HideFlags.HideInInspector;
+            _dedicatedSource.playOnAwake = false;
+            _dedicatedSource.spatialBlend = _audioSource.spatialBlend;
+            _dedicatedSource.minDistance = _audioSource.minDistance;
+            _dedicatedSource.maxDistance = _audioSource.maxDistance;
+            _dedicatedSource.rolloffMode = _audioSource.rolloffMode;
+            _dedicatedSource.outputAudioMixerGroup = _audioSource.outputAudioMixerGroup;
         }
         else
         {
             Debug.LogWarning("No AudioSource attached and none found on AlienEmotionAudioResponse!", this);
+            _defaultVolume = 1f;
+            _dedicatedSource = gameObject.AddComponent<AudioSource>();
+            _dedicatedSource.hideFlags = HideFlags.HideInInspector;
+            _dedicatedSource.playOnAwake = false;
+            _dedicatedSource.spatialBlend = 1f;
         }
     }
 
@@ -68,7 +84,8 @@ public class AlienEmotionAudioResponse : MonoBehaviour
             return;
 
         AudioClip randomClip = audioData.Clips[Random.Range(0, audioData.Clips.Length)];
-        if (randomClip == null) return;
+        if (randomClip == null)
+            return;
 
         float volume = audioData.Volume <= 0f ? 1f : audioData.Volume;
 
@@ -86,6 +103,7 @@ public class AlienEmotionAudioResponse : MonoBehaviour
                     _queueCoroutine = StartCoroutine(PlayWithDelayRoutine(randomClip, volume, audioData.Delay));
                 else
                     PlayAudio(randomClip, volume);
+                
                 break;
 
             case SoundOverlapMode.Queue:
@@ -99,6 +117,7 @@ public class AlienEmotionAudioResponse : MonoBehaviour
                     StartCoroutine(PlaySimultaneousWithDelay(randomClip, volume, audioData.Delay));
                 else
                     PlaySimultaneous(randomClip, volume);
+                
                 break;
         }
     }
@@ -108,7 +127,8 @@ public class AlienEmotionAudioResponse : MonoBehaviour
         while (_soundQueue.Count > 0)
         {
             var (clip, volume, delay) = _soundQueue.Dequeue();
-            if (clip == null) continue;
+            if (!clip)
+                continue;
 
             if (delay > 0f)
                 yield return new WaitForSeconds(delay);
@@ -135,28 +155,15 @@ public class AlienEmotionAudioResponse : MonoBehaviour
 
     private void PlayAudio(AudioClip clip, float volume)
     {
-        if (_audioSource != null)
-        {
-            _audioSource.Stop();
-            _audioSource.clip = clip;
-            _audioSource.volume = Mathf.Clamp01(_defaultVolume * volume);
-            _audioSource.Play();
-        }
-        else
-        {
-            AudioSource.PlayClipAtPoint(clip, transform.position, Mathf.Clamp01(volume));
-        }
+        _dedicatedSource.Stop();
+        _dedicatedSource.clip = clip;
+        _dedicatedSource.volume = Mathf.Clamp01(_defaultVolume * volume);
+        _dedicatedSource.Play();
     }
 
     private void PlaySimultaneous(AudioClip clip, float volume)
     {
-        if (_audioSource != null)
-        {
-            _audioSource.PlayOneShot(clip, Mathf.Clamp01(volume));
-        }
-        else
-        {
-            AudioSource.PlayClipAtPoint(clip, transform.position, Mathf.Clamp01(volume));
-        }
+        _dedicatedSource.volume = _defaultVolume;
+        _dedicatedSource.PlayOneShot(clip, Mathf.Clamp01(volume));
     }
 }

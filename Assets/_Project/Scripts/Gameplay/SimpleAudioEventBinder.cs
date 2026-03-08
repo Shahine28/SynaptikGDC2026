@@ -42,6 +42,7 @@ public class SimpleAudioEventBinder : MonoBehaviour
     private float _defaultVolume = 1f;
     private readonly Queue<AudioEventBinding> _soundQueue = new Queue<AudioEventBinding>();
     private Coroutine _queueCoroutine;
+    private AudioSource _dedicatedSource;
 
     private void Awake()
     {
@@ -49,7 +50,28 @@ public class SimpleAudioEventBinder : MonoBehaviour
             _audioSource = GetComponent<AudioSource>();
             
         if (_audioSource != null)
+        {
             _defaultVolume = _audioSource.volume;
+            
+            _dedicatedSource = gameObject.AddComponent<AudioSource>();
+            _dedicatedSource.hideFlags = HideFlags.HideInInspector;
+            _dedicatedSource.playOnAwake = false;
+            _dedicatedSource.spatialBlend = _audioSource.spatialBlend;
+            _dedicatedSource.minDistance = _audioSource.minDistance;
+            _dedicatedSource.maxDistance = _audioSource.maxDistance;
+            _dedicatedSource.rolloffMode = _audioSource.rolloffMode;
+            _dedicatedSource.outputAudioMixerGroup = _audioMixerGroup != null ? _audioMixerGroup : _audioSource.outputAudioMixerGroup;
+        }
+        else
+        {
+            _defaultVolume = 1f;
+            _dedicatedSource = gameObject.AddComponent<AudioSource>();
+            _dedicatedSource.hideFlags = HideFlags.HideInInspector;
+            _dedicatedSource.playOnAwake = false;
+            _dedicatedSource.spatialBlend = 1f;
+            if (_audioMixerGroup != null)
+                _dedicatedSource.outputAudioMixerGroup = _audioMixerGroup;
+        }
     }
 
     public void PlaySoundByIndex(int index)
@@ -109,17 +131,17 @@ public class SimpleAudioEventBinder : MonoBehaviour
     {
         float volume = Mathf.Clamp01(binding.VolumeScale > 0 ? binding.VolumeScale : 1f);
 
-        if (binding.PlayAtPoint || _audioSource == null)
+        if (binding.PlayAtPoint)
         {
             PlayClipAtPointCustom(binding.Clip, transform.position, volume, binding.Loop, _audioMixerGroup);
         }
         else
         {
-            _audioSource.Stop();
-            _audioSource.clip = binding.Clip;
-            _audioSource.volume = Mathf.Clamp01(_defaultVolume * volume);
-            _audioSource.loop = binding.Loop;
-            _audioSource.Play();
+            _dedicatedSource.Stop();
+            _dedicatedSource.clip = binding.Clip;
+            _dedicatedSource.volume = Mathf.Clamp01(_defaultVolume * volume);
+            _dedicatedSource.loop = binding.Loop;
+            _dedicatedSource.Play();
         }
     }
 
@@ -127,13 +149,14 @@ public class SimpleAudioEventBinder : MonoBehaviour
     {
         float volume = Mathf.Clamp01(binding.VolumeScale > 0 ? binding.VolumeScale : 1f);
 
-        if (binding.PlayAtPoint || _audioSource == null)
+        if (binding.PlayAtPoint)
         {
             PlayClipAtPointCustom(binding.Clip, transform.position, volume, binding.Loop, _audioMixerGroup);
         }
         else
         {
-            _audioSource.PlayOneShot(binding.Clip, volume);
+            _dedicatedSource.volume = _defaultVolume;
+            _dedicatedSource.PlayOneShot(binding.Clip, volume);
         }
     }
 
@@ -142,11 +165,12 @@ public class SimpleAudioEventBinder : MonoBehaviour
         while (_soundQueue.Count > 0)
         {
             var binding = _soundQueue.Dequeue();
-            if (binding.Clip == null) continue;
+            if (!binding.Clip)
+                continue;
 
             float volume = Mathf.Clamp01(binding.VolumeScale > 0 ? binding.VolumeScale : 1f);
 
-            if (binding.PlayAtPoint || _audioSource == null)
+            if (binding.PlayAtPoint)
             {
                 PlayClipAtPointCustom(binding.Clip, transform.position, volume, binding.Loop, _audioMixerGroup);
                 if (!binding.Loop)
@@ -154,10 +178,10 @@ public class SimpleAudioEventBinder : MonoBehaviour
             }
             else
             {
-                _audioSource.clip = binding.Clip;
-                _audioSource.volume = Mathf.Clamp01(_defaultVolume * volume);
-                _audioSource.loop = binding.Loop;
-                _audioSource.Play();
+                _dedicatedSource.clip = binding.Clip;
+                _dedicatedSource.volume = Mathf.Clamp01(_defaultVolume * volume);
+                _dedicatedSource.loop = binding.Loop;
+                _dedicatedSource.Play();
 
                 if (!binding.Loop)
                     yield return new WaitForSeconds(binding.Clip.length);
@@ -167,7 +191,7 @@ public class SimpleAudioEventBinder : MonoBehaviour
         _queueCoroutine = null;
     }
 
-    private static void PlayClipAtPointCustom(AudioClip clip, Vector3 position, float volume, bool loop = false, UnityEngine.Audio.AudioMixerGroup mixerGroup = null)
+    private void PlayClipAtPointCustom(AudioClip clip, Vector3 position, float volume, bool loop = false, UnityEngine.Audio.AudioMixerGroup mixerGroup = null)
     {
         if (clip == null) return;
         
@@ -176,7 +200,20 @@ public class SimpleAudioEventBinder : MonoBehaviour
         
         AudioSource aSource = tempGO.AddComponent<AudioSource>();
         aSource.clip = clip;
-        aSource.spatialBlend = 1f;
+        
+        if (_audioSource != null)
+        {
+            aSource.spatialBlend = _audioSource.spatialBlend;
+            aSource.minDistance = _audioSource.minDistance;
+            aSource.maxDistance = _audioSource.maxDistance;
+            aSource.rolloffMode = _audioSource.rolloffMode;
+            if (mixerGroup == null) mixerGroup = _audioSource.outputAudioMixerGroup;
+        }
+        else
+        {
+            aSource.spatialBlend = 1f;
+        }
+
         aSource.volume = volume;
         aSource.loop = loop;
         
