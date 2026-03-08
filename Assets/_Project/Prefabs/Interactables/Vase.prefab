@@ -312,6 +312,6 @@ MonoBehaviour:
   _audioBindings:
   - EventName: casser
     Clip: {fileID: 8300000, guid: 2812cd1b3dc9ef646ad983b20b73ef4b, type: 3}
-    VolumeScale: 0.219
+    VolumeScale: 1
     Loop: 0
     PlayAtPoint: 0
