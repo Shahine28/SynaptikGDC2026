@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using NaughtyAttributes;
 
 // using FMODUnity;
 
@@ -34,6 +35,7 @@ public class DestroyableItem : MonoBehaviour, IInteraction
         }
     }
 
+    [Button("destroy")]
     public void SimulateDestroy()
     {
         if (_itemToSpawnOnDestroy)
