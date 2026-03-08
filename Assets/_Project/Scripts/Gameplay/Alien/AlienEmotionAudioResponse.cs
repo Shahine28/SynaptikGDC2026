@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class AlienEmotionAudioResponse : MonoBehaviour
 {
     [Header("Configuration")]
@@ -47,6 +46,11 @@ public class AlienEmotionAudioResponse : MonoBehaviour
             _dedicatedSource.hideFlags = HideFlags.HideInInspector;
             _dedicatedSource.playOnAwake = false;
             _dedicatedSource.spatialBlend = 1f;
+            _dedicatedSource.minDistance = 1f;
+            _dedicatedSource.maxDistance = 20f;
+            _dedicatedSource.rolloffMode = AudioRolloffMode.Linear;
+            
+            _audioSource = _dedicatedSource;
         }
     }
 
