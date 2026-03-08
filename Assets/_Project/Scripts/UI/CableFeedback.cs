@@ -33,13 +33,11 @@ public sealed class CableFeedback : MonoBehaviour
 
     void OnEnable()
     {
-        if (!_playerInputSystem) return;
         _playerInputSystem.OnSynaptikInput += HandleSynaptikInput;
     }
     
     void OnDisable()
     {
-        if (!_playerInputSystem) return;
         _playerInputSystem.OnSynaptikInput -= HandleSynaptikInput;
     }
 

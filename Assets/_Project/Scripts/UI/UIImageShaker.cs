@@ -5,6 +5,8 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public sealed class UIObjectShaker : MonoBehaviour
 {
+    [SerializeField] private MistrustManager _inputField;
+    
     [Header("Target")]
     [SerializeField, Tooltip("Le GameObject UI à faire trembler (doit avoir un RectTransform)")]
     private GameObject targetUI;
@@ -48,18 +50,12 @@ public sealed class UIObjectShaker : MonoBehaviour
     
     private void OnEnable()
     {
-        if (MistrustManager.Instance != null)
-        {
-            MistrustManager.Instance.OnMistrustChanged += HandleMistrust;
-        }
+        MistrustManager.OnMistrustChanged += HandleMistrust;
     }
 
     private void OnDisable()
     {
-        if (MistrustManager.Instance != null)
-        {
-            MistrustManager.Instance.OnMistrustChanged -= HandleMistrust;
-        }
+        MistrustManager.OnMistrustChanged -= HandleMistrust;
     }
     
     
@@ -75,7 +71,6 @@ public sealed class UIObjectShaker : MonoBehaviour
             originalPosition = targetRect.anchoredPosition;
         }
     }
-
     
 
     private void Update()

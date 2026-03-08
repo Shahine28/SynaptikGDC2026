@@ -16,7 +16,7 @@ public sealed class MistrustManager : MonoBehaviour
     public float CurrentMistrustValue => _currentMistrustValue;
     
     
-    public event Action<float, float> OnMistrustChanged;
+    public static event Action<float, float> OnMistrustChanged;
     public UnityEvent OnMistrustMinReached; 
     public UnityEvent OnMistrustMaxReached; 
 
@@ -60,6 +60,7 @@ public sealed class MistrustManager : MonoBehaviour
 
     private void UpdateMistrust(float newValue)
     {
+        Debug.Log("Mistrust try call");
         OnMistrustChanged?.Invoke(_currentMistrustValue, newValue);
         _currentMistrustValue = newValue;
         mistrustSlider.value = _currentMistrustValue;
