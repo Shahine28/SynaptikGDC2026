@@ -189,7 +189,7 @@ public class SimpleAudioEventBinder : MonoBehaviour
 
         if (!loop)
         {
-            Destroy(tempGO, clip.length);
+            Destroy(tempGO, clip.length + 5);
         }
     }
 }

@@ -19,7 +19,7 @@ public sealed class CableFeedback : MonoBehaviour
     [SerializeField] private float _spawnExplosionForce = 30f;
     [SerializeField] private float _gravityForce = 10f;
     [SerializeField] private float _lifespan = 1.5f;
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private SimpleAudioEventBinder _audioSource;
 
     [Header("Action Colors")]
     [SerializeField] private Color defaultActionColor = Color.white;
@@ -67,8 +67,7 @@ public sealed class CableFeedback : MonoBehaviour
         {
             if (synaptikInput.actionType != ActionType.None && outputLeft.color == defaultActionColor)
             {
-                if (_audioSource)
-                    _audioSource.Play();
+                _audioSource.PlaySoundByIndex(Random.Range(0, 3));
                 StartCoroutine(SpawnVFX(outputLeft.transform, alienColorFromEmotion.AlienColorFromAction[synaptikInput.actionType]));
             }
             
@@ -80,8 +79,7 @@ public sealed class CableFeedback : MonoBehaviour
         {
             if (synaptikInput.emotionType != EmotionType.None && outputRight.color == defaultEmotionColor)
             {
-                if (_audioSource)
-                    _audioSource?.Play();
+                _audioSource.PlaySoundByIndex(Random.Range(0, 3));
                 StartCoroutine(SpawnVFX(outputRight.transform, alienColorFromEmotion.AlienColorFromEmotion[synaptikInput.emotionType]));
             }
             
