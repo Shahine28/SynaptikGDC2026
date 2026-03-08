@@ -102,7 +102,7 @@ public sealed class EndGameUI : MonoBehaviour
         }
 
         subText.text = "<color=#00FFAA>SIMULATION COMPLETE</color>";
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(5f);
 
         yield return FadeCanvas(0f);
         circleFill.transform.localScale = initialCircleScale;
@@ -126,7 +126,7 @@ public sealed class EndGameUI : MonoBehaviour
         yield return typingRoutine;
         StopCoroutine(warningRoutine);
 
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(5f);
         yield return FadeCanvas(0f);
 
             LoadMainMenu();

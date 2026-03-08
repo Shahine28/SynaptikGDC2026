@@ -308,10 +308,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 0}
   _audioMixerGroup: {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
-  _overlapMode: 0
+  _overlapMode: 1
   _audioBindings:
   - EventName: casser
     Clip: {fileID: 8300000, guid: 2812cd1b3dc9ef646ad983b20b73ef4b, type: 3}
     VolumeScale: 1
     Loop: 0
-    PlayAtPoint: 0
+    PlayAtPoint: 1
+    PositionOverride: {fileID: 7094318412682071071}
+    AttachToTransform: 0
