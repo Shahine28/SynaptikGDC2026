@@ -92,6 +92,28 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "5fdec1a9-b655-4ea3-b8c0-af535c0b675e",
+                    "path": "<Joystick>/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a78fe7f7-8b3e-4be1-a601-84f3114f46b4",
+                    "path": "<HID::DragonRise Inc.   Generic   USB  Joystick  >/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "WASD",
                     "id": "00ca640b-d935-4593-8157-c05846ea39b3",
                     "path": "Dpad",
@@ -204,7 +226,7 @@
                 {
                     "name": "",
                     "id": "7332558a-afd6-4c71-9869-fe883ce021f6",
-                    "path": "<HID::DragonRise Inc.   Generic   USB  Joystick  >/button4",
+                    "path": "<HID::DragonRise Inc.   Generic   USB  Joystick  >/button5",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -226,7 +248,7 @@
                 {
                     "name": "",
                     "id": "58df6426-f82b-4439-8d41-73712861721f",
-                    "path": "<HID::DragonRise Inc.   Generic   USB  Joystick  >/button5",
+                    "path": "<HID::DragonRise Inc.   Generic   USB  Joystick  >/button4",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
