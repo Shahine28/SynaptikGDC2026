@@ -9,7 +9,7 @@ public class PauseManager : MonoBehaviour
     public PlayerInputSystem playerInputSystem;
 
     [Header("Input Setup")]
-    [Tooltip("L'Action Input Unity pour déclencher le Menu Pause (ex: Escape/Start)")]
+    [Tooltip("L'Action Input Unity qui maintient le jeu actif (ex: capteur continu). S'il n'est plus activé, le jeu se met en pause.")]
     public InputActionReference pauseInputAction;
 
     [Header("UI Reference")]
@@ -21,9 +21,6 @@ public class PauseManager : MonoBehaviour
     public UnityEvent OnResume;
 
     private bool _isPaused = false;
-
-    private bool _wasTalkPressed = false;
-    private bool _wasActionPressed = false;
 
     private void Start()
     {
@@ -47,7 +44,6 @@ public class PauseManager : MonoBehaviour
         if (pauseInputAction != null && pauseInputAction.action != null)
         {
             pauseInputAction.action.Enable();
-            pauseInputAction.action.performed += OnPauseActionPerformed;
         }
     }
 
@@ -55,48 +51,51 @@ public class PauseManager : MonoBehaviour
     {
         if (pauseInputAction != null && pauseInputAction.action != null)
         {
-            pauseInputAction.action.performed -= OnPauseActionPerformed;
             pauseInputAction.action.Disable();
         }
     }
 
-    private void OnPauseActionPerformed(InputAction.CallbackContext context)
-    {
-        TogglePause();
-    }
-
     private void Update()
     {
-        if (!_isPaused || playerInputSystem == null)
+        return;
+        
+        if (!playerInputSystem)
             return;
 
-        // --- GESTION DES INPUTS DANS LE MENU PAUSE ---
-        
-        bool currentTalk = playerInputSystem.IsTalkInput;
-        bool currentAction = playerInputSystem.IsActionInput;
+        bool isPauseInputHeld = pauseInputAction && pauseInputAction.action != null && pauseInputAction.action.IsPressed();
 
-        if (currentTalk && !_wasTalkPressed)
+        if (!_isPaused)
         {
-            TogglePause();
+            if (!isPauseInputHeld)
+            {
+                SetPauseState(true);
+            }
         }
-        else if (currentAction && !_wasActionPressed)
+        else
         {
-            QuitGame();
+            if (isPauseInputHeld)
+            {
+                SetPauseState(false);
+            }
+            
+            if (playerInputSystem.IsActionInput)
+            {
+                QuitGame();
+            }
         }
-
-        _wasTalkPressed = currentTalk;
-        _wasActionPressed = currentAction;
     }
 
     public void TogglePause()
     {
-        _isPaused = !_isPaused;
+        SetPauseState(!_isPaused);
+    }
 
-        if (_isPaused && playerInputSystem != null)
-        {
-            _wasTalkPressed = playerInputSystem.IsTalkInput;
-            _wasActionPressed = playerInputSystem.IsActionInput;
-        }
+    private void SetPauseState(bool shouldPause)
+    {
+        if (_isPaused == shouldPause)
+            return;
+
+        _isPaused = shouldPause;
 
         if (_isPaused)
         {
@@ -108,11 +107,23 @@ public class PauseManager : MonoBehaviour
         }
     }
 
+    private void QuitGame()
+    {
+        Time.timeScale = 1f;
+        Debug.Log("[PauseManager] QUIT GAME requested.");
+        
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
     private void PauseGame()
     {
         Time.timeScale = 0f;
         
-        if (_pauseMenuUI != null)
+        if (_pauseMenuUI)
         {
             _pauseMenuUI.SetActive(true);
         }
@@ -128,7 +139,7 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        if (_pauseMenuUI != null)
+        if (_pauseMenuUI)
         {
             _pauseMenuUI.SetActive(false);
         }
@@ -138,17 +149,5 @@ public class PauseManager : MonoBehaviour
 
         OnResume?.Invoke();
         Debug.Log("[PauseManager] Game RESUMED.");
-    }
-
-    private void QuitGame()
-    {
-        Time.timeScale = 1f;
-        Debug.Log("[PauseManager] QUIT GAME requested.");
-        
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
     }
 }
