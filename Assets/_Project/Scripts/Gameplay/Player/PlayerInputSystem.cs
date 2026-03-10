@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
@@ -29,8 +30,6 @@ public class PlayerInputSystem : MonoBehaviour
     [SerializeField, ReadOnly] private bool _isCuriousInput;
     private List<EmotionType> _activeEmotions = new List<EmotionType>();
 
-    public bool ActionIsPressed = false;
-    public bool TalkIsPressed = false;
     
     public bool HasActionPressed => _activeActions.Count > 0;
     public bool HasEmotionPressed => _activeEmotions.Count > 0;
@@ -40,7 +39,15 @@ public class PlayerInputSystem : MonoBehaviour
     public event Action<bool> OnActionTriggered;
     public event Action<ActionType> OnActionTypeInput;
     public event Action<EmotionType> OnEmotionTypeInput;
-    
+
+    [SerializeField] private float _inputBufferCooldown = 0.5f;
+
+    private Coroutine _actionBufferCoroutine;
+    private Coroutine _talkBufferCoroutine;
+    private Coroutine _friendlyBufferCoroutine;
+    private Coroutine _agressiveBufferCoroutine;
+    private Coroutine _fearfullBufferCoroutine;
+    private Coroutine _curiousBufferCoroutine;
 
     void UpdateCurrentSynaptikInput()
     {
@@ -113,39 +120,67 @@ public class PlayerInputSystem : MonoBehaviour
     public void OnTalkInput(InputAction.CallbackContext context)
     {
         _isTalkInput = context.ReadValueAsButton();
-        TalkIsPressed = _isTalkInput;
-        UpdateActionState(ActionType.Word, _isTalkInput);
+        if (_talkBufferCoroutine  != null)
+            StopCoroutine(_talkBufferCoroutine);
+        _talkBufferCoroutine = StartCoroutine(InputBufferAction(ActionType.Word, _isTalkInput));
+        //UpdateActionState(ActionType.Word, _isTalkInput);
     }
 
     public void OnActionInput(InputAction.CallbackContext context)
     {
         _isActionInput = context.ReadValueAsButton();
-        ActionIsPressed = _isActionInput;
-        UpdateActionState(ActionType.Action, _isActionInput);
+        if (_actionBufferCoroutine != null)
+            StopCoroutine(_actionBufferCoroutine);
+        _actionBufferCoroutine = StartCoroutine(InputBufferAction(ActionType.Action, _isActionInput));
+        //UpdateActionState(ActionType.Action, _isActionInput);
     }
 
     public void OnFriendlyInput(InputAction.CallbackContext context)
     {
         _isFriendlyInput = context.ReadValueAsButton();
-        UpdateEmotionState(EmotionType.Friendly, _isFriendlyInput);
+        if (_friendlyBufferCoroutine != null)
+            StopCoroutine(_friendlyBufferCoroutine);
+        _friendlyBufferCoroutine = StartCoroutine(InputBufferEmotion(EmotionType.Friendly, _isFriendlyInput));
+        //UpdateEmotionState(EmotionType.Friendly, _isFriendlyInput);
     }
 
     public void OnAgressiveInput(InputAction.CallbackContext context)
     {
         _isAgressiveInput = context.ReadValueAsButton();
-        UpdateEmotionState(EmotionType.Aggressive, _isAgressiveInput);
+        if (_agressiveBufferCoroutine!= null)
+            StopCoroutine(_agressiveBufferCoroutine);
+        _agressiveBufferCoroutine = StartCoroutine(InputBufferEmotion(EmotionType.Aggressive, _isAgressiveInput));
+        //UpdateEmotionState(EmotionType.Aggressive, _isAgressiveInput);
     }
 
     public void OnFearfulInput(InputAction.CallbackContext context)
     {
         _isFearfulInput = context.ReadValueAsButton();
-        UpdateEmotionState(EmotionType.Fearful, _isFearfulInput);
+        if (_fearfullBufferCoroutine != null)
+            StopCoroutine(_fearfullBufferCoroutine);
+        _fearfullBufferCoroutine = StartCoroutine(InputBufferEmotion(EmotionType.Fearful, _isFearfulInput));
+        //UpdateEmotionState(EmotionType.Fearful, _isFearfulInput);
 
     }
 
     public void OnCuriousInput(InputAction.CallbackContext context)
     {
         _isCuriousInput = context.ReadValueAsButton();
-        UpdateEmotionState(EmotionType.Curious, _isCuriousInput);
+        if (_curiousBufferCoroutine != null)
+            StopCoroutine(_curiousBufferCoroutine);
+        _curiousBufferCoroutine = StartCoroutine(InputBufferEmotion(EmotionType.Curious, _isCuriousInput));
+        //UpdateEmotionState(EmotionType.Curious, _isCuriousInput);
+    }
+
+    public IEnumerator InputBufferAction(ActionType type, bool IsPressed)
+    {
+        yield return new WaitForSeconds(_inputBufferCooldown);
+        UpdateActionState(type, IsPressed);
+    }
+
+    public IEnumerator InputBufferEmotion(EmotionType type, bool IsPressed)
+    {
+        yield return new WaitForSeconds(_inputBufferCooldown);
+        UpdateEmotionState(type, IsPressed);
     }
 }
