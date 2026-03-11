@@ -170,5 +170,8 @@ public sealed class LoadingScreenManager : MonoBehaviour
     {
         loadingText?.StopAll();
         loadingScreenInstance.gameObject.SetActive(false);
+        
+        StopCoroutine(currentLoadingInstance);
+        currentLoadingInstance = null;
     }
 }

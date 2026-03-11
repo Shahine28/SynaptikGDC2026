@@ -129,7 +129,7 @@ public sealed class EndGameUI : MonoBehaviour
         yield return new WaitForSecondsRealtime(5f);
         yield return FadeCanvas(0f);
 
-            LoadMainMenu();
+        LoadMainMenu();
     }
 
     private IEnumerator TypeLoseText()
