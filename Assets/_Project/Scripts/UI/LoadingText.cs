@@ -28,7 +28,7 @@ public sealed class LoadingText : MonoBehaviour
     [Header("Cursor Blink")]
     [SerializeField] private float cursorBlinkSpeed = 0.5f;
 
-    private AudioSource audioSource;
+    private SimpleAudioEventBinder audioSource;
     private Coroutine typingCoroutine;
     private Coroutine loopCoroutine;
     private Coroutine cursorCoroutine;
@@ -42,8 +42,7 @@ public sealed class LoadingText : MonoBehaviour
 
     private void Awake()
     {
-        if(TryGetComponent<AudioSource>(out audioSource))
-            audioSource.playOnAwake = false;
+        TryGetComponent<SimpleAudioEventBinder>(out audioSource);
     }
 
     private void Start()
@@ -130,7 +129,8 @@ public sealed class LoadingText : MonoBehaviour
         else
             mainText.text = currentText;
         
-        audioSource.Play();
+        if(audioSource)
+            audioSource.PlaySoundByIndex(0);
     }
 
     public void SetLoadingProgress(float lerp)
