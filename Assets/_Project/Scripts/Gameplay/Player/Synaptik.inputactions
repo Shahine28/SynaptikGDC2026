@@ -158,7 +158,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "left",
+                    "name": "Left",
                     "id": "2e46982e-44cc-431b-9f0b-c11910bf467a",
                     "path": "<Joystick>/stick/down",
                     "interactions": "",
@@ -180,7 +180,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "right",
+                    "name": "Right",
                     "id": "77bff152-3580-4b21-b6de-dcd0c7e41164",
                     "path": "<Joystick>/stick/up",
                     "interactions": "",
@@ -196,7 +196,7 @@
                     "path": "<Keyboard>/f5",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Keyboard&Mouse;Joystick",
                     "action": "Talk",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -291,8 +291,8 @@
                 },
                 {
                     "name": "",
-                    "id": "0a8b1a93-e0b0-4f9e-9617-2cda779e6538",
-                    "path": "<HID::DragonRise Inc.   Generic   USB  Joystick  >/button10",
+                    "id": "b062e105-e636-449d-be86-a65453ed8d79",
+                    "path": "<HID::DragonRise Inc.   Generic   USB  Joystick  >/button9",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Joystick",
@@ -324,8 +324,8 @@
                 },
                 {
                     "name": "",
-                    "id": "b062e105-e636-449d-be86-a65453ed8d79",
-                    "path": "<HID::DragonRise Inc.   Generic   USB  Joystick  >/button9",
+                    "id": "0a8b1a93-e0b0-4f9e-9617-2cda779e6538",
+                    "path": "<HID::DragonRise Inc.   Generic   USB  Joystick  >/button10",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Joystick",
